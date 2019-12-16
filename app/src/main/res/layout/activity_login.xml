@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    <variable
+            name="viewModel"
+            type="app.denhan.view.login.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/form_padding"
+            tools:context="app.denhan.view.login.LoginActivity">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout1"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/bottomLogoImage"
+                tools:layout_editor_absoluteX="20dp">
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/tittleImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tittleImageSize"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/tittle_icon"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/tittleImage"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/email_hint"
+                    error="@{viewModel.emailErrorString}">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/muli_regular"
+                        android:drawableLeft="@drawable/ic_icon_email"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:text="@={viewModel.emailString}"
+                        android:inputType="textEmailAddress"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginBetweenEditText"
+                    app:layout_constraintTop_toBottomOf="@id/input_user_name"
+                    android:hint="@string/password_hint"
+                    error="@{viewModel.passwordErrorString}"
+                      >
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:drawableLeft="@drawable/ic_icon_lock"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:text="@={viewModel.passwordString}"
+                        android:fontFamily="@font/muli_regular"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/searchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sigin_in_text"
+                    app:layout_constraintTop_toBottomOf="@+id/input_password"
+                    android:textColor="@color/whiteColor"
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"
+                    app:cornerRadius="500dp"
+                    android:elevation="5dp"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:padding="15dp"
+                    android:onClick="@{()->viewModel.loginWithUserData()}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:theme="@style/AppTheme"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/bottomLogoImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/loginBottomImageHieght"
+                android:src="@drawable/login_bottom_icon"
+                app:layout_constraintBottom_toBottomOf="parent" tools:layout_editor_absoluteX="20dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

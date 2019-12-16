@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tittleImageSize">100dp</dimen>
+    <dimen name="form_padding">20dp</dimen>
+    <dimen name="marginBetweenEditText">@dimen/_10sdp</dimen>
+    <dimen name="imageHieght">@dimen/_150sdp</dimen>
+    <dimen name="loginBottomImageHieght">@dimen/_150sdp</dimen>
+    <dimen name="largeTextSize">@dimen/_16sdp</dimen>
+    <dimen name="meduimTextSize">@dimen/_14sdp</dimen>
+    <dimen name="smallTextSize">@dimen/_12sdp</dimen>
+
+</resources>

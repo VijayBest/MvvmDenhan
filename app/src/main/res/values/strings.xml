@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Denhan</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="sigin_in_text">Sign In</string>
+    <string name="invalid_email_error">Invalid Email id</string>
+    <string name="password_error">Req. 7–30 chars</string>
+    <string name="open_text">Open</string>
+    <string name="updated_text">Update</string>
+    <string name="complete_text">Complete</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_maintaince">Maintaince</string>
 </resources>

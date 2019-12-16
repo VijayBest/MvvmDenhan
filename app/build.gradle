@@ -80,4 +80,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
 
+    //a scalable size unit
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
 }
