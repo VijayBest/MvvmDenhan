@@ -12,4 +12,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_maintaince">Maintaince</string>
+    <string name="network_unavailable">Network connection is not working, please check internet connection</string>
+    <string name="unauthorize_error">Unauthorized</string>
+    <string name="common_api_error">Something went wrong</string>
 </resources>

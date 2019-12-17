@@ -1,29 +1,34 @@
 package app.denhan.view.login
 
-import android.provider.Settings
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.denhan.android.R
+import app.denhan.data.repos.ApiResponseCode
 import app.denhan.data.repos.AuthRepository
 import app.denhan.module.ResourceProvider
 import app.denhan.util.CommonMethods
-import kotlinx.coroutines.experimental.launch
-import org.koin.ext.checkedStringValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import skycap.android.core.livedata.SingleEventLiveData
 import skycap.android.core.resource.Resource
-import kotlin.math.absoluteValue
+import kotlin.coroutines.coroutineContext
 
-class LoginViewModel(private val userRepository: AuthRepository,private val resourceProvider: ResourceProvider) :ViewModel(){
+class LoginViewModel(
+    private val userRepository: AuthRepository,
+    private val resourceProvider: ResourceProvider
+) : ViewModel() {
 
-     val emailString = MutableLiveData<String>()
-     val passwordString = MutableLiveData<String>()
+    val emailString = MutableLiveData<String>()
+    val passwordString = MutableLiveData<String>()
 
     val emailErrorString = MediatorLiveData<String>()
     val passwordErrorString = MediatorLiveData<String>()
     val progressVisible = MutableLiveData<Boolean>()
-    val emailValid=MutableLiveData<Boolean>()
-    val passwordValid=MutableLiveData<Boolean>()
+    val emailValid = MutableLiveData<Boolean>()
+    val passwordValid = MutableLiveData<Boolean>()
     val isShowError = MutableLiveData<Boolean>()
 
 
@@ -34,11 +39,12 @@ class LoginViewModel(private val userRepository: AuthRepository,private val reso
         emailValid.postValue(false)
         passwordValid.postValue(false)
         emailErrorString.addSource(emailString) { validateEmail() }
-        passwordErrorString.addSource(passwordString){validateCode()}
+        passwordErrorString.addSource(passwordString) { validateCode() }
 
     }
+
     private fun validateEmail() {
-        val email = emailString.value?:""
+        val email = emailString.value ?: ""
         when {
             email.isEmpty() -> {
                 emailValid.postValue(false)
@@ -59,18 +65,18 @@ class LoginViewModel(private val userRepository: AuthRepository,private val reso
 
     /* validate the  password here
     * */
-    private fun validateCode(){
+    private fun validateCode() {
         val code = passwordString.value?.trim()
-        when{
-            code.isNullOrEmpty()->{
+        when {
+            code.isNullOrEmpty() -> {
                 passwordValid.postValue(false)
                 passwordErrorString.postValue(resourceProvider.getStringResource(R.string.password_error))
             }
-            code.length<7->{
+            code.length < 7 -> {
                 passwordValid.postValue(false)
                 passwordErrorString.postValue(resourceProvider.getStringResource(R.string.password_error))
             }
-            else->{
+            else -> {
                 passwordValid.postValue(true)
                 passwordErrorString.postValue("")
             }
@@ -78,29 +84,31 @@ class LoginViewModel(private val userRepository: AuthRepository,private val reso
     }
 
     private fun isLoginData(): Boolean {
-        return emailValid.value?:false && passwordValid.value?:false
+
+
+        return emailValid.value ?: false && passwordValid.value ?: false
     }
 
-    fun loginWithUserData(){
+    fun loginWithUserData() {
         progressVisible.postValue(true)
         isShowError.postValue(true)
-        if (isLoginData()){
+        if (isLoginData()) {
             isShowError.postValue(false)
-            hitLoginService(emailString.value?:"",passwordString.value?:"")
-        }
-        else{
-            if (emailValid.value ==false){
+            hitLoginService(emailString.value ?: "", passwordString.value ?: "")
+        } else {
+            if (emailValid.value == false) {
                 emailErrorString.postValue(resourceProvider.getStringResource(R.string.invalid_email_error))
             }
-            if (passwordValid.value ==false){
+            if (passwordValid.value == false) {
                 passwordErrorString.postValue(resourceProvider.getStringResource(R.string.password_error))
             }
         }
 
     }
 
-    private fun hitLoginService(emailId: String, Password: String) { {
-            when (val resource = userRepository.userLoginAsync(loginId, notificationToken?:"", companyId?:0).await()) {
+    private fun hitLoginService(emailId: String, password: String) {
+        GlobalScope.launch {
+            when (val resource = userRepository.userLoginAsync(emailId, password).await()) {
                 is Resource.Success -> {
                     progressVisible.postValue(false)
                     loginSuccessCommand.postValue("")
@@ -108,12 +116,11 @@ class LoginViewModel(private val userRepository: AuthRepository,private val reso
                 is Resource.Error -> {
                     progressVisible.postValue(false)
                     when (resource.code) {
-                        NetworkConstants.NETWORK_NOT_AVAILABLE ->{
-
+                        ApiResponseCode.NETWORK_NOT_AVAILABLE -> {
                             loginErrorCommand.postValue(resourceProvider.getStringResource(R.string.network_unavailable))
                         }
-                        NetworkConstants.CODE_INVALID->{
-                            loginErrorCommand.postValue(resourceProvider.getStringResource(R.string.invalid_code_error))
+                        ApiResponseCode.UN_AUTHORIZE -> {
+                            loginErrorCommand.postValue(resourceProvider.getStringResource(R.string.unauthorize_error))
                         }
                         else -> {
                             loginErrorCommand.postValue(resourceProvider.getStringResource(R.string.common_api_error))
@@ -122,8 +129,12 @@ class LoginViewModel(private val userRepository: AuthRepository,private val reso
                 }
             }
         }
-
     }
-
-
 }
+
+
+
+
+
+
+

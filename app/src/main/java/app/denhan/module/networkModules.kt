@@ -9,7 +9,6 @@ import app.denhan.util.AppConstants
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
@@ -34,7 +33,7 @@ val networkModule = module {
         ResourceProvider(get())
     }
     single {
-        AuthRepository(get(), get())
+        AuthRepository(get(), get(),get())
     }
     single<SharedPreferences> {
         PreferenceManager.getDefaultSharedPreferences(get())
@@ -89,8 +88,8 @@ inline fun <reified T> createWebService(okHttpClient: OkHttpClient): T {
     val retrofit = Retrofit.Builder()
         .baseUrl(AppConstants.BASE_URL)
         .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(CoroutineCallAdapterFactory()).build()
+        .addConverterFactory(GsonConverterFactory.create()).build()
+       // .addCallAdapterFactory(CoroutineCallAdapterFactory()).build()
     return retrofit.create(T::class.java)
 }
 

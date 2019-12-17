@@ -32,6 +32,11 @@ class LoginActivity : AppCompatActivity() {
 
             stratLoginActivity()
         }
+
+        observeNonNull(viewModel.loginErrorCommand){
+
+            CommonMethods.showSnackBar(binding.layout1, it)
+        }
     }
 
     private fun stratLoginActivity() {

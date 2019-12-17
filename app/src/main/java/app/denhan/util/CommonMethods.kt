@@ -3,8 +3,10 @@ package app.denhan.util
 import android.text.TextUtils
 import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
-import android.widget.EditText
+import android.view.View
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+
 
 object  CommonMethods {
     fun isEmailValid(email: String): Boolean {
@@ -12,5 +14,9 @@ object  CommonMethods {
     }
     fun changePasswordFiledFont(password: TextInputEditText){
         password.transformationMethod = PasswordTransformationMethod()
+    }
+    fun showSnackBar(view1: View, message:String){
+
+        Snackbar.make(view1, message, Snackbar.LENGTH_LONG).show()
     }
 }
