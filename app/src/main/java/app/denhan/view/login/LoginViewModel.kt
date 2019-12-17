@@ -1,5 +1,6 @@
 package app.denhan.view.login
 
+import android.provider.Settings
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,8 +8,10 @@ import app.denhan.android.R
 import app.denhan.data.repos.AuthRepository
 import app.denhan.module.ResourceProvider
 import app.denhan.util.CommonMethods
+import kotlinx.coroutines.experimental.launch
 import org.koin.ext.checkedStringValue
 import skycap.android.core.livedata.SingleEventLiveData
+import skycap.android.core.resource.Resource
 import kotlin.math.absoluteValue
 
 class LoginViewModel(private val userRepository: AuthRepository,private val resourceProvider: ResourceProvider) :ViewModel(){
@@ -75,8 +78,6 @@ class LoginViewModel(private val userRepository: AuthRepository,private val reso
     }
 
     private fun isLoginData(): Boolean {
-
-
         return emailValid.value?:false && passwordValid.value?:false
     }
 
@@ -98,9 +99,30 @@ class LoginViewModel(private val userRepository: AuthRepository,private val reso
 
     }
 
-    private fun hitLoginService(emailId: String, Password: String) {
+    private fun hitLoginService(emailId: String, Password: String) { {
+            when (val resource = userRepository.userLoginAsync(loginId, notificationToken?:"", companyId?:0).await()) {
+                is Resource.Success -> {
+                    progressVisible.postValue(false)
+                    loginSuccessCommand.postValue("")
+                }
+                is Resource.Error -> {
+                    progressVisible.postValue(false)
+                    when (resource.code) {
+                        NetworkConstants.NETWORK_NOT_AVAILABLE ->{
 
-        loginSuccessCommand.postValue("")
+                            loginErrorCommand.postValue(resourceProvider.getStringResource(R.string.network_unavailable))
+                        }
+                        NetworkConstants.CODE_INVALID->{
+                            loginErrorCommand.postValue(resourceProvider.getStringResource(R.string.invalid_code_error))
+                        }
+                        else -> {
+                            loginErrorCommand.postValue(resourceProvider.getStringResource(R.string.common_api_error))
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
 

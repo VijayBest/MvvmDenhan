@@ -6,7 +6,7 @@
 
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/_5sdp"
             app:cardElevation="@dimen/_10sdp"
             app:cardUseCompatPadding="true"
@@ -22,26 +22,30 @@
                     android:id="@+id/jobTittle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/largeTextSize"
+                    android:textSize="@dimen/meduimTextSize"
                     android:text="Tittle"
                     android:textColor="@color/blackColor"
                     app:fontFamily="@font/muli_bold"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/jobTittle"
+                    android:id="@+id/dateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/largeTextSize"
-                    android:text="sasfsdasfasf"
+                    android:textSize="@dimen/smallTextSize"
+                    android:text="date and time"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textColor="@color/blackNintyOpc"
-                    app:fontFamily="@font/muli_bold"/>
-
-
-
-
+                    app:fontFamily="@font/muli_regular" />
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/addressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="address"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/smallTextSize"
+                    android:textColor="@color/blackColor"
+                    android:fontFamily="@font/muli_semi_bold"/>
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
 
 
