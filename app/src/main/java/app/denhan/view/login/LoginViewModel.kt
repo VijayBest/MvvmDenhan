@@ -54,6 +54,8 @@ class LoginViewModel(private val userRepository: AuthRepository,private val reso
         }
     }
 
+    /* validate the  password here
+    * */
     private fun validateCode(){
         val code = passwordString.value?.trim()
         when{

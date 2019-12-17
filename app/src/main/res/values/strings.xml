@@ -6,7 +6,7 @@
     <string name="invalid_email_error">Invalid Email id</string>
     <string name="password_error">Req. 7–30 chars</string>
     <string name="open_text">Open</string>
-    <string name="updated_text">Update</string>
+    <string name="in_progress_text">In Progress</string>
     <string name="complete_text">Complete</string>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -8,7 +8,7 @@
     <color name="backgroundColor">#F7F9FB</color>
     <color name="whiteColor">#FFFFFF</color>
     <color name="whiteColorSixtyOpc">#99FFFFFF</color>
-    <color name="balackColor">#282020</color>
+    <color name="blackColor">#282020</color>
     <color name="blackNintyOpc">#E6282020</color>
 
 </resources>

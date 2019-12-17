@@ -5,6 +5,28 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
         tools:context="app.denhan.view.splash.SplashActivity">
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/loginBottomImageHieght"
+                android:src="@drawable/tittle_icon"/>
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/loginBottomImageHieght"
+                android:src="@drawable/login_bottom_icon"
+                android:layout_marginTop="@dimen/_150sdp"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

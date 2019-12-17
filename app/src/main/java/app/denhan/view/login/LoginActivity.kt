@@ -18,8 +18,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         binding= DataBindingUtil.setContentView(this,R.layout.activity_login)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         binding.viewModel=viewModel
         binding.lifecycleOwner = this
         setPasswordFieldFont()

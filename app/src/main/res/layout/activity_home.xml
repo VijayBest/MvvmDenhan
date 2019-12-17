@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/redColor1"
+        tools:context="app.denhan.view.home.HomeActivity">
+    <RelativeLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            android:background="@color/redColor1"
+            app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:queryHint="Search Here"
+                android:iconifiedByDefault="false"
+                app:searchIcon="@null"
+                style="@style/SearchViewStyle"
+                android:visibility="gone"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/search_view_bg"
+                app:queryBackground="@drawable/search_view_bg"
+                app:submitBackground="@drawable/search_view_bg"
+                android:layout_toRightOf="@+id/logoutImage"
+                android:layout_alignParentTop="true"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/logoutImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_icon_refresh"/>
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tittleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:textColor="@color/whiteColor"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/muli_bold"
+                android:textSize="@dimen/largeTextSize"
+                android:text="@string/text_maintaince"/>
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/refreshImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_icon_refresh"
+                android:layout_alignParentEnd="true"/>
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/searchImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_icon_search"
+                android:layout_marginEnd="10dp"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/_5sdp"
+                android:layout_toStartOf="@+id/refreshImage"/>
+    </RelativeLayout>
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/top_corner_round_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/tabLinearLayout"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    </androidx.viewpager.widget.ViewPager>
+
+
+    <LinearLayout
+            android:id="@+id/tabLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/topLayout"
+            android:orientation="vertical"
+            android:background="@color/redColor1"
+            android:padding="@dimen/_5sdp">
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                android:minHeight="@dimen/_30sdp"
+                android:textAlignment="center"
+                android:background="@color/redColor1"
+                android:textSize="@dimen/meduimTextSize"
+                android:scrollbars="horizontal"
+                app:tabSelectedTextColor="@color/redColor1"
+                app:tabTextColor="@color/whiteColorSixtyOpc"
+                app:tabIndicatorHeight="0dp"
+                android:gravity="center"
+                app:tabTextAppearance="@style/tab_text"
+                app:tabBackground="@drawable/tab_background"
+                app:tabMode="fixed">
+        </com.google.android.material.tabs.TabLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

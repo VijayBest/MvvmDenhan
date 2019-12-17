@@ -14,4 +14,17 @@
         <item name="tabIndicatorHeight">2dp</item>
     </style>
 
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/muli_bold</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="queryBackground">@android:color/white</item>
+        <!-- note that this is how you style your hint icon -->
+        <item name="searchHintIcon">@null</item>
+        <!-- The hint text that appears when the user has not typed anything -->
+        <item name="queryHint">@string/search_hint_text</item>
+    </style>
+
+    <string name="search_hint_text">Search</string>
 </resources>
