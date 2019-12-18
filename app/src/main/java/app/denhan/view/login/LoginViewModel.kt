@@ -84,13 +84,11 @@ class LoginViewModel(
     }
 
     private fun isLoginData(): Boolean {
-
-
         return emailValid.value ?: false && passwordValid.value ?: false
     }
 
     fun loginWithUserData() {
-        progressVisible.postValue(true)
+
         isShowError.postValue(true)
         if (isLoginData()) {
             isShowError.postValue(false)
@@ -107,6 +105,7 @@ class LoginViewModel(
     }
 
     private fun hitLoginService(emailId: String, password: String) {
+        progressVisible.postValue(true)
         GlobalScope.launch {
             when (val resource = userRepository.userLoginAsync(emailId, password).await()) {
                 is Resource.Success -> {

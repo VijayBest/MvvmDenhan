@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import app.denhan.data.repos.AuthRepository
 import app.denhan.data.api.WebService
+import app.denhan.helper.DeviceIdHelper
 import app.denhan.util.AppConstants
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -32,8 +33,12 @@ val networkModule = module {
     single {
         ResourceProvider(get())
     }
+
     single {
-        AuthRepository(get(), get(),get())
+        DeviceIdHelper(get())
+    }
+    single {
+        AuthRepository(get(),get(),get())
     }
     single<SharedPreferences> {
         PreferenceManager.getDefaultSharedPreferences(get())

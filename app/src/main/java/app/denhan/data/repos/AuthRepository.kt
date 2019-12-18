@@ -5,7 +5,7 @@ import app.denhan.data.api.WebService
 import app.denhan.helper.DeviceIdHelper
 import app.denhan.helper.getStatusCode
 import app.denhan.model.ApiResponse
-import app.denhan.model.login.UserDetail
+import app.denhan.model.login.LoginResponse
 import app.denhan.util.AppConstants
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
@@ -20,12 +20,12 @@ import skycap.android.core.sharedprefs.SharedPrefsHelper
 class  AuthRepository(private val webService: WebService, private val sharedPreferences: SharedPrefsHelper,
                       private val deviceIdHelper: DeviceIdHelper){
 
-    fun userLoginAsync(emailId:String, password:String): Deferred<Resource<ApiResponse<UserDetail>?>> {
+   suspend fun userLoginAsync(emailId:String, password:String): Deferred<Resource<LoginResponse?>> {
         return GlobalScope.async {
             try {
-                val response: Response<ApiResponse<UserDetail>> = webService.userLoginAsync(emailId, password,
+                val response: Response<LoginResponse> = webService.userLoginAsync(emailId, password,
                     deviceIdHelper.getDeviceId(),
-                    AppConstants.notificationToken, AppConstants.deviceType).await()
+                    AppConstants.notificationToken, AppConstants.deviceType)
                 val userLoginResponse = response.body()
                 if (response.code()== ApiResponseCode.SUCCESS_CODE) {
 
@@ -33,11 +33,12 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
 
                 } else {
                     val jObjError = JSONObject(response.errorBody()?.string())
-                    Resource.Error<ApiResponse<UserDetail>>(jObjError.getInt("code"))
+                    Resource.Error<LoginResponse>(jObjError.getInt("code"))
                 }
             } catch (e: Exception) {
-                Log.e("exception ", e.message)
-                Resource.Error<ApiResponse<UserDetail>>(e.getStatusCode())
+                Log.e("exception ", e.message+" "+ e.getStatusCode())
+
+                Resource.Error<LoginResponse>(e.getStatusCode())
             }
         }
     }

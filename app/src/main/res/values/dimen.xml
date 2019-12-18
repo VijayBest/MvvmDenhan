@@ -8,5 +8,6 @@
     <dimen name="largeTextSize">@dimen/_16sdp</dimen>
     <dimen name="meduimTextSize">@dimen/_14sdp</dimen>
     <dimen name="smallTextSize">@dimen/_12sdp</dimen>
+    <dimen name="marginBetweenLabelAndButton">@dimen/_15sdp</dimen>
 
 </resources>

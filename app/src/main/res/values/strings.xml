@@ -15,4 +15,7 @@
     <string name="network_unavailable">Network connection is not working, please check internet connection</string>
     <string name="unauthorize_error">Unauthorized</string>
     <string name="common_api_error">Something went wrong</string>
+    <string name="progress_tittle_text">Request</string>
+    <string name="server_request_text">Please wait, you are in progress</string>
+
 </resources>

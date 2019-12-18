@@ -1,7 +1,5 @@
 package app.denhan.module
 
-import android.util.Log
-import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
