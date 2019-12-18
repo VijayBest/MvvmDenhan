@@ -10,8 +10,23 @@
                 android:id="@+id/openJobsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
                 app:layout_constraintTop_toTopOf="parent">
         </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtNoJobAssigned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/no_job_assigned_text"
+                android:fontFamily="@font/muli_regular"
+                android:visibility="gone"
+                android:textColor="@color/blackColor"
+                android:textSize="@dimen/meduimTextSize"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

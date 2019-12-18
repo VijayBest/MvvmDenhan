@@ -1,5 +1,6 @@
 package app.denhan.module
 
+import app.denhan.util.AppConstants
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -10,10 +11,8 @@ class AuthInterceptor (val sharedPrefsHelper: SharedPrefsHelper) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val builder = chain.request().newBuilder()
         builder.header("accept", "application/json")
-       /* builder.header("dtoken",AppConstants.ANDROID_ID)
-        builder.header("token",sharedPrefsHelper.get(SharedKeyConstant.SESSION_TOKEN,""))
-        Log.e("sss",sharedPrefsHelper.get(SharedKeyConstant.SESSION_TOKEN,"")+"   "+AppConstants.ANDROID_ID)
-    */    return chain.proceed(builder.build())
+        builder.header("token",AppConstants.sessionToken)
+         return chain.proceed(builder.build())
 
        /* var mainResponse = chain.proceed(buildRequest(chain))
         return mainResponse*/

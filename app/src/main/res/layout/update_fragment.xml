@@ -4,14 +4,35 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="@dimen/_5sdp">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/updatedList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/listMarginTop"
+
                 app:layout_constraintTop_toTopOf="parent">
         </androidx.recyclerview.widget.RecyclerView>
 
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtNoJobStarted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/no_job_started_yet"
+                android:fontFamily="@font/muli_regular"
+                android:visibility="gone"
+                android:textColor="@color/blackColor"
+                android:textSize="@dimen/meduimTextSize"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

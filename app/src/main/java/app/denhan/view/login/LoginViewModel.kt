@@ -88,7 +88,6 @@ class LoginViewModel(
     }
 
     fun loginWithUserData() {
-
         isShowError.postValue(true)
         if (isLoginData()) {
             isShowError.postValue(false)

@@ -1,0 +1,30 @@
+package app.denhan.model.jobs
+
+data class Attachment(
+    val account_id: Any,
+    val agent_id: Int,
+    val att_id: Int,
+    val att_type: String,
+    val attachment_path: String,
+    val created_date: String,
+    val description: Any,
+    val doc_type: Int,
+    val folder_id: Int,
+    val id: Int,
+    val inventory_master_id: Any,
+    val is_active: Boolean,
+    val is_draft: Boolean,
+    val letter_id: Any,
+    val maintenance_id: Int,
+    val mime: String,
+    val path: String,
+    val property_id: Int,
+    val safety_certificate_id: Int,
+    val tenancy_id: Any,
+    val tenant_id: Any,
+    val thumb: Any,
+    val thumb_path: String,
+    val title: String,
+    val type: String,
+    val updated_date: String
+)

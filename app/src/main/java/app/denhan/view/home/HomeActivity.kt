@@ -1,36 +1,67 @@
 package app.denhan.view.home
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.databinding.DataBindingUtil
-import app.denhan.android.R
-import app.denhan.android.databinding.ActivityHomeBinding
-import app.denhan.fragment.OpenJobsFragments
-import app.denhan.adapter.TabAdapter
-import app.denhan.fragment.CompleteFragment
-import app.denhan.fragment.UpdatedFragment
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_home.*
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.DataBindingUtil
+import app.denhan.adapter.TabAdapter
+import app.denhan.android.R
+import app.denhan.android.databinding.ActivityHomeBinding
+import app.denhan.fragment.CompleteFragment
+import app.denhan.fragment.OpenJobsFragments
+import app.denhan.fragment.UpdatedFragment
+import app.denhan.model.jobs.Maintenance
+import app.denhan.util.CommonMethods
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_home.*
+import org.koin.android.viewmodel.ext.android.viewModel
+import skycap.android.core.livedata.observeNonNull
 
 
 class HomeActivity : AppCompatActivity() {
-
     lateinit var binding: ActivityHomeBinding
+    private val viewModel: HomeViewModel by viewModel()
+    lateinit var searchArrayList: ArrayList<Maintenance>
+    lateinit var dialog:ProgressDialog
+    lateinit var tabAdapter: TabAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this,R.layout.activity_home)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         intiView()
     }
 
     private fun intiView() {
+        dialog = ProgressDialog(this)
         openFragment()
         setTabs()
         clickEvent()
+        bindObserver()
+    }
+
+    /* Here we are observing the live data of viewModel
+    * */
+    private fun bindObserver() {
+
+        observeNonNull(viewModel.progressVisible){
+            val visible = it ?: false
+            if (visible){
+                CommonMethods.showProgressDialog(dialog,
+                    this.resources.getString(R.string.progress_tittle_text),this.resources.getString(R.string.server_request_text))
+            }
+            else{
+                if (dialog.isShowing){
+                    CommonMethods.hideProgressDialog(dialog)
+                }
+            }
+        }
+
     }
 
     private fun clickEvent() {
@@ -66,6 +97,7 @@ class HomeActivity : AppCompatActivity() {
         * */
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                searchSpecificString(query)
                 return false
             }
 
@@ -74,7 +106,56 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
+        binding.logoutImage.setOnClickListener {
+
+
+        }
+
     }
+
+    private fun searchSpecificString(query: String) {
+        searchArrayList= ArrayList()
+        val currentFragment = viewPager.currentItem
+        when(currentFragment){
+            0->{
+              searchOpenJobs(query)
+            }
+            1->{
+                searchInProgressJobs(query)
+            }
+            2->{
+
+            }
+        }
+
+    }
+
+    private fun searchOpenJobs(query: String) {
+
+        val openJobs = viewModel.openJobsArray.value as ArrayList
+        openJobs.forEach {
+            if (it.repair_code.contains(query)){
+                searchArrayList.add(it)
+               val openFragment =   tabAdapter.getItem(0) as OpenJobsFragments
+               openFragment.updateSearchList(searchArrayList)
+
+            }
+        }
+    }
+
+    private fun searchInProgressJobs(query: String) {
+
+        val progressJobs = viewModel.inProgressJobsArray.value as ArrayList
+        progressJobs.forEach {
+            if (it.repair_code.toLowerCase().contains(query.toLowerCase())){
+                searchArrayList.add(it)
+                val openFragment =   tabAdapter.getItem(1) as UpdatedFragment
+                openFragment.updateSearchList(searchArrayList)
+
+            }
+        }
+    }
+
 
     private fun hideSearchView() {
         binding.searchView.setQuery("", false)
@@ -99,7 +180,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    fun setTabs(){
+    private fun setTabs(){
         val slidingTabStrip = binding.tabLayout.getChildAt(0) as ViewGroup
         val betweenSpace=100
         for (i in 0 until slidingTabStrip.childCount - 1) {
@@ -110,7 +191,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun openFragment() {
-        val  tabAdapter = TabAdapter(supportFragmentManager)
+        tabAdapter = TabAdapter(supportFragmentManager)
         tabAdapter.addFragment(OpenJobsFragments(), this.resources.getString(R.string.open_text))
         tabAdapter.addFragment(UpdatedFragment(), this.resources.getString(R.string.in_progress_text))
         tabAdapter.addFragment(CompleteFragment(), this.resources.getString(R.string.complete_text))

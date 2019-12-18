@@ -1,53 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.card.MaterialCardView
+    <RelativeLayout
+            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/_5sdp"
-            app:cardElevation="@dimen/_10sdp"
             app:cardUseCompatPadding="true"
-            style="@style/Widget.MaterialComponents.CardView">
+            android:background="@android:color/transparent"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0">
 
+    <androidx.cardview.widget.CardView
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_15sdp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="4dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/_5sdp">
+                android:padding="@dimen/_10sdp">
+
             <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/jobTittle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/meduimTextSize"
                     android:text="Tittle"
                     android:textColor="@color/blackColor"
-                    app:fontFamily="@font/muli_bold"/>
+                    android:textSize="@dimen/meduimTextSize"
+                    app:fontFamily="@font/muli_bold" />
 
             <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/dateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/smallTextSize"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:text="date and time"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:textColor="@color/blackNintyOpc"
-                    app:fontFamily="@font/muli_regular" />
-            <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/addressText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="address"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/smallTextSize"
-                    android:textColor="@color/blackColor"
-                    android:fontFamily="@font/muli_semi_bold"/>
+                    app:fontFamily="@font/muli_regular" />
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_2sdp">
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="top"
+                        android:src="@drawable/ic_icon_address"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/addressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/muli_semi_bold"
+                        android:text="address"
+                        android:gravity="top"
+                        android:textColor="@color/blackColor"
+                        android:textSize="@dimen/smallTextSize" />
+
+            </LinearLayout>
+
+
+
+
+
+
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+    <!--<LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
+
+        <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.MaterialComponents.CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/_20sdp"
+                app:cardElevation="@dimen/_4sdp">
 
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_10sdp">
 
-</LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/jobTittle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tittle"
+                        android:textColor="@color/blackColor"
+                        android:textSize="@dimen/meduimTextSize"
+                        app:fontFamily="@font/muli_bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/dateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="date and time"
+                        android:textColor="@color/blackNintyOpc"
+                        android:textSize="@dimen/smallTextSize"
+                        app:fontFamily="@font/muli_regular" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/addressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/muli_semi_bold"
+                        android:text="address"
+                        android:textColor="@color/blackColor"
+                        android:textSize="@dimen/smallTextSize" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>-->
+</layout>
