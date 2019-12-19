@@ -15,6 +15,7 @@ data class Maintenance(
     val f_created_date: String,
     val f_created_time: String,
     val id: Int,
+    val maintenance_instructions: List<MaintenanceInstruction>,
     val maintenance_jobs: List<MaintenanceJob>,
     val modified_date: String,
     val `property`: Property,

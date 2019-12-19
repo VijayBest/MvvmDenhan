@@ -4,7 +4,7 @@ data class Property(
     val account_id: Int,
     val account_name: String,
     val account_number: String,
-    val active_tenancy: Any,
+    val active_tenancy: ActiveTenancy,
     val address: String,
     val agent_id: Int,
     val attachments: List<Attachment>,

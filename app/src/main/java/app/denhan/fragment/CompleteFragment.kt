@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import app.denhan.adapter.OpenJobsAdapter
 import app.denhan.android.R
 import app.denhan.android.databinding.CompleteFragmentBinding
-import app.denhan.android.databinding.OpenJobsFragmentBinding
 import app.denhan.model.jobs.Maintenance
+import app.denhan.util.AppConstants
+import app.denhan.view.home.HomeActivity
 import app.denhan.view.home.HomeViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import skycap.android.core.livedata.observeNonNull
@@ -76,7 +77,8 @@ class CompleteFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
     }
 
     override fun onItemClick(selectedListData: Maintenance) {
-
+        AppConstants.selectedJob= selectedListData
+        (activity as HomeActivity).startTaskDetailScreen()
     }
 
 }

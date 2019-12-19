@@ -25,6 +25,10 @@ class OpenJobsAdapter(arrayList: ArrayList<Maintenance>, val listener:OpenJobsAd
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(arrayList[position])
+        holder.binding.mainLayout.setOnClickListener {
+
+            listener.onItemClick(arrayList[position])
+        }
 
     }
 

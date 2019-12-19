@@ -1,6 +1,7 @@
 package app.denhan.view.home
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,6 +18,7 @@ import app.denhan.fragment.OpenJobsFragments
 import app.denhan.fragment.UpdatedFragment
 import app.denhan.model.jobs.Maintenance
 import app.denhan.util.CommonMethods
+import app.denhan.view.taskdetail.TaskDetailActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -197,6 +199,13 @@ class HomeActivity : AppCompatActivity() {
         tabAdapter.addFragment(CompleteFragment(), this.resources.getString(R.string.complete_text))
         binding.viewPager.adapter = tabAdapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
+
+    }
+
+    fun startTaskDetailScreen(){
+
+        val intent = Intent(this, TaskDetailActivity::class.java)
+        startActivity(intent)
 
     }
 }

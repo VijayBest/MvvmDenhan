@@ -20,5 +20,13 @@
     <string name="no_job_assigned_text">No Job assigned to you</string>
     <string name="no_job_started_yet">No job started yet</string>
     <string name="no_completed_jobs_text">No jobs are completed yet</string>
+    <string name="job_detail_text">Job Detail</string>
+    <string name="special_instruction">Special Instruction</string>
+    <string name="detail_note_text">Detail Note</string>
+    <string name="task_text">Task</string>
+    <string name="not_completed_status">Not Started</string>
+    <string name="completed_status">Completed</string>
+    <string name="add_task_text">Add Task</string>
+
 
 </resources>

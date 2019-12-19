@@ -4,14 +4,10 @@ import android.util.Log
 import app.denhan.data.api.WebService
 import app.denhan.helper.DeviceIdHelper
 import app.denhan.helper.getStatusCode
-import app.denhan.model.ApiResponse
 import app.denhan.model.jobs.JobResponse
 import app.denhan.model.login.LoginResponse
 import app.denhan.util.AppConstants
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import okhttp3.ResponseBody
 
 import org.json.JSONObject
 import retrofit2.Response

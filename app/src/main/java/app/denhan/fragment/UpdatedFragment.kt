@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import app.denhan.adapter.OpenJobsAdapter
 import app.denhan.android.R
-import app.denhan.android.databinding.OpenJobsFragmentBinding
 import app.denhan.android.databinding.UpdateFragmentBinding
 import app.denhan.model.jobs.Maintenance
+import app.denhan.util.AppConstants
+import app.denhan.view.home.HomeActivity
 import app.denhan.view.home.HomeViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import skycap.android.core.livedata.observeNonNull
@@ -82,6 +83,8 @@ class UpdatedFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
     }
 
     override fun onItemClick(selectedListData: Maintenance) {
+        AppConstants.selectedJob= selectedListData
+        (activity as HomeActivity).startTaskDetailScreen()
 
     }
     fun updateSearchList(searchList:ArrayList<Maintenance>){

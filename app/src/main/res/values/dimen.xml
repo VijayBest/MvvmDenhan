@@ -9,6 +9,8 @@
     <dimen name="meduimTextSize">@dimen/_14sdp</dimen>
     <dimen name="smallTextSize">@dimen/_12sdp</dimen>
     <dimen name="marginBetweenLabelAndButton">@dimen/_15sdp</dimen>
-    <dimen name="listMarginTop">@dimen/_2sdp</dimen>
+    <dimen name="listMarginTop">@dimen/_3sdp</dimen>
+    <dimen name="marginTopBetweenTextView">@dimen/_5sdp</dimen>
+    <dimen name="marginStartEnd">@dimen/_10sdp</dimen>
 
 </resources>

@@ -1,10 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="app.denhan.view.taskdetail.TaskDetailActivity">
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="app.denhan.view.taskdetail.TaskDetailViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="app.denhan.view.taskdetail.TaskDetailActivity"
+            android:background="@color/redColor1">
+
+        <RelativeLayout
+                android:id="@+id/topLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?actionBarSize"
+                android:background="@color/redColor1"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tittleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteColor"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/muli_bold"
+                    android:textSize="@dimen/largeTextSize"
+                    android:text="@string/job_detail_text"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/backImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_icon_back"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_icon_user"
+                    android:layout_marginEnd="10dp"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <RelativeLayout
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@+id/topLayout"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="0">
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/mainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                app:cardCornerRadius="@dimen/_15sdp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="4dp">
+            <include
+
+                    layout="@layout/task_detail_top" />
+        </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+        <LinearLayout
+                android:id="@+id/middleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/top_corner_round_bg"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/layout1"
+                android:orientation="vertical">
+
+
+            <include layout="@layout/task_detail_middle"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/backgroundColor"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/searchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/marginStartEnd"
+                    android:layout_marginEnd="@dimen/marginStartEnd"
+                    android:elevation="5dp"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:padding="10dp"
+                    android:textAllCaps="false"
+                    android:text="@string/add_task_text"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/whiteColor"
+                    android:theme="@style/AppTheme"
+                    app:cornerRadius="500dp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
