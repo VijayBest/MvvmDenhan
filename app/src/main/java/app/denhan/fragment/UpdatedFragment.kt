@@ -12,6 +12,8 @@ import app.denhan.android.R
 import app.denhan.android.databinding.UpdateFragmentBinding
 import app.denhan.model.jobs.Maintenance
 import app.denhan.util.AppConstants
+import app.denhan.util.ArrayConstant.inProgressJobsArray
+import app.denhan.util.ConstValue
 import app.denhan.view.home.HomeActivity
 import app.denhan.view.home.HomeViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -20,7 +22,6 @@ import skycap.android.core.livedata.observeNonNull
 class UpdatedFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
     lateinit var binding: UpdateFragmentBinding
     private val homeViewModel: HomeViewModel by sharedViewModel()
-    lateinit var inProgressJobsArray: ArrayList<Maintenance>
     lateinit var openJobsAdapter: OpenJobsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -84,6 +85,7 @@ class UpdatedFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
 
     override fun onItemClick(selectedListData: Maintenance) {
         AppConstants.selectedJob= selectedListData
+        AppConstants.selectedJobType= ConstValue.inProgressJobSelected
         (activity as HomeActivity).startTaskDetailScreen()
 
     }

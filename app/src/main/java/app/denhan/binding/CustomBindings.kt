@@ -1,24 +1,26 @@
 package app.denhan.binding
-
+import android.view.View
+import android.widget.EditText
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputLayout
+import skycap.android.core.view.setVisibleOrGone
 
 class CustomBindings {
-    companion object {
-
         @BindingAdapter("error")
-        @JvmStatic
-        fun setError(editText: TextInputLayout, errorMessage: String) {
+        fun EditText.setError(errorMessage: String?) {
             if (errorMessage!="") {
-                editText.error = errorMessage
+                error = errorMessage
             }
             else{
-                editText.error=""
+                error=""
             }
         }
 
-    }
-
+        @BindingAdapter("visibility")
+        fun View.setVisibility( value:MutableLiveData<Boolean>){
+            setVisibleOrGone(value.value)
+        }
 
 }
 

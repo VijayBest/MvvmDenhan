@@ -14,6 +14,14 @@
         <item name="tabIndicatorHeight">2dp</item>
     </style>
 
+    <style name="ButtonTheme" parent="Platform.MaterialComponents">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/redColor1</item>
+        <item name="colorPrimaryDark">@color/cancelButtonBg</item>
+        <item name="colorAccent">@color/cancelButtonBg</item>
+    </style>
+
+
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/muli_bold</item>
     </style>

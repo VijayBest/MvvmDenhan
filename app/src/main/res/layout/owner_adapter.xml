@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0">
+        <androidx.cardview.widget.CardView
+                android:id="@+id/mainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/muli_regular"
+                        android:text="Not"
+                        android:layout_marginRight="?actionBarSize"
+                        android:textColor="@color/blackNintyOpc"
+                        android:textSize="@dimen/smallTextSize" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtDateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/muli_regular"
+                        android:text="date time"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_below="@+id/txtStatus"
+                        android:textColor="@color/blackNintyOpc"
+                        android:textSize="@dimen/smallTextSize" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageAttachment"
+                        android:layout_width="?actionBarSize"
+                        android:layout_height="?actionBarSize"
+                        android:padding="@dimen/_10sdp"
+                        android:src="@drawable/ic_icon_attachment"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</layout>

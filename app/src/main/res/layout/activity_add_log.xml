@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/redColor1"
+        tools:context="app.denhan.view.owner.AddLogActivity">
+    <RelativeLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/redColor1"
+            android:minHeight="?actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tittleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/muli_bold"
+                android:text="@string/owner_not_available_text"
+                android:textAlignment="center"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/largeTextSize" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/ic_icon_back" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tickImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/ic_icon_tick" />
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/top_corner_round_bg"
+            android:padding="@dimen/marginStartEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topLayout"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli_bold"
+                android:text="@string/add_comment_text"
+                android:textColor="@color/blackColor"
+                android:textSize="@dimen/meduimTextSize"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/rounded_corner"
+                android:fontFamily="@font/muli_regular"
+                android:gravity="top"
+                android:hint="@string/added_text_hint"
+                android:minHeight="@dimen/_100sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/blackColor"
+                android:textColorHint="@color/blackNintyOpc"
+                app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textAttachment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginBetweenEditText"
+                android:fontFamily="@font/muli_bold"
+                android:text="@string/add_attachment_text"
+                android:textColor="@color/blackColor"
+                android:textSize="@dimen/meduimTextSize"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtComment" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/attachmentImage"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/marginBetweenEditText"
+                android:src="@drawable/ic_icon_camera"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textAttachment" />
+
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                app:layout_constraintTop_toBottomOf="@+id/attachmentImage"
+                android:layout_marginTop="@dimen/marginBetweenEditText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

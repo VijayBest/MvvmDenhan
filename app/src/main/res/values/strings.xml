@@ -27,6 +27,21 @@
     <string name="not_completed_status">Not Started</string>
     <string name="completed_status">Completed</string>
     <string name="add_task_text">Add Task</string>
+    <string name="title_hint_text">Title</string>
+    <string name="description_text">Description</string>
+    <string name="type_here_text">Type here...</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="submit_text">Submit</string>
+    <string name="job_title_require">Job title required</string>
+    <string name="okay_text">Okay</string>
+    <string name="attachment_text">Attachment</string>
+    <string name="no_attachment_text">There is no attachment in this job</string>
+    <string name="owner_not_available_text">Owner not available</string>
+    <string name="add_new_log_text">Add New Log</string>
+    <string name="no_log_added_text">No log added</string>
+    <string name="add_comment_text">Add Your Comment</string>
+    <string name="added_text_hint">Added</string>
+    <string name="add_attachment_text">Add Attachment</string>
 
 
 </resources>

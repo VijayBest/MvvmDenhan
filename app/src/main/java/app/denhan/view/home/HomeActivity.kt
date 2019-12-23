@@ -203,7 +203,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun startTaskDetailScreen(){
-
         val intent = Intent(this, TaskDetailActivity::class.java)
         startActivity(intent)
 

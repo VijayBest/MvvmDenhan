@@ -46,8 +46,14 @@ class TaskAdapter(arrayList: ArrayList<MaintenanceJob>, val listener:TaskAdapter
     class ViewHolder(val binding: TaskAdapterBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MaintenanceJob) {
 
-            binding.dateTime.text = item.f_modified_date
-            binding.taskTittle.text = item.job_detail
+            item.f_modified_date?.let {
+                binding.dateTime.text = it
+            }
+            item.job_detail?.let {
+                binding.taskTittle.text = it
+            }
+
+
 
 
             when(item.status){

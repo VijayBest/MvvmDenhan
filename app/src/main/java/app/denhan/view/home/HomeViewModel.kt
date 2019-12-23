@@ -118,6 +118,4 @@ class HomeViewModel(private val userRepository: AuthRepository,
         }
     }
 
-
-
 }

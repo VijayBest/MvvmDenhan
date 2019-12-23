@@ -43,7 +43,7 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_icon_back"/>
             <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/userImage"
+                    android:id="@+id/ownerImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_icon_user"
@@ -105,7 +105,7 @@
                 app:layout_constraintBottom_toBottomOf="parent">
 
             <com.google.android.material.button.MaterialButton
-                    android:id="@+id/searchBtn"
+                    android:id="@+id/addTaskButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/marginStartEnd"

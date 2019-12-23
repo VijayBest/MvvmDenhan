@@ -10,5 +10,7 @@
     <color name="whiteColorSixtyOpc">#99FFFFFF</color>
     <color name="blackColor">#282020</color>
     <color name="blackNintyOpc">#E6282020</color>
+    <color name="descriptionBg">#EAEAEA</color>
+    <color name="cancelButtonBg">#D4D7DB</color>
 
 </resources>

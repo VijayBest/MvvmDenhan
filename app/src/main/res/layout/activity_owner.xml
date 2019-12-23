@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="app.denhan.view.owner.OwnerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/redColor1"
+            tools:context="app.denhan.view.owner.OwnerActivity">
+
+        <RelativeLayout
+                android:id="@+id/topLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/redColor1"
+                android:minHeight="?actionBarSize"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tittleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/muli_bold"
+                    android:text="@string/owner_not_available_text"
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="@dimen/largeTextSize" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/backImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_icon_back" />
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/top_corner_round_bg"
+                android:padding="@dimen/marginStartEnd"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topLayout">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ownerList"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/addNewLog"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="13dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtNoLog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/muli_regular"
+                    android:text="@string/no_log_added_text"
+                    android:textColor="@color/blackNintyOpc"
+                    android:textSize="@dimen/meduimTextSize"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addNewLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/marginStartEnd"
+                    android:layout_marginEnd="@dimen/marginStartEnd"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:padding="10dp"
+                    android:text="@string/add_new_log_text"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/whiteColor"
+                    android:theme="@style/AppTheme"
+                    app:cornerRadius="500dp"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

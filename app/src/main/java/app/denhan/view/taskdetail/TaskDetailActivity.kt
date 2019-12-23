@@ -1,7 +1,9 @@
 package app.denhan.view.taskdetail
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
@@ -10,8 +12,16 @@ import app.denhan.adapter.InstructionAdapter
 import app.denhan.adapter.TaskAdapter
 import app.denhan.android.R
 import app.denhan.android.databinding.ActivityTaskDetailBinding
+import app.denhan.model.jobs.Attachment
 import app.denhan.model.jobs.MaintenanceInstruction
 import app.denhan.model.jobs.MaintenanceJob
+import app.denhan.util.AppConstants
+import app.denhan.util.AppConstants.selectedJob
+import app.denhan.util.ArrayConstant
+import app.denhan.util.ArrayConstant.attachmentArrayList
+import app.denhan.util.CommonMethods
+import app.denhan.view.imageslider.ImageSlider
+import app.denhan.view.owner.OwnerActivity
 import kotlinx.android.synthetic.main.task_detail_middle.view.*
 import kotlinx.android.synthetic.main.task_detail_top.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -32,7 +42,56 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
 
     private fun intiView() {
         bindObserver()
+        clickEvent()
 
+    }
+
+    private fun clickEvent() {
+
+        binding.addTaskButton.setOnClickListener {
+
+            CommonMethods.showAddTaskDialog(this, object: DialogCallBack{
+                override fun filledValue(tittle: String, description: String) {
+                    viewModel.addTask(tittle,description)
+                }
+            })
+        }
+
+        binding.backImage.setOnClickListener {
+
+            finish()
+        }
+        binding.mainLayout.topLayoutUi.attachmentImage.setOnClickListener {
+
+            if (selectedJob.property.attachments.isNotEmpty()){
+                attachmentArrayList = ArrayList()
+                selectedJob.property.attachments.forEach {
+                    attachmentArrayList.add(it.attachment_path?:"")
+                }
+                startImageSlidingScreen()
+            }
+            else {
+                CommonMethods.defaultDialog(
+                    this, this.resources.getString(R.string.attachment_text),
+                    this.resources.getString(R.string.no_attachment_text)
+                )
+            }
+        }
+
+        binding.ownerImage.setOnClickListener {
+
+            startOwnerScreen()
+        }
+    }
+
+    /*
+    * startOwnerScreen=> start the owner screen where the
+    * list of not available owner  will be there
+    * */
+    private fun startOwnerScreen() {
+
+        val ownerScreen = Intent(this, OwnerActivity::class.java)
+        startActivity(ownerScreen)
     }
 
     private fun bindObserver() {
@@ -53,6 +112,10 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
             setInstructionArray(viewModel.instructionArray)
             setTaskAdapter(viewModel.taskArrayList.value as ArrayList<MaintenanceJob>)
 
+        }
+        observeNonNull(viewModel.addedTask){
+
+            taskAdapter.notifyAdapter(viewModel.taskArrayList.value as ArrayList<MaintenanceJob>)
         }
     }
 
@@ -84,5 +147,13 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
 
     override fun onItemClick(selectedTaskData: MaintenanceJob) {
 
+    }
+    /*startImageSlidingScreen==>start the screen if the
+    * attachment array is not empty
+    * */
+    private fun startImageSlidingScreen() {
+
+        val imageSlideScreen = Intent(this, ImageSlider::class.java)
+        startActivity(imageSlideScreen)
     }
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:padding="@dimen/marginStartEnd">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/special_instruction"
+                android:visibility="gone"
+                android:textColor="@color/blackColor"
+                android:fontFamily="@font/muli_bold"
+                android:textSize="@dimen/meduimTextSize"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/specialInstructionList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/text1"
+                android:layout_marginTop="@dimen/listMarginTop"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/detailNoteTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/specialInstructionList"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/detail_note_text"
+                android:layout_marginTop="@dimen/marginTopBetweenTextView"
+                android:textColor="@color/blackColor"
+                android:fontFamily="@font/muli_bold"
+                android:textSize="@dimen/meduimTextSize"/>
+
+        <RelativeLayout
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTopBetweenTextView"
+                app:layout_constraintTop_toBottomOf="@+id/detailNoteTitle"
+                android:background="@android:color/transparent"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="0">
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/detailNoteCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/_5sdp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="4dp">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtDetailNote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="# detail  note"
+                        android:textColor="@color/blackNintyOpc"
+                        android:fontFamily="@font/muli_regular"
+                        android:textSize="@dimen/smallTextSize" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/taskTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/layout1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/task_text"
+                android:layout_marginTop="@dimen/marginTopBetweenTextView"
+                android:textColor="@color/blackColor"
+                android:fontFamily="@font/muli_bold"
+                android:textSize="@dimen/meduimTextSize"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/taskList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/taskTitle"
+                android:layout_marginTop="@dimen/listMarginTop"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -12,6 +12,8 @@ import app.denhan.android.R
 import app.denhan.android.databinding.OpenJobsFragmentBinding
 import app.denhan.model.jobs.Maintenance
 import app.denhan.util.AppConstants
+import app.denhan.util.ArrayConstant.openJobsArray
+import app.denhan.util.ConstValue
 import app.denhan.view.home.HomeActivity
 import app.denhan.view.home.HomeViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -20,7 +22,6 @@ import skycap.android.core.livedata.observeNonNull
 class OpenJobsFragments :Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
     lateinit var binding:OpenJobsFragmentBinding
     private val homeViewModel:HomeViewModel by sharedViewModel()
-    lateinit var openJobsArray: ArrayList<Maintenance>
     lateinit var openJobsAdapter:OpenJobsAdapter
 
 
@@ -32,6 +33,7 @@ class OpenJobsFragments :Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
 
     override fun onItemClick(selectedListData: Maintenance) {
         AppConstants.selectedJob= selectedListData
+        AppConstants.selectedJobType = ConstValue.openJobSelected
         (activity as HomeActivity).startTaskDetailScreen()
     }
 
@@ -47,8 +49,6 @@ class OpenJobsFragments :Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
         else{
 
             hideList()
-
-
         }
     }
     private fun hideList(){

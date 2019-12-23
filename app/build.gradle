@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -84,5 +85,10 @@ dependencies {
 
     //a scalable size unit
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+    //Image loading
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
 }

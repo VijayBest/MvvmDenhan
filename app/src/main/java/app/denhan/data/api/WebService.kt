@@ -1,12 +1,12 @@
 package app.denhan.data.api
 
+import app.denhan.model.ApiResponse
 import app.denhan.model.jobs.JobResponse
+import app.denhan.model.jobs.MaintenanceJob
 import app.denhan.model.login.LoginResponse
+import app.denhan.model.owner.OwnerNotAvailableData
 import retrofit2.Response
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface WebService {
 
@@ -26,4 +26,12 @@ interface WebService {
     @GET("apiv2/maintenances/completed_requests")
     suspend fun completedJobs():Response<JobResponse>
 
+    @FormUrlEncoded
+    @POST("api/maintenance-jobs/add")
+    suspend fun addTaskAsync(@Field("maintenance_id") maintenanceId: Int,
+                             @Field("job_detail") taskTitle:String):Response<ApiResponse<MaintenanceJob>>
+
+
+    @GET("api/mainte-unavail-logs")
+    suspend fun unavailableOwnerAsync(@Query("id")maintenanceId:Int):Response<ApiResponse<ArrayList<OwnerNotAvailableData>>>
 }

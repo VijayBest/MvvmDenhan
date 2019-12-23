@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="app.denhan.android">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
             android:name="app.certa.views.app.DenhanApp"
@@ -10,33 +11,49 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:usesCleartextTraffic="true"
-            android:theme="@style/AppTheme">
-        <activity android:name="app.denhan.view.taskdetail.TaskDetailActivity"></activity>
-        <activity android:name="app.denhan.view.splash.SplashActivity">
+            android:theme="@style/AppTheme"
+            android:usesCleartextTraffic="true">
+        <activity android:name="app.denhan.view.owner.AddLogActivity"></activity>
+        <activity android:name="app.denhan.view.owner.OwnerActivity" />
+        <activity android:name="app.denhan.view.imageslider.ImageSlider" />
+        <activity android:name="app.denhan.view.taskdetail.TaskDetailActivity">
 
-          <!--  <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>-->
-        </activity>
-        <activity android:name="app.denhan.view.home.HomeActivity">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
-        <activity android:name="app.denhan.view.login.LoginActivity"
-                android:windowSoftInputMode="stateHidden|adjustPan"
-              >
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            -->
+        </activity>
+        <activity android:name="app.denhan.view.splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="app.denhan.view.home.HomeActivity">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+                android:name="app.denhan.view.login.LoginActivity"
+                android:windowSoftInputMode="stateHidden|adjustPan">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            -->
         </activity>
     </application>
 
