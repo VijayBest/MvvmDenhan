@@ -9,8 +9,11 @@ import app.denhan.model.jobs.JobResponse
 import app.denhan.model.jobs.MaintenanceJob
 import app.denhan.model.login.LoginResponse
 import app.denhan.model.owner.OwnerNotAvailableData
+import app.denhan.model.uploaad.ImageUploadResponse
 import app.denhan.util.AppConstants
 import kotlinx.coroutines.*
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 
 import org.json.JSONObject
 import retrofit2.Response
@@ -36,7 +39,7 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
                     val jObjError = JSONObject(response.errorBody()?.string())
                     Resource.Error<LoginResponse>(jObjError.getInt("code"))
                 }
-            } catch (e: Exception) {
+            } catch (e:Exception) {
                 Log.e("exception ", e.message+" "+ e.getStatusCode())
 
                 Resource.Error<LoginResponse>(e.getStatusCode())
@@ -151,6 +154,48 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
         }
     }
 
+    fun uploadImageToServerAsync(imageData: MultipartBody.Part, tbl: MultipartBody.Part):
+            Deferred<Resource<ImageUploadResponse?>> {
+        return GlobalScope.async {
+            try {
+                val response: Response<ImageUploadResponse> = webService.uploadImageAsync(imageData, tbl)
+                val imageUploadResponse = response.body()
+                if (response.code()== ApiResponseCode.SUCCESS_CODE){
+                    Resource.success(imageUploadResponse)
+                }
+                else {
 
+                    val jObjError = JSONObject(response.errorBody()?.string())
+                    Resource.Error<ImageUploadResponse>(jObjError.getInt("code"))
+                }
+
+
+            } catch (e: Exception) {
+                Resource.Error<ImageUploadResponse>(e.getStatusCode())
+            }
+        }
+    }
+
+
+    suspend fun addNewLogsAsync(imageName:ArrayList<String>,comment:String,
+                                maintenanceId:Int): Deferred<Resource<ResponseBody?>> {
+        return GlobalScope.async {
+            try {
+                val response: Response<ResponseBody> =
+                    webService.addNewLogsAsync(imageName,comment,maintenanceId)
+                val completedJobsResponse =response.body()
+                if (response.code()== ApiResponseCode.SUCCESS_CODE) {
+                    Resource.Success(completedJobsResponse)
+
+                } else {
+                    val jObjError = JSONObject(response.errorBody()?.string())
+                    Resource.Error<ResponseBody>(jObjError.getInt("code"))
+                }
+            } catch (e:Exception) {
+                Log.e("exception ", e.message + " " + e.getStatusCode())
+                Resource.Error<ResponseBody>(e.getStatusCode())
+            }
+        }
+    }
 
 }

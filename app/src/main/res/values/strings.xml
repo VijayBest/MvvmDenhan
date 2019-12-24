@@ -42,6 +42,8 @@
     <string name="add_comment_text">Add Your Comment</string>
     <string name="added_text_hint">Added</string>
     <string name="add_attachment_text">Add Attachment</string>
+    <string name="add_comment_error">Please add the comment for new logs</string>
+    <string name="select_image_error">Please capture live picture</string>
 
 
 </resources>

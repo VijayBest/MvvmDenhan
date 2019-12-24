@@ -3,6 +3,9 @@
         package="app.denhan.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
             android:name="app.certa.views.app.DenhanApp"
@@ -13,7 +16,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name="app.denhan.view.owner.AddLogActivity"></activity>
+        <activity android:name="app.denhan.view.subtask.SubTaskActivity"></activity>
+        <activity android:name="app.denhan.view.owner.AddLogActivity" />
         <activity android:name="app.denhan.view.owner.OwnerActivity" />
         <activity android:name="app.denhan.view.imageslider.ImageSlider" />
         <activity android:name="app.denhan.view.taskdetail.TaskDetailActivity">

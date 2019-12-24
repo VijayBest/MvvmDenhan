@@ -36,11 +36,15 @@ class OwnerActivity : AppCompatActivity(), OwnerAdapter.OwnerAdapterListener {
     private fun intiView() {
         dialog = ProgressDialog(this)
         intilizeList()
-        viewModel.getOwnerList()
         bindObserver()
         clickEvent()
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getOwnerList()
     }
 
     private fun clickEvent() {
@@ -48,6 +52,22 @@ class OwnerActivity : AppCompatActivity(), OwnerAdapter.OwnerAdapterListener {
         binding.backImage.setOnClickListener {
             finish()
         }
+        binding.addNewLog.setOnClickListener {
+
+            startAddNewLogScreen()
+        }
+    }
+
+
+    /*
+    * startAddNewLogScreen=> start the AddNewLog Screen
+    * */
+    private fun startAddNewLogScreen() {
+
+        val addNewLogScreen = Intent(this, AddLogActivity::class.java)
+        startActivity(addNewLogScreen)
+
+
     }
 
     private fun intilizeList() {

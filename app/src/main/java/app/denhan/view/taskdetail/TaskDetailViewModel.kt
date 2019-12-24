@@ -81,15 +81,15 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
     * */
     fun addTask(title:String,description:String){
         progressVisible.postValue(true)
-        GlobalScope.launch {
-            when (val resource = userRepository.addTaskAsync(title,selectedJob.id).await()) {
-                is Resource.Success -> {
+                    GlobalScope.launch {
+                        when (val resource = userRepository.addTaskAsync(title,selectedJob.id).await()) {
+                            is Resource.Success -> {
 
-                    checkJOnType()
+                                checkJOnType()
 
-                }
-                is Resource.Error -> {
-                    progressVisible.postValue(false)
+                            }
+                            is Resource.Error -> {
+                                progressVisible.postValue(false)
                     when (resource.code) {
                         ApiResponseCode.NETWORK_NOT_AVAILABLE -> {
                             errorCommand.postValue(resourceProvider.getStringResource(R.string.network_unavailable))

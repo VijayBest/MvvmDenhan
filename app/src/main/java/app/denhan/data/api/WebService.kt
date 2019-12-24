@@ -5,6 +5,10 @@ import app.denhan.model.jobs.JobResponse
 import app.denhan.model.jobs.MaintenanceJob
 import app.denhan.model.login.LoginResponse
 import app.denhan.model.owner.OwnerNotAvailableData
+import app.denhan.model.uploaad.ImageUploadResponse
+import kotlinx.coroutines.Deferred
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -34,4 +38,15 @@ interface WebService {
 
     @GET("api/mainte-unavail-logs")
     suspend fun unavailableOwnerAsync(@Query("id")maintenanceId:Int):Response<ApiResponse<ArrayList<OwnerNotAvailableData>>>
+
+    @Multipart
+    @POST("/api/uploads/manage")
+    suspend fun uploadImageAsync(@Part filePart: MultipartBody.Part, @Part tbl: MultipartBody.Part):Response<ImageUploadResponse>
+
+
+    @FormUrlEncoded
+    @POST("api/mainte-unavail-logs/add")
+    suspend fun addNewLogsAsync(@Field("images[]") imageName: ArrayList<String>,
+                             @Field("comment") comment:String, @Field("maintenance_id")maintenanceId: Int):Response<ResponseBody>
+
 }
