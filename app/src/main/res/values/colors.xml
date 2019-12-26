@@ -12,5 +12,6 @@
     <color name="blackNintyOpc">#E6282020</color>
     <color name="descriptionBg">#EAEAEA</color>
     <color name="cancelButtonBg">#D4D7DB</color>
+    <color name="grayColor">#EAEAEA</color>
 
 </resources>

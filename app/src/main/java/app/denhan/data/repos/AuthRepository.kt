@@ -6,9 +6,11 @@ import app.denhan.helper.DeviceIdHelper
 import app.denhan.helper.getStatusCode
 import app.denhan.model.ApiResponse
 import app.denhan.model.jobs.JobResponse
+import app.denhan.model.jobs.Maintenance
 import app.denhan.model.jobs.MaintenanceJob
 import app.denhan.model.login.LoginResponse
 import app.denhan.model.owner.OwnerNotAvailableData
+import app.denhan.model.subtask.JobDetailResponse
 import app.denhan.model.uploaad.ImageUploadResponse
 import app.denhan.util.AppConstants
 import kotlinx.coroutines.*
@@ -197,5 +199,53 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
             }
         }
     }
+
+
+    /*getSubTaskDetailAsync=> get the meta data of the task
+    * The user token will pass in Header section
+    * */
+    suspend fun getJobDetailsAsync(maintenanceId: Int): Deferred<Resource<JobDetailResponse?>> {
+        return GlobalScope.async {
+            try {
+                val response: Response<JobDetailResponse> = webService.jobDetailsAsync(maintenanceId)
+                val openJobsResponse =response.body()
+                if (response.code()== ApiResponseCode.SUCCESS_CODE) {
+                    Resource.Success(openJobsResponse)
+                }else {
+                    val jObjError = JSONObject(response.errorBody()?.string())
+                    Resource.Error<JobDetailResponse>(jObjError.getInt("code"))
+                }
+            } catch (e:Exception) {
+                Log.e("exception ", e.message + " " + e.getStatusCode())
+                Resource.Error<JobDetailResponse>(e.getStatusCode())
+            }
+        }
+    }
+
+
+    fun uploadJobMediaAsync(imageData: MultipartBody.Part, maintenance_job_id: MultipartBody.Part,type: MultipartBody.Part):
+            Deferred<Resource<ImageUploadResponse?>> {
+        return GlobalScope.async {
+            try {
+                val response: Response<ImageUploadResponse> = webService.uploadJobMediaAsync(imageData,
+                    maintenance_job_id,type)
+                val imageUploadResponse = response.body()
+                if (response.code()== ApiResponseCode.SUCCESS_CODE){
+                    Resource.success(imageUploadResponse)
+                }
+                else {
+
+                    val jObjError = JSONObject(response.errorBody()?.string())
+                    Resource.Error<ImageUploadResponse>(jObjError.getInt("code"))
+                }
+
+
+            } catch (e: Exception) {
+                Resource.Error<ImageUploadResponse>(e.getStatusCode())
+            }
+        }
+    }
+
+
 
 }

@@ -1,5 +1,6 @@
 package app.denhan.view.taskdetail
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import app.denhan.android.R
@@ -36,17 +37,51 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
     var successCommand = MutableLiveData<String>()
     var errorCommand= SingleEventLiveData<String>()
     val addedTask = SingleEventLiveData<String>()
-    init {
-        setSelectedData()
+   /* init {
+
+        getTaskDetail()
+    }
+*/
+
+    fun callTaskDetail(){
+        GlobalScope.launch {
+            getTaskDetail()
+
+        }
+    }
+   private suspend  fun getTaskDetail(){
+        progressVisible.postValue(true)
+        GlobalScope.launch {
+            when (val resource = userRepository.getJobDetailsAsync(selectedJob.id).await()) {
+                is Resource.Success -> {
+                    progressVisible.postValue(false)
+                    selectedJob=resource.value?.maintenance!!
+                    setSelectedData()
+                    Log.e("ss ", resource.value.toString())
+                }
+                is Resource.Error -> {
+                    progressVisible.postValue(false)
+                    when (resource.code) {
+                        ApiResponseCode.NETWORK_NOT_AVAILABLE -> {
+                            errorCommand.postValue(resourceProvider.getStringResource(R.string.network_unavailable))
+                        }
+                        ApiResponseCode.UN_AUTHORIZE -> {
+                            errorCommand.postValue(resourceProvider.getStringResource(R.string.unauthorize_error))
+                        }
+                        else -> {
+                            errorCommand.postValue(resourceProvider.getStringResource(R.string.common_api_error))
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setSelectedData(){
-
-
         if(selectedJob.property.active_tenancy!=null) {
             jobTitle.postValue(
                 selectedJob.property.ref_code + "\n" +
-                        selectedJob.property.active_tenancy.tenant.full_name
+                        selectedJob.property.active_tenancy?.tenant?.full_name
             )
         }
         else{
@@ -57,7 +92,7 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
         dateTime.postValue(selectedJob.f_created_date+", "+ selectedJob.f_created_time)
         address.postValue(selectedJob.property.address)
         selectedJob.property.active_tenancy?.let {
-            callDetail.postValue(selectedJob.property.active_tenancy.tenant.mobile)
+            callDetail.postValue(selectedJob.property.active_tenancy?.tenant?.mobile)
         }
 
         selectedJob.detail_note.let {

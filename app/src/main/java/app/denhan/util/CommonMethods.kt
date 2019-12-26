@@ -121,4 +121,21 @@ object  CommonMethods {
 
         view.visibility = View.GONE
     }
+
+     fun disableAll(layout: ViewGroup) {
+        for (i in 0 until layout.childCount) {
+            val child = layout.getChildAt(i)
+            child.isEnabled = false
+            if (child is ViewGroup) disableAll(child)
+        }
+    }
+
+    fun enableAll(layout: ViewGroup) {
+        for (i in 0 until layout.childCount) {
+            val child = layout.getChildAt(i)
+            child.isEnabled = true
+            child.isClickable = true
+            if (child is ViewGroup) disableAll(child)
+        }
+    }
 }

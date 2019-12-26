@@ -1,5 +1,6 @@
 package app.denhan.view.taskdetail
 
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,11 +18,13 @@ import app.denhan.model.jobs.MaintenanceInstruction
 import app.denhan.model.jobs.MaintenanceJob
 import app.denhan.util.AppConstants
 import app.denhan.util.AppConstants.selectedJob
+import app.denhan.util.AppConstants.selectedSubTaskData
 import app.denhan.util.ArrayConstant
 import app.denhan.util.ArrayConstant.attachmentArrayList
 import app.denhan.util.CommonMethods
 import app.denhan.view.imageslider.ImageSlider
 import app.denhan.view.owner.OwnerActivity
+import app.denhan.view.subtask.SubTaskActivity
 import kotlinx.android.synthetic.main.task_detail_middle.view.*
 import kotlinx.android.synthetic.main.task_detail_top.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -32,6 +35,7 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
     private val viewModel:TaskDetailViewModel by viewModel()
     lateinit var taskAdapter: TaskAdapter
     lateinit var instructionAdapter: InstructionAdapter
+    lateinit var dialog:ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +45,20 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
     }
 
     private fun intiView() {
+        dialog = ProgressDialog(this)
         bindObserver()
         clickEvent()
-
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.callTaskDetail()
+    }
+
 
     private fun clickEvent() {
 
         binding.addTaskButton.setOnClickListener {
-
             CommonMethods.showAddTaskDialog(this, object: DialogCallBack{
                 override fun filledValue(tittle: String, description: String) {
                     viewModel.addTask(tittle,description)
@@ -117,6 +126,18 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
 
             taskAdapter.notifyAdapter(viewModel.taskArrayList.value as ArrayList<MaintenanceJob>)
         }
+        observeNonNull(viewModel.progressVisible){
+            val visible = it ?: false
+            if (visible){
+                CommonMethods.showProgressDialog(dialog,
+                    this.resources.getString(R.string.progress_tittle_text),this.resources.getString(R.string.server_request_text))
+            }
+            else{
+                if (dialog.isShowing){
+                    CommonMethods.hideProgressDialog(dialog)
+                }
+            }
+        }
     }
 
     private fun setInstructionArray(instructionArray: MutableLiveData<ArrayList<MaintenanceInstruction>>) {
@@ -146,8 +167,16 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
     }
 
     override fun onItemClick(selectedTaskData: MaintenanceJob) {
-
+        selectedSubTaskData = selectedTaskData
+        startSubTaskDetailScreen()
     }
+
+    private fun startSubTaskDetailScreen() {
+
+        val subTaskIntent = Intent(this,SubTaskActivity::class.java)
+        startActivity(subTaskIntent)
+    }
+
     /*startImageSlidingScreen==>start the screen if the
     * attachment array is not empty
     * */

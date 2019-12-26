@@ -2,9 +2,11 @@ package app.denhan.data.api
 
 import app.denhan.model.ApiResponse
 import app.denhan.model.jobs.JobResponse
+import app.denhan.model.jobs.Maintenance
 import app.denhan.model.jobs.MaintenanceJob
 import app.denhan.model.login.LoginResponse
 import app.denhan.model.owner.OwnerNotAvailableData
+import app.denhan.model.subtask.JobDetailResponse
 import app.denhan.model.uploaad.ImageUploadResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.MultipartBody
@@ -47,6 +49,14 @@ interface WebService {
     @FormUrlEncoded
     @POST("api/mainte-unavail-logs/add")
     suspend fun addNewLogsAsync(@Field("images[]") imageName: ArrayList<String>,
-                             @Field("comment") comment:String, @Field("maintenance_id")maintenanceId: Int):Response<ResponseBody>
+                                @Field("comment") comment:String, @Field("maintenance_id")maintenanceId: Int):Response<ResponseBody>
+
+    @GET("api/maintenances/view/{id}")
+    suspend fun jobDetailsAsync(@Path("id")id:Int):Response<JobDetailResponse>
+
+    @Multipart
+    @POST("/api/maintenance-job-images/add")
+    suspend fun uploadJobMediaAsync(@Part filePart: MultipartBody.Part, @Part maintenance_job_id: MultipartBody.Part,
+                                    @Part type: MultipartBody.Part):Response<ImageUploadResponse>
 
 }

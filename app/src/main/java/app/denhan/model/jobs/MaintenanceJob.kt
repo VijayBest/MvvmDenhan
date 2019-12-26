@@ -1,5 +1,7 @@
 package app.denhan.model.jobs
 
+import app.denhan.model.subtask.MaintenanceJobImage
+
 data class MaintenanceJob(
     val amount: Int,
     val comments: String,
@@ -14,5 +16,6 @@ data class MaintenanceJob(
     val modified_date: String,
     val start_time: String,
     var status: String,
-    val tenant_request_issue_id: Any
+    val tenant_request_issue_id: Any,
+    val maintenance_job_images: List<MaintenanceJobImage>?
 )

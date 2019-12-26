@@ -1,6 +1,7 @@
 package app.denhan.util
 
 import app.denhan.model.jobs.Maintenance
+import app.denhan.model.jobs.MaintenanceJob
 
 object AppConstants {
     const val notStarted = "0"
@@ -11,6 +12,14 @@ object AppConstants {
     var sessionToken = ""
     const val BASE_URL: String = "http://propdenhan.skycap.co.in/"
     lateinit var selectedJob: Maintenance
+    lateinit var selectedSubTaskData:MaintenanceJob
     var selectedJobType = ConstValue.openJobSelected
+
+    /*Here we take global variable for imageStatusType.it means
+        type=0 => this image belongs to before Completion of the work
+        type =1 => this image belongs to after Completion of work
+        type =2 => this image belongs to bill of work
+     */
+    var imageTypeStatus="0"
 
 }

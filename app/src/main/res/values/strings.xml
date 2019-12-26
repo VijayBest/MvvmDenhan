@@ -44,6 +44,18 @@
     <string name="add_attachment_text">Add Attachment</string>
     <string name="add_comment_error">Please add the comment for new logs</string>
     <string name="select_image_error">Please capture live picture</string>
+    <string name="task_detail_text">Task Details</string>
+    <string name="tap_to_start_text">Tap To Start Task</string>
+    <string name="task_description_text">Task Description</string>
+    <string name="attachment_before_work">Attachment before work completion</string>
+    <string name="attachment_after_work">Attachment after work completion</string>
+    <string name="bill_attachment_text">Bill Attachments</string>
+    <string name="add_labour_charges"><![CDATA[Add Labour Charges & Material Cost]]></string>
+    <string name="labour_charger_text">Labour charges</string>
+    <string name="enter_text">Enter</string>
+    <string name="material_cost">Material Cost</string>
+    <string name="alert_text">Alert</string>
+    <string name="task_not_start_error">You need start task first</string>
 
 
 </resources>
