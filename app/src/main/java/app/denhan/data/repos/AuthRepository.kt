@@ -5,6 +5,7 @@ import app.denhan.data.api.WebService
 import app.denhan.helper.DeviceIdHelper
 import app.denhan.helper.getStatusCode
 import app.denhan.model.ApiResponse
+import app.denhan.model.jobmedia.UploadJobMedia
 import app.denhan.model.jobs.JobResponse
 import app.denhan.model.jobs.Maintenance
 import app.denhan.model.jobs.MaintenanceJob
@@ -223,29 +224,48 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
     }
 
 
-    fun uploadJobMediaAsync(imageData: MultipartBody.Part, maintenance_job_id: MultipartBody.Part,type: MultipartBody.Part):
-            Deferred<Resource<ImageUploadResponse?>> {
-        return GlobalScope.async {
+   suspend fun uploadJobMediaAsync(imageData: MultipartBody.Part, maintenance_job_id: MultipartBody.Part,type: MultipartBody.Part):
+           Resource<ApiResponse<ArrayList<UploadJobMedia>>?> {
+
             try {
-                val response: Response<ImageUploadResponse> = webService.uploadJobMediaAsync(imageData,
+                val response: Response<ApiResponse<ArrayList<UploadJobMedia>>> = webService.uploadJobMediaAsync(imageData,
                     maintenance_job_id,type)
                 val imageUploadResponse = response.body()
                 if (response.code()== ApiResponseCode.SUCCESS_CODE){
-                    Resource.success(imageUploadResponse)
+                  return  Resource.success(imageUploadResponse)
                 }
                 else {
 
                     val jObjError = JSONObject(response.errorBody()?.string())
-                    Resource.Error<ImageUploadResponse>(jObjError.getInt("code"))
+                 return   Resource.Error<ApiResponse<ArrayList<UploadJobMedia>>>(jObjError.getInt("code"))
                 }
 
 
             } catch (e: Exception) {
-                Resource.Error<ImageUploadResponse>(e.getStatusCode())
+             return   Resource.Error<ApiResponse<ArrayList<UploadJobMedia>>>(e.getStatusCode())
             }
         }
+
+    suspend fun deleteMediaAsync(deleteMediaId:Int): Resource<ResponseBody?> {
+        try {
+            val response: Response<ResponseBody> = webService.deleteMediaAsync(deleteMediaId)
+            val imageUploadResponse = response.body()
+            if (response.code()== ApiResponseCode.SUCCESS_CODE){
+                return  Resource.success(imageUploadResponse)
+            }
+            else {
+                val jObjError = JSONObject(response.errorBody()?.string())
+                return Resource.Error<ResponseBody>(jObjError.getInt("code"))
+            }
+        } catch (e: Exception) {
+            return Resource.Error<ResponseBody>(e.getStatusCode())
+        }
     }
-
-
-
 }
+
+
+
+
+
+
+

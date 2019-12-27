@@ -135,7 +135,7 @@ object  CommonMethods {
             val child = layout.getChildAt(i)
             child.isEnabled = true
             child.isClickable = true
-            if (child is ViewGroup) disableAll(child)
+            if (child is ViewGroup) enableAll(child)
         }
     }
 }

@@ -6,14 +6,11 @@ import androidx.lifecycle.ViewModel
 import app.denhan.android.R
 import app.denhan.data.repos.ApiResponseCode
 import app.denhan.data.repos.AuthRepository
-import app.denhan.model.jobs.Maintenance
-import app.denhan.model.jobs.MaintenanceJob
 import app.denhan.model.subtask.MaintenanceJobImage
 import app.denhan.module.ResourceProvider
 import app.denhan.util.AppConstants
 import app.denhan.util.AppConstants.selectedJob
 import app.denhan.util.AppConstants.selectedSubTaskData
-import app.denhan.util.ArrayConstant
 import app.denhan.util.ConstValue
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -85,7 +82,7 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
                 }
             }
 
-            jobStatus.postValue(selectedJob.status)
+            jobStatus.postValue(selectedSubTaskData.status)
             notifyAllAdapter.postValue("")
 
 
@@ -101,25 +98,103 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
         billImages.add(0,firstObject)
     }
 
-    fun uploadImage(it: Uri) {
-        progressVisible.postValue(true)
+    fun uploadMultipleImage(it: MutableList<Uri>){
         GlobalScope.launch {
-            val file = File(it.path)
-            val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            val imageData = MultipartBody.Part.createFormData("image_file", file.name, requestBody)
-            val maintenanceId = MultipartBody.Part.createFormData("maintenance_job_id", selectedJob.id.toString())
-            val mediaType = MultipartBody.Part.createFormData("type", AppConstants.imageTypeStatus)
-            when (val resource = userRepository.uploadJobMediaAsync(imageData, maintenanceId,mediaType).await()) {
-                is Resource.Success -> {
-                    progressVisible.postValue(false)
+            uploadImage(it)
+            notifyAllAdapter.postValue("")
+        }
+    }
+   suspend fun uploadImage(it: MutableList<Uri>) {
+        it.forEach {
+            progressVisible.postValue(true)
+                val file = File(it.path)
+                val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                val imageData =
+                    MultipartBody.Part.createFormData("image_file", file.name, requestBody)
+                val maintenanceId = MultipartBody.Part.createFormData(
+                    "maintenance_job_id",
+                    selectedSubTaskData.id.toString()
+                )
+                val mediaType =
+                    MultipartBody.Part.createFormData("type", AppConstants.imageTypeStatus)
+                when (val resource =
+                    userRepository.uploadJobMediaAsync(imageData, maintenanceId, mediaType)) {
+                    is Resource.Success -> {
+                        progressVisible.postValue(false)
+                        val responseObject = resource.value?.data?.get(0)
+                        responseObject?.let {
+                            val addImageObject = MaintenanceJobImage(
+                                "",
+                                responseObject?.id,
+                                responseObject?.image_path,
+                                responseObject?.maintenance_job_id,
+                                it.path,
+                                it.type
+                            )
 
+                            when (it.type) {
+                                ConstValue.beforeCompletionImages -> {
+                                    imagesBeforeCompletion.add(addImageObject)
+                                }
+                                ConstValue.workCompletionImages -> {
+
+                                    imagesAfterCompletion.add(addImageObject)
+                                }
+                                ConstValue.billImages -> {
+
+                                    billImages.add(addImageObject)
+                                }
+
+                                else -> {
+
+                                }
+                            }
+                        }
+
+                    }
+                    is Resource.Error -> {
+                        progressVisible.postValue(false)
+
+                    }
 
                 }
-                is Resource.Error -> {
-                    progressVisible.postValue(false)
 
+        }
+    }
+
+
+
+
+   suspend fun deleteImage(deleteMediaObject: MaintenanceJobImage){
+
+       when (val resource = userRepository.deleteMediaAsync(deleteMediaObject.id)) {
+            is Resource.Success -> {
+                progressVisible.postValue(false)
+                when(AppConstants.imageTypeStatus){
+                    ConstValue.beforeCompletionImages->{
+                        imagesBeforeCompletion.remove(deleteMediaObject)
+                    }
+                    ConstValue.workCompletionImages->{
+                        imagesAfterCompletion.remove(deleteMediaObject)
+                    }
+                    ConstValue.billImages->{
+                        billImages.remove(deleteMediaObject)
+                    }
                 }
-
+            }
+            is Resource.Error -> {
+                progressVisible.postValue(false)
+                when (resource.code) {
+                    ApiResponseCode.NETWORK_NOT_AVAILABLE -> {
+                        errorCommand.postValue(resourceProvider.getStringResource(R.string.network_unavailable))
+                    }
+                    ApiResponseCode.UN_AUTHORIZE -> {
+                        errorCommand.postValue(resourceProvider.getStringResource(R.string.unauthorize_error))
+                    }
+                    else -> {
+                        errorCommand.postValue(resourceProvider.getStringResource(R.string.common_api_error))
+                    }
+                }
             }
         }
     }

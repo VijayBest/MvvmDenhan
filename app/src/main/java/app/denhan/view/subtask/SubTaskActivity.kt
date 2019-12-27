@@ -3,6 +3,7 @@ package app.denhan.view.subtask
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +17,11 @@ import app.denhan.model.subtask.MaintenanceJobImage
 import app.denhan.util.AppConstants
 import app.denhan.util.CommonMethods
 import app.denhan.util.ConstValue
+import app.denhan.util.ImageCompress
 import gun0912.tedbottompicker.TedBottomPicker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
 import skycap.android.core.livedata.observeNonNull
 
@@ -27,6 +32,7 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
     lateinit var attachmentAdapterBefore: AttachmentAdapter
     lateinit var attachmentAdapterAfter: AttachmentAdapter
     lateinit var attachmentAdapterBill: AttachmentAdapter
+    lateinit var compressUriList: ArrayList<Uri>
     companion object {
         private val WRITE_EXTERNAL = 101
     }
@@ -68,14 +74,20 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
             attachmentAdapterAfter.notifyAdapter(viewModel.imagesAfterCompletion)
             attachmentAdapterBefore.notifyAdapter(viewModel.imagesBeforeCompletion)
             attachmentAdapterBill.notifyAdapter(viewModel.billImages)
-
         }
 
         observeNonNull(viewModel.jobStatus){
             if (it==ConstValue.notStarted||it==ConstValue.completed){
                 CommonMethods.disableAll(binding.mainLayout)
+                if (it==ConstValue.completed){
+                    CommonMethods.hideVisibility(binding.startTask)
+                }
+                else{
+                    CommonMethods.showVisibility(binding.startTask)
+                }
             }
             else{
+                CommonMethods.hideVisibility(binding.startTask)
                 CommonMethods.enableAll(binding.mainLayout)
             }
         }
@@ -122,21 +134,29 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
     override fun removeImage(
         clickedData: MaintenanceJobImage,
         adapterStatus: String) {
+        AppConstants.imageTypeStatus= adapterStatus
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                viewModel.deleteImage(clickedData)
+                viewModel.notifyAllAdapter.postValue("")
+            }
+        }
+
+
 
     }
+
 
     private fun setupPermissions(context: Context) {
         val permission = ContextCompat.checkSelfPermission(context,
             Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
         if (permission != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
         } else {
             showImageSeletion()
         }
-
-
     }
+
 
 
     private fun showImageSeletion() {
@@ -144,9 +164,15 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
         TedBottomPicker.with(this)
             .showGalleryTile(false)
             .setPreviewMaxCount(20)
-            .show {
-                viewModel.uploadImage(it)
+            .showMultiImage {
+                compressUriList = ArrayList()
+                it.forEach {
+                    val imageUri= ImageCompress.compressImagePath(it.toString(), this)
+                    compressUriList.add( Uri.parse(imageUri))
+                }
+                viewModel.uploadMultipleImage(compressUriList)
             }
+
 
     }
 

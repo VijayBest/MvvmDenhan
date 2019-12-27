@@ -7,8 +7,10 @@ object ConstValue {
     const val workCompletionImages = "1"
     const val beforeCompletionImages="0"
     const val billImages ="2"
-    const val notStarted="1"
+    const val notStarted="0"
     const val started="2"
     const val completed="3"
+    const val temFolder="MyFolder/Images"
+    const val deleteTempFolder="MyFolder"
 
 }

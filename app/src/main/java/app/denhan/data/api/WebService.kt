@@ -1,6 +1,7 @@
 package app.denhan.data.api
 
 import app.denhan.model.ApiResponse
+import app.denhan.model.jobmedia.UploadJobMedia
 import app.denhan.model.jobs.JobResponse
 import app.denhan.model.jobs.Maintenance
 import app.denhan.model.jobs.MaintenanceJob
@@ -57,6 +58,8 @@ interface WebService {
     @Multipart
     @POST("/api/maintenance-job-images/add")
     suspend fun uploadJobMediaAsync(@Part filePart: MultipartBody.Part, @Part maintenance_job_id: MultipartBody.Part,
-                                    @Part type: MultipartBody.Part):Response<ImageUploadResponse>
+                                    @Part type: MultipartBody.Part):Response<ApiResponse<ArrayList<UploadJobMedia>>>
 
+    @DELETE("api/maintenance-job-images/delete/{id}")
+    suspend fun deleteMediaAsync(@Path("id")id:Int):Response<ResponseBody>
 }
