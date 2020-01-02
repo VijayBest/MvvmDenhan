@@ -7,9 +7,14 @@ object ConstValue {
     const val workCompletionImages = "1"
     const val beforeCompletionImages="0"
     const val billImages ="2"
-    const val notStarted="0"
-    const val started="2"
-    const val completed="3"
+
+    //Sub Task status to maintain the the job status and task status
+    const val notStarted="0"//=> not started
+    const val started="1" //=> in progress
+    const val completed="2" //=> completed task
+
+
+    // static folder name to stores  the compress image and for uploading the image to server use this folder
     const val temFolder="MyFolder/Images"
     const val deleteTempFolder="MyFolder"
 

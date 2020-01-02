@@ -4,6 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
+
         <variable
                 name="viewModel"
                 type="app.denhan.view.taskdetail.TaskDetailViewModel" />
@@ -77,7 +79,6 @@
                 app:cardUseCompatPadding="true"
                 app:cardElevation="4dp">
             <include
-
                     layout="@layout/task_detail_top" />
         </androidx.cardview.widget.CardView>
 
@@ -91,9 +92,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout1"
                 android:orientation="vertical">
 
-
-            <include layout="@layout/task_detail_middle"/>
-
+            <include layout="@layout/task_detail_middle" />
 
         </LinearLayout>
 
@@ -102,8 +101,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundColor"
+                android:weightSum="2"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent">
 
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/markAllComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/marginStartEnd"
+                    android:layout_marginEnd="@dimen/marginStartEnd"
+                    android:elevation="5dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:padding="10dp"
+                    android:textAllCaps="false"
+                    android:text="@string/mark_all_complete_text"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/whiteColor"
+                    android:theme="@style/ButtonTheme"
+                    app:cornerRadius="500dp"
+                    android:visibility="@{viewModel.buttonVisibilityStatus.booleanValue()? View.VISIBLE : View.GONE, default=gone}"
+                  />
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/addTaskButton"
                     android:layout_width="match_parent"
@@ -111,6 +131,7 @@
                     android:layout_marginStart="@dimen/marginStartEnd"
                     android:layout_marginEnd="@dimen/marginStartEnd"
                     android:elevation="5dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/muli_semi_bold"
                     android:padding="10dp"
                     android:textAllCaps="false"

@@ -261,6 +261,24 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
             return Resource.Error<ResponseBody>(e.getStatusCode())
         }
     }
+
+    suspend fun saveTaskStatusAsync(taskId:Int,taskStatus:String,comment:String,startTime:String,
+                                    endTime:String, materialCost:Double,
+                                    labourCost:Double): Resource<ResponseBody?> {
+        try {
+            val response: Response<ResponseBody> = webService.saveTaskStatus(taskId,taskId,taskStatus,comment,startTime,endTime,materialCost,labourCost)
+            val imageUploadResponse = response.body()
+            if (response.code()== ApiResponseCode.SUCCESS_CODE){
+                return  Resource.success(imageUploadResponse)
+            }
+            else {
+                val jObjError = JSONObject(response.errorBody()?.string())
+                return Resource.Error<ResponseBody>(jObjError.getInt("code"))
+            }
+        } catch (e: Exception) {
+            return Resource.Error<ResponseBody>(e.getStatusCode())
+        }
+    }
 }
 
 

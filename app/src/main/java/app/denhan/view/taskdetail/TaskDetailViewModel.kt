@@ -37,6 +37,7 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
     var successCommand = MutableLiveData<String>()
     var errorCommand= SingleEventLiveData<String>()
     val addedTask = SingleEventLiveData<String>()
+    val buttonVisibilityStatus=MutableLiveData<Boolean>()
    /* init {
 
         getTaskDetail()

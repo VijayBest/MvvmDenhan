@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="redColor1">#DD3E3E</color>
     <color name="redColor2">#E55239</color>
+    <color name="dark_red_color">#DE3038</color>
     <color name="backgroundColor">#F7F9FB</color>
     <color name="whiteColor">#FFFFFF</color>
     <color name="whiteColorSixtyOpc">#99FFFFFF</color>

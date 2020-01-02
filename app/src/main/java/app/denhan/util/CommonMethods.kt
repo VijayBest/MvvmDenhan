@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.InsetDrawable
 import android.text.TextUtils
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.util.Patterns
 import android.view.*
 import android.widget.Toast
@@ -15,9 +16,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import app.denhan.android.R
 import app.denhan.android.databinding.AddTaskDialogBinding
+import app.denhan.android.databinding.CommonDialogBinding
+import app.denhan.view.subtask.StartTaskCallBack
 import app.denhan.view.taskdetail.DialogCallBack
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 object  CommonMethods {
@@ -105,10 +110,7 @@ object  CommonMethods {
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
-        /* //performing cancel action
-         builder.setNeutralButton("Cancel"){dialogInterface , which ->
-             Toast.makeText(applicationContext,"clicked cancel\n operation cancel",Toast.LENGTH_LONG).show()
-         }*/
+
 
     }
 
@@ -137,5 +139,70 @@ object  CommonMethods {
             child.isClickable = true
             if (child is ViewGroup) enableAll(child)
         }
+    }
+
+    fun startTaskDialog(context: Context, title:String, message:String, startTaskCallBack: StartTaskCallBack){
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setPositiveButton(context.resources.getString(R.string.okay_text)){dialogInterface, which ->
+
+            startTaskCallBack.startTask()
+        }
+         //performing cancel action
+       builder.setNeutralButton(context.resources.getString(R.string.cancel_text)){dialogInterface , which ->
+
+           dialogInterface.dismiss()
+
+       }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+
+
+    }
+
+    fun customCommonDialog(context: Context, title: String,
+                           description:String, leftButtonText:String, rightButtonText:String,
+                           customDialogCallBack: CustomDialogCallBack){
+
+        val dialog = Dialog(context)
+        val back  = ColorDrawable(Color.TRANSPARENT)
+        val  inset = InsetDrawable(back,20)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawable(inset)
+        dialog.window?.setGravity(Gravity.CENTER)
+        val binding: CommonDialogBinding = DataBindingUtil.inflate(LayoutInflater.from(dialog.context),
+            R.layout.common_dialog, null, false)
+        dialog.setContentView(binding.root)
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialog.window?.attributes)
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+        lp.gravity = Gravity.CENTER
+        dialog.window?.attributes = lp
+        binding.dialogTittle.text = title
+        binding.leftButton.text= leftButtonText
+        binding.rightButton.text = rightButtonText
+        binding.textDescription.text = description
+        binding.leftButton.setOnClickListener {
+
+        }
+        binding.rightButton.setOnClickListener {
+
+            dialog.dismiss()
+        }
+        dialog.show()
+
+    }
+
+    fun currentDateWithString(): String {
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val date = dateFormat.format(calendar.time)
+        val currentDate = dateFormat.format(calendar.time)
+        Log.e("Date ", currentDate)
+        return currentDate.toString()
     }
 }

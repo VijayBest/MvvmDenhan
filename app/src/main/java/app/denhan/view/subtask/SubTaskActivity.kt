@@ -14,10 +14,10 @@ import app.denhan.adapter.AttachmentAdapter
 import app.denhan.android.R
 import app.denhan.android.databinding.ActivitySubTaskBinding
 import app.denhan.model.subtask.MaintenanceJobImage
-import app.denhan.util.AppConstants
-import app.denhan.util.CommonMethods
-import app.denhan.util.ConstValue
-import app.denhan.util.ImageCompress
+import app.denhan.util.*
+import app.denhan.util.AppConstants.selectedSubTaskData
+import app.denhan.util.CommonMethods.enableAll
+import app.denhan.util.CommonMethods.hideVisibility
 import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -37,7 +37,6 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
         private val WRITE_EXTERNAL = 101
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sub_task)
@@ -53,7 +52,6 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
     }
 
     private fun clickEvent() {
-
         binding.backImage.setOnClickListener {
 
             finish()
@@ -67,6 +65,59 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
                 )
             }
         }
+        binding.startTask.setOnClickListener {
+
+            CommonMethods.startTaskDialog(this,this.resources.getString(R.string.app_name),this
+                .resources.getString(R.string.task_start_alert),object : StartTaskCallBack{
+                override fun startTask() {
+                    selectedSubTaskData.status=ConstValue.started
+                    viewModel.jobStatus.postValue(selectedSubTaskData.status)
+                    hideVisibility(binding.startTask)
+                    enableAll(binding.mainLayout)
+                    viewModel.startTime.postValue(CommonMethods.currentDateWithString())
+
+                }
+            })
+        }
+
+        binding.saveButton.setOnClickListener {
+            if (selectedSubTaskData.status == ConstValue.started) {
+                if (binding.markAllComplete.isChecked){
+                    viewModel.jobStatus.postValue(ConstValue.completed)
+                    viewModel.endTime.postValue(CommonMethods.currentDateWithString())
+                    viewModel.hitSaveTaskStatusApi()
+                }
+                else {
+                    CommonMethods.customCommonDialog(
+                        this,
+                        this.resources.getString(R.string.app_name),
+                        this.resources.getString(R.string.task_save_instruction),
+                        this.resources.getString(R.string.okay_text),
+                        this.resources.getString(R.string.will_set_text),
+                        object : CustomDialogCallBack {
+
+                            // okay button click here
+                            override fun positiveButtonClick() {
+
+                                viewModel.hitSaveTaskStatusApi()
+                            }
+
+                            // Will set button click here
+                            override fun negativeButtonClick() {
+
+
+                            }
+                        }
+                    )
+                }
+            }
+            else if (selectedSubTaskData.status==ConstValue.completed){
+
+                viewModel.hitSaveTaskStatusApi()
+            }
+
+        }
+
     }
 
     private fun bindObserve() {
@@ -80,16 +131,23 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
             if (it==ConstValue.notStarted||it==ConstValue.completed){
                 CommonMethods.disableAll(binding.mainLayout)
                 if (it==ConstValue.completed){
-                    CommonMethods.hideVisibility(binding.startTask)
+                    viewModel.markAllCompleteStatus.postValue(true)
+                    hideVisibility(binding.startTask)
+                    enableAll(binding.mainLayout)
                 }
                 else{
                     CommonMethods.showVisibility(binding.startTask)
                 }
             }
             else{
-                CommonMethods.hideVisibility(binding.startTask)
-                CommonMethods.enableAll(binding.mainLayout)
+                hideVisibility(binding.startTask)
+                enableAll(binding.mainLayout)
             }
+        }
+
+        observeNonNull(viewModel.saveTaskStatusCommand){
+
+            finish()
         }
     }
 
@@ -142,8 +200,6 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
             }
         }
 
-
-
     }
 
 
@@ -176,7 +232,7 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
 
     }
 
-    private fun makeRequest() {
+    private fun makeRequest(){
         requestPermissions(arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA),

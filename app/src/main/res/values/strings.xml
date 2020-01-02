@@ -56,6 +56,11 @@
     <string name="material_cost">Material Cost</string>
     <string name="alert_text">Alert</string>
     <string name="task_not_start_error">You need start task first</string>
+    <string name="task_start_alert">Are you sure, you want to start this task.</string>
+    <string name="task_save_instruction">You have not mark task compltete. The task end time will not be saved</string>
+    <string name="will_set_text">Will Set</string>
+    <string name="mark_all_complete_text">Mark All Complete</string>
+    <string name="mark_as_complete">Mark as complete</string>
 
 
 </resources>

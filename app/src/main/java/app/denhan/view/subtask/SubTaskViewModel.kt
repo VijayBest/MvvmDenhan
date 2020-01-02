@@ -11,6 +11,7 @@ import app.denhan.module.ResourceProvider
 import app.denhan.util.AppConstants
 import app.denhan.util.AppConstants.selectedJob
 import app.denhan.util.AppConstants.selectedSubTaskData
+import app.denhan.util.CommonMethods
 import app.denhan.util.ConstValue
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,18 +24,24 @@ import java.io.File
 
 class SubTaskViewModel(private val userRepository: AuthRepository,
                        private val resourceProvider: ResourceProvider):ViewModel(){
-    val progressVisible = MutableLiveData<Boolean>()
+    private val progressVisible = MutableLiveData<Boolean>()
     val errorCommand = MutableLiveData<String>()
     val taskDescription=MutableLiveData<String>()
     val comment=MutableLiveData<String>()
     val labourCost = MutableLiveData<String>()
     val materialCost = MutableLiveData<String>()
     val jobStatus=MutableLiveData<String>()
+    val taskStatus="0"
+    val markAllCompleteStatus= MutableLiveData<Boolean>()
+    val saveTaskStatusCommand= SingleEventLiveData<String>()
 
     var imagesBeforeCompletion= ArrayList<MaintenanceJobImage>()
     var imagesAfterCompletion= ArrayList<MaintenanceJobImage>()
     var billImages= ArrayList<MaintenanceJobImage>()
     val notifyAllAdapter= SingleEventLiveData<String>()
+    val startTime=MutableLiveData<String>()
+    val endTime=MutableLiveData<String>()
+
 
 
         init {
@@ -65,6 +72,9 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
             materialCost.postValue(it.toString())
         }
 
+        startTime.postValue(selectedSubTaskData.f_start_time)
+        endTime.postValue(selectedSubTaskData.f_end_time)
+
         selectedSubTaskData.maintenance_job_images?.let {
             it.forEach {
                 when(it.type){
@@ -81,11 +91,8 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
                     }
                 }
             }
-
             jobStatus.postValue(selectedSubTaskData.status)
             notifyAllAdapter.postValue("")
-
-
 
         }
     }
@@ -104,6 +111,7 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
             notifyAllAdapter.postValue("")
         }
     }
+
    suspend fun uploadImage(it: MutableList<Uri>) {
         it.forEach {
             progressVisible.postValue(true)
@@ -200,5 +208,37 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
     }
 
 
+    fun hitSaveTaskStatusApi(){
+
+        GlobalScope.launch {
+            saveTaskStatus()
+
+        }
+    }
+   suspend fun saveTaskStatus(){
+       when (val resource = userRepository.saveTaskStatusAsync(
+           selectedSubTaskData.id,jobStatus.value?:"",comment.value?:"",
+            startTime.value?:"",endTime.value?:"",materialCost.value.toString().toDouble(),
+           labourCost.value.toString().toDouble())) {
+            is Resource.Success -> {
+                progressVisible.postValue(false)
+                saveTaskStatusCommand.postValue("")
+            }
+            is Resource.Error -> {
+                progressVisible.postValue(false)
+                when (resource.code) {
+                    ApiResponseCode.NETWORK_NOT_AVAILABLE -> {
+                        errorCommand.postValue(resourceProvider.getStringResource(R.string.network_unavailable))
+                    }
+                    ApiResponseCode.UN_AUTHORIZE -> {
+                        errorCommand.postValue(resourceProvider.getStringResource(R.string.unauthorize_error))
+                    }
+                    else -> {
+                        errorCommand.postValue(resourceProvider.getStringResource(R.string.common_api_error))
+                    }
+                }
+            }
+        }
+    }
 
 }

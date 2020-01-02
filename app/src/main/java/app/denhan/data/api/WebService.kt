@@ -62,4 +62,19 @@ interface WebService {
 
     @DELETE("api/maintenance-job-images/delete/{id}")
     suspend fun deleteMediaAsync(@Path("id")id:Int):Response<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("api/maintenance-jobs/edit/{id}")
+    suspend fun saveTaskStatus(
+        @Path("id")id:Int,
+        @Field("id") taskId: Int,
+        @Field("status") taskStatus: String,
+        @Field("comment") comment: String,
+        @Field("start_time") startTime: String,
+        @Field("end_time") endTime: String,
+        @Field("amount") materialCost: Double,
+        @Field("labour_charges") labourCharges: Double
+    ): Response<ResponseBody>
+
+
 }
