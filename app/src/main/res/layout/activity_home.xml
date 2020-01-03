@@ -61,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
+                android:onClick="@{()->viewModel.refreshButtonClick()}"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_icon_refresh"
                 android:layout_alignParentEnd="true"/>
@@ -103,7 +104,7 @@
                 android:minHeight="@dimen/_30sdp"
                 android:textAlignment="center"
                 android:background="@color/redColor1"
-                android:textSize="@dimen/meduimTextSize"
+                android:textSize="@dimen/smallTextSize"
                 android:scrollbars="horizontal"
                 app:tabSelectedTextColor="@color/redColor1"
                 app:tabTextColor="@color/whiteColorSixtyOpc"
@@ -113,10 +114,6 @@
                 app:tabBackground="@drawable/tab_background"
                 app:tabMode="fixed">
         </com.google.android.material.tabs.TabLayout>
-
-
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

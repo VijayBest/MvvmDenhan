@@ -61,6 +61,7 @@
     <string name="will_set_text">Will Set</string>
     <string name="mark_all_complete_text">Mark All Complete</string>
     <string name="mark_as_complete">Mark as complete</string>
+    <string name="logout_instruction">Are you sure want to Log Out?</string>
 
 
 </resources>

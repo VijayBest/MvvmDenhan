@@ -187,11 +187,11 @@ object  CommonMethods {
         binding.rightButton.text = rightButtonText
         binding.textDescription.text = description
         binding.leftButton.setOnClickListener {
-
+            dialog.dismiss()
         }
         binding.rightButton.setOnClickListener {
+            customDialogCallBack.positiveButtonClick()
 
-            dialog.dismiss()
         }
         dialog.show()
 

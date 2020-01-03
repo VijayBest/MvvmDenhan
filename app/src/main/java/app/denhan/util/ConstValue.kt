@@ -1,9 +1,9 @@
 package app.denhan.util
 
 object ConstValue {
-    const val openJobSelected="0"
-    const val inProgressJobSelected="1"
-    const val completeJobSelected="2"
+    const val openJobSelected="1"
+    const val inProgressJobSelected="2"
+    const val completeJobSelected="3"
     const val workCompletionImages = "1"
     const val beforeCompletionImages="0"
     const val billImages ="2"

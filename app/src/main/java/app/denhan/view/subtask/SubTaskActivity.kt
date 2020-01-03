@@ -128,20 +128,25 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
         }
 
         observeNonNull(viewModel.jobStatus){
-            if (it==ConstValue.notStarted||it==ConstValue.completed){
-                CommonMethods.disableAll(binding.mainLayout)
-                if (it==ConstValue.completed){
-                    viewModel.markAllCompleteStatus.postValue(true)
+            if(AppConstants.selectedJob.status==ConstValue.completeJobSelected){
+                hideVisibility(binding.startTask)
+                enableAll(binding.mainLayout)
+                viewModel.markAllCompleteStatus.postValue(true)
+            }
+            else {
+                if (it == ConstValue.notStarted || it == ConstValue.completed) {
+                    CommonMethods.disableAll(binding.mainLayout)
+                    if (it == ConstValue.completed) {
+                        viewModel.markAllCompleteStatus.postValue(true)
+                        hideVisibility(binding.startTask)
+                        enableAll(binding.mainLayout)
+                    } else {
+                        CommonMethods.showVisibility(binding.startTask)
+                    }
+                } else {
                     hideVisibility(binding.startTask)
                     enableAll(binding.mainLayout)
                 }
-                else{
-                    CommonMethods.showVisibility(binding.startTask)
-                }
-            }
-            else{
-                hideVisibility(binding.startTask)
-                enableAll(binding.mainLayout)
             }
         }
 

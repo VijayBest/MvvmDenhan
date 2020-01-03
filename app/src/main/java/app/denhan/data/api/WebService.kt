@@ -76,5 +76,7 @@ interface WebService {
         @Field("labour_charges") labourCharges: Double
     ): Response<ResponseBody>
 
+    @GET("api/agents/logout")
+    suspend fun logOutUser():Response<ResponseBody>
 
 }

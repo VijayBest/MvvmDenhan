@@ -18,6 +18,8 @@ import app.denhan.fragment.OpenJobsFragments
 import app.denhan.fragment.UpdatedFragment
 import app.denhan.model.jobs.Maintenance
 import app.denhan.util.CommonMethods
+import app.denhan.util.CustomDialogCallBack
+import app.denhan.view.login.LoginActivity
 import app.denhan.view.taskdetail.TaskDetailActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_home.*
@@ -62,6 +64,11 @@ class HomeActivity : AppCompatActivity() {
                     CommonMethods.hideProgressDialog(dialog)
                 }
             }
+        }
+
+        observeNonNull(viewModel.logoUserCommand){
+
+            startLoginScreen()
         }
 
     }
@@ -109,10 +116,30 @@ class HomeActivity : AppCompatActivity() {
         })
 
         binding.logoutImage.setOnClickListener {
+            CommonMethods.customCommonDialog(this,this.resources.getString(R.string.app_name),
+                this.resources.getString(R.string.logout_instruction), this.resources.getString(R.string.cancel_text),
+                this.resources.getString(R.string.okay_text),object :CustomDialogCallBack{
+                    override fun positiveButtonClick() {
 
+                        viewModel.logoutUser()
+                    }
+
+                    override fun negativeButtonClick() {
+
+                    }
+                })
 
         }
 
+    }
+
+    /*startLoginScreen=> start the login screen after logout the user
+    * */
+    private fun startLoginScreen() {
+
+        val intent = Intent(this,LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun searchSpecificString(query: String) {
@@ -145,8 +172,8 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun searchInProgressJobs(query: String) {
-
+    private fun searchInProgressJobs(query: String)
+    {
         val progressJobs = viewModel.inProgressJobsArray.value as ArrayList
         progressJobs.forEach {
             if (it.repair_code.toLowerCase().contains(query.toLowerCase())){

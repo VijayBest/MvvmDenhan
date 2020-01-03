@@ -7,8 +7,10 @@ import app.denhan.data.repos.ApiResponseCode
 import app.denhan.data.repos.AuthRepository
 import app.denhan.model.jobs.Maintenance
 import app.denhan.module.ResourceProvider
+import app.denhan.util.AppConstants
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import skycap.android.core.livedata.SingleEventLiveData
 import skycap.android.core.resource.Resource
 
 class HomeViewModel(private val userRepository: AuthRepository,
@@ -20,6 +22,7 @@ class HomeViewModel(private val userRepository: AuthRepository,
     var openJobsArray = MutableLiveData<ArrayList<Maintenance>>()
     var inProgressJobsArray= MutableLiveData<ArrayList<Maintenance>>()
     var completedJobsArray= MutableLiveData<ArrayList<Maintenance>>()
+    val logoUserCommand= SingleEventLiveData<String>()
 
 
     init {
@@ -112,6 +115,47 @@ class HomeViewModel(private val userRepository: AuthRepository,
                         else -> {
                             errorCommand.postValue(resourceProvider.getStringResource(R.string.common_api_error))
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    /*refreshButtonClick=> Click event on Button
+    * */
+    fun refreshButtonClick(){
+        getOpenJobs()
+        getInProgressJobs()
+        getCompletedJobs()
+
+    }
+
+    fun logoutUser() {
+
+        GlobalScope.launch {
+            hitLogoutUser()
+        }
+
+    }
+
+    suspend fun hitLogoutUser(){
+        when (val resource = userRepository.logOutUserAsync()) {
+            is Resource.Success -> {
+                progressVisible.postValue(false)
+                logoUserCommand.postValue("")
+            }
+
+            is Resource.Error -> {
+                progressVisible.postValue(false)
+                when (resource.code) {
+                    ApiResponseCode.NETWORK_NOT_AVAILABLE -> {
+                        errorCommand.postValue(resourceProvider.getStringResource(R.string.network_unavailable))
+                    }
+                    ApiResponseCode.UN_AUTHORIZE -> {
+                        errorCommand.postValue(resourceProvider.getStringResource(R.string.unauthorize_error))
+                    }
+                    else -> {
+                        errorCommand.postValue(resourceProvider.getStringResource(R.string.common_api_error))
                     }
                 }
             }

@@ -102,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundColor"
                 android:weightSum="2"
+                android:visibility="@{viewModel.jobCompleted.booleanValue()? View.GONE : View.VISIBLE, default=visible}"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent">
 

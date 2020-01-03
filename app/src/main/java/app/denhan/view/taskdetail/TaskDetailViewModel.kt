@@ -36,6 +36,7 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
     var progressVisible = MutableLiveData<Boolean>()
     var successCommand = MutableLiveData<String>()
     var errorCommand= SingleEventLiveData<String>()
+    val jobCompleted = MutableLiveData<Boolean>()
     val addedTask = SingleEventLiveData<String>()
     val buttonVisibilityStatus=MutableLiveData<Boolean>()
    /* init {
@@ -79,6 +80,11 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
     }
 
     private fun setSelectedData(){
+
+        if (selectedJob.status==ConstValue.completeJobSelected){
+            jobCompleted.postValue(true)
+        }
+
         if(selectedJob.property.active_tenancy!=null) {
             jobTitle.postValue(
                 selectedJob.property.ref_code + "\n" +

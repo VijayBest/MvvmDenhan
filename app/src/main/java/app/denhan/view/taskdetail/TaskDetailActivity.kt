@@ -22,9 +22,11 @@ import app.denhan.util.AppConstants.selectedSubTaskData
 import app.denhan.util.ArrayConstant
 import app.denhan.util.ArrayConstant.attachmentArrayList
 import app.denhan.util.CommonMethods
+import app.denhan.util.ConstValue
 import app.denhan.view.imageslider.ImageSlider
 import app.denhan.view.owner.OwnerActivity
 import app.denhan.view.subtask.SubTaskActivity
+import kotlinx.android.synthetic.main.activity_task_detail.*
 import kotlinx.android.synthetic.main.task_detail_middle.view.*
 import kotlinx.android.synthetic.main.task_detail_top.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
