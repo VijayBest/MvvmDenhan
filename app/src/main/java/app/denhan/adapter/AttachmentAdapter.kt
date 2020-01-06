@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import app.denhan.android.R
 import app.denhan.android.databinding.ImageAdapterBinding
 import app.denhan.model.subtask.MaintenanceJobImage
+import app.denhan.util.AppConstants
+import app.denhan.util.ConstValue
 import com.bumptech.glide.Glide
 
 class AttachmentAdapter(arrayList: ArrayList<MaintenanceJobImage>, adapterStatus:String,val listener:AttachmentAdapterListener) :
@@ -34,10 +36,17 @@ class AttachmentAdapter(arrayList: ArrayList<MaintenanceJobImage>, adapterStatus
         holder.binding.removeImage.setOnClickListener {
             listener.removeImage(arrayList[position],adapterStatus)
         }
-        if (position==0) {
+
             holder.binding.imageGallery.setOnClickListener {
-                listener.onItemClickListener(arrayList[position], adapterStatus)
-            }
+                if (position==0&& AppConstants.selectedJob.status!=ConstValue.completeJobSelected){
+                    listener.onItemClickListener(arrayList[position], adapterStatus)
+                }
+                else{
+
+                    listener.showImageSlider(arrayList,adapterStatus)
+                }
+
+
         }
 
 
@@ -58,14 +67,16 @@ class AttachmentAdapter(arrayList: ArrayList<MaintenanceJobImage>, adapterStatus
             arrayList: ArrayList<MaintenanceJobImage>,
             position: Int) {
             val item =arrayList[position]
-            if (position==0){
-                Glide
-                    .with(binding.imageGallery.context)
-                    .load("")
-                    .centerCrop()
-                    .placeholder(R.drawable.ic_icon_camera)
-                    .into(binding.imageGallery)
-                binding.removeImage.visibility = View.GONE
+            if(AppConstants.selectedJob.status!=ConstValue.completeJobSelected) {
+                if (position == 0) {
+                    Glide
+                        .with(binding.imageGallery.context)
+                        .load("")
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_icon_camera)
+                        .into(binding.imageGallery)
+                    binding.removeImage.visibility = View.GONE
+                }
             }
             else{
                 Glide
@@ -74,7 +85,13 @@ class AttachmentAdapter(arrayList: ArrayList<MaintenanceJobImage>, adapterStatus
                     .centerCrop()
                     .placeholder(R.drawable.ic_icon_camera)
                     .into(binding.imageGallery)
-                binding.removeImage.visibility = View.VISIBLE
+                if (AppConstants.selectedJob.status==ConstValue.completeJobSelected){
+                    binding.removeImage.visibility = View.GONE
+                }
+                else{
+                    binding.removeImage.visibility = View.VISIBLE
+                }
+
             }
 
 
@@ -97,6 +114,11 @@ class AttachmentAdapter(arrayList: ArrayList<MaintenanceJobImage>, adapterStatus
         )
         fun removeImage(
             clickedData: MaintenanceJobImage,
+            adapterStatus: String
+        )
+
+        fun showImageSlider(
+            maintenanceJobImage: ArrayList<MaintenanceJobImage>,
             adapterStatus: String
         )
 

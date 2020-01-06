@@ -39,11 +39,7 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
     val jobCompleted = MutableLiveData<Boolean>()
     val addedTask = SingleEventLiveData<String>()
     val buttonVisibilityStatus=MutableLiveData<Boolean>()
-   /* init {
 
-        getTaskDetail()
-    }
-*/
 
     fun callTaskDetail(){
         GlobalScope.launch {

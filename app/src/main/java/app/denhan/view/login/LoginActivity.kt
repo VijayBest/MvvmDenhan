@@ -1,7 +1,9 @@
 package app.denhan.view.login
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -10,6 +12,7 @@ import app.denhan.android.R
 import app.denhan.android.databinding.ActivityLoginBinding
 import app.denhan.util.CommonMethods
 import app.denhan.view.home.HomeActivity
+import app.denhan.view.location.LocationActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 import skycap.android.core.livedata.observeNonNull
 
@@ -38,7 +41,13 @@ class LoginActivity : AppCompatActivity() {
 
         observeNonNull(viewModel.loginSuccessCommand){
 
-            startLoginActivity()
+            if (!isLocationEnabled()){
+
+                startLocationActivity()
+            }
+            else {
+                startLoginActivity()
+            }
         }
 
         observeNonNull(viewModel.loginErrorCommand){
@@ -58,6 +67,20 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun startLocationActivity() {
+
+        val intent = Intent(this, LocationActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
     }
 
     private fun startLoginActivity() {

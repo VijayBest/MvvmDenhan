@@ -22,8 +22,7 @@ import java.io.File
 
 class AddLogViewModel(
     private val userRepository: AuthRepository,
-    private val resourceProvider: ResourceProvider
-) : ViewModel() {
+    private val resourceProvider: ResourceProvider) : ViewModel() {
     val showProgress = MutableLiveData<Boolean>()
     val commentValue = MutableLiveData<String>()
     var imageArrayList: ArrayList<String>

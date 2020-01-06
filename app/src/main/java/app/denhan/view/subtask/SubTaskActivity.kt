@@ -2,6 +2,7 @@ package app.denhan.view.subtask
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -16,8 +17,11 @@ import app.denhan.android.databinding.ActivitySubTaskBinding
 import app.denhan.model.subtask.MaintenanceJobImage
 import app.denhan.util.*
 import app.denhan.util.AppConstants.selectedSubTaskData
+import app.denhan.util.ArrayConstant.attachmentArrayList
+import app.denhan.util.CommonMethods.disableAll
 import app.denhan.util.CommonMethods.enableAll
 import app.denhan.util.CommonMethods.hideVisibility
+import app.denhan.view.imageslider.ImageSlider
 import gun0912.tedbottompicker.TedBottomPicker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -130,12 +134,16 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
         observeNonNull(viewModel.jobStatus){
             if(AppConstants.selectedJob.status==ConstValue.completeJobSelected){
                 hideVisibility(binding.startTask)
-                enableAll(binding.mainLayout)
+
+                disableAll(binding.mainLayout)
+                enableAll(binding.beforeCompletionList)
+                enableAll(binding.afterCompletionList)
+                enableAll(binding.billAttachmentList)
                 viewModel.markAllCompleteStatus.postValue(true)
             }
             else {
                 if (it == ConstValue.notStarted || it == ConstValue.completed) {
-                    CommonMethods.disableAll(binding.mainLayout)
+                    disableAll(binding.mainLayout)
                     if (it == ConstValue.completed) {
                         viewModel.markAllCompleteStatus.postValue(true)
                         hideVisibility(binding.startTask)
@@ -194,6 +202,25 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
         setupPermissions(this)
     }
 
+    override fun showImageSlider(maintenanceJobImage: ArrayList<MaintenanceJobImage>, adapterStatus: String) {
+        attachmentArrayList = ArrayList()
+        maintenanceJobImage.forEach {
+         attachmentArrayList.add(it.image_path)
+        }
+
+        startImageSlidingScreen()
+
+    }
+
+    /*startImageSlidingScreen==>start the screen if the
+  * attachment array is not empty
+  * */
+    private fun startImageSlidingScreen() {
+
+        val imageSlideScreen = Intent(this, ImageSlider::class.java)
+        startActivity(imageSlideScreen)
+    }
+
     override fun removeImage(
         clickedData: MaintenanceJobImage,
         adapterStatus: String) {
@@ -233,8 +260,6 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
                 }
                 viewModel.uploadMultipleImage(compressUriList)
             }
-
-
     }
 
     private fun makeRequest(){

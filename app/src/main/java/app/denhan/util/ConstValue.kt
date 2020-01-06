@@ -1,6 +1,9 @@
 package app.denhan.util
 
 object ConstValue {
+    const val loginStatusTrue = true
+    const val loginStatusFalse = false
+
     const val openJobSelected="1"
     const val inProgressJobSelected="2"
     const val completeJobSelected="3"

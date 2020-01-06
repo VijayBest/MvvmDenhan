@@ -7,17 +7,20 @@ import app.denhan.helper.getStatusCode
 import app.denhan.model.ApiResponse
 import app.denhan.model.jobmedia.UploadJobMedia
 import app.denhan.model.jobs.JobResponse
-import app.denhan.model.jobs.Maintenance
 import app.denhan.model.jobs.MaintenanceJob
 import app.denhan.model.login.LoginResponse
 import app.denhan.model.owner.OwnerNotAvailableData
 import app.denhan.model.subtask.JobDetailResponse
 import app.denhan.model.uploaad.ImageUploadResponse
 import app.denhan.util.AppConstants
-import kotlinx.coroutines.*
+import app.denhan.util.ConstValue
+import app.denhan.util.SharedPrefernencesKeys
+import com.google.gson.Gson
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
-
 import org.json.JSONObject
 import retrofit2.Response
 import skycap.android.core.resource.Resource
@@ -35,6 +38,11 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
                     AppConstants.notificationToken, AppConstants.deviceType)
                 val userLoginResponse = response.body()
                 if (response.code()== ApiResponseCode.SUCCESS_CODE) {
+                    val gson = Gson()
+                    val userObject = gson.toJson(response.body()?.data?.get(0))
+                    sharedPreferences.save(SharedPrefernencesKeys.userModel, userObject)
+                    AppConstants.userDetailData = response.body()?.data?.get(0)!!
+                    sharedPreferences.save(SharedPrefernencesKeys.loginStatus,ConstValue.loginStatusTrue)
                     AppConstants.sessionToken = response.body()?.data?.get(0)?.session_token?:""
                     Resource.Success(userLoginResponse)
 
@@ -285,6 +293,8 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
             val response: Response<ResponseBody> = webService.logOutUser()
             val imageUploadResponse = response.body()
             if (response.code()== ApiResponseCode.SUCCESS_CODE){
+                sharedPreferences.save(SharedPrefernencesKeys.userModel, "")
+                sharedPreferences.save(SharedPrefernencesKeys.loginStatus,ConstValue.loginStatusFalse)
                 return  Resource.success(imageUploadResponse)
             }
             else {
@@ -295,6 +305,31 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
             return Resource.Error<ResponseBody>(e.getStatusCode())
         }
     }
+
+    suspend fun uploadSignature(signature: MultipartBody.Part, totalTime: MultipartBody.Part,
+                                id: MultipartBody.Part):
+            Resource<ApiResponse<ArrayList<UploadJobMedia>>?> {
+
+        try {
+            val response: Response<ApiResponse<ArrayList<UploadJobMedia>>> = webService.uploadSignature(
+                signature,
+                totalTime,id)
+            val imageUploadResponse = response.body()
+            if (response.code()== ApiResponseCode.SUCCESS_CODE){
+                return  Resource.success(imageUploadResponse)
+            }
+            else {
+
+                val jObjError = JSONObject(response.errorBody()?.string())
+                return   Resource.Error<ApiResponse<ArrayList<UploadJobMedia>>>(jObjError.getInt("code"))
+            }
+
+
+        } catch (e: Exception) {
+            return   Resource.Error<ApiResponse<ArrayList<UploadJobMedia>>>(e.getStatusCode())
+        }
+    }
+
 }
 
 

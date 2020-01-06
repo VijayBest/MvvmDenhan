@@ -112,6 +112,16 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
             binding.mainLayout.topLayoutUi.locationText.text = viewModel.address.value?:""
             binding.mainLayout.topLayoutUi.callText.text = viewModel.callDetail.value?:""
 
+            val jobStatus = viewModel.jobCompleted.value?:false
+
+            if (jobStatus){
+                binding.linearLayout.visibility= View.GONE
+            }
+
+            else{
+                binding.linearLayout.visibility= View.VISIBLE
+            }
+
             if (viewModel.detailNoteVisible.value==true){
                 binding.middleLayout.txtDetailNote.text = viewModel.detailNotes.value?:""
                 binding.middleLayout.detailNoteCardView.visibility = View.VISIBLE

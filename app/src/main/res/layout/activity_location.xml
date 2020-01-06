@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        tools:context="app.denhan.view.location.LocationActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/locationIcon"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/ic_icon_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/locatonPermission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli_regular"
+                android:textColor="@color/blackNintyOpc"
+                android:textSize="@dimen/meduimTextSize"
+                android:text="@string/location_permission_text"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/marginBetweenEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locationIcon" />
+
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/turnOn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/turn_on_text"
+                app:layout_constraintTop_toBottomOf="@+id/locatonPermission"
+                android:textColor="@color/whiteColor"
+                android:layout_marginTop="@dimen/marginBetweenLabelAndButton"
+                android:textAlignment="center"
+                app:cornerRadius="500dp"
+                android:elevation="5dp"
+                android:textAllCaps="false"
+                android:layout_marginStart="@dimen/marginStartEnd"
+                android:layout_marginEnd="@dimen/marginStartEnd"
+                android:fontFamily="@font/muli_semi_bold"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                android:theme="@style/AppTheme"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

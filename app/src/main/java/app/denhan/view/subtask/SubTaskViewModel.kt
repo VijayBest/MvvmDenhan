@@ -41,10 +41,9 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
     val notifyAllAdapter= SingleEventLiveData<String>()
     val startTime=MutableLiveData<String>()
     val endTime=MutableLiveData<String>()
+    val savButtonVisibleStatus= MutableLiveData<Boolean>()
 
-
-
-        init {
+    init {
             imagesAfterCompletion= ArrayList()
             imagesBeforeCompletion= ArrayList()
             billImages= ArrayList()
@@ -55,6 +54,15 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
 
 
     private fun setSubTaskDetail(){
+
+        selectedJob.status?.let {
+            if(it==ConstValue.completeJobSelected){
+                savButtonVisibleStatus.postValue(false)
+            }
+            else{
+                savButtonVisibleStatus.postValue(true)
+            }
+        }
         selectedSubTaskData.job_detail.let {
             taskDescription
                 .postValue(it)
@@ -99,10 +107,12 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
 
     private fun addFirstItemInAllArrayList() {
 
-        val firstObject= MaintenanceJobImage("",0,"",0,"","")
-        imagesBeforeCompletion.add(0,firstObject)
-        imagesAfterCompletion.add(0,firstObject)
-        billImages.add(0,firstObject)
+        if (selectedJob.status!=ConstValue.completeJobSelected) {
+            val firstObject = MaintenanceJobImage("", 0, "", 0, "", "")
+            imagesBeforeCompletion.add(0, firstObject)
+            imagesAfterCompletion.add(0, firstObject)
+            billImages.add(0, firstObject)
+        }
     }
 
     fun uploadMultipleImage(it: MutableList<Uri>){

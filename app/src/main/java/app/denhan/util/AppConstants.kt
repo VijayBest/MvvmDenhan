@@ -2,6 +2,7 @@ package app.denhan.util
 
 import app.denhan.model.jobs.Maintenance
 import app.denhan.model.jobs.MaintenanceJob
+import app.denhan.model.login.UserDetail
 
 object AppConstants {
     const val notStarted = "0"
@@ -21,5 +22,6 @@ object AppConstants {
         type =2 => this image belongs to bill of work
      */
     var imageTypeStatus="0"
+    lateinit var userDetailData:UserDetail
 
 }
