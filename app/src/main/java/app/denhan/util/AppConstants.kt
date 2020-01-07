@@ -23,5 +23,6 @@ object AppConstants {
      */
     var imageTypeStatus="0"
     lateinit var userDetailData:UserDetail
+    var fromTaskDetailScreen= ConstValue.signScreen
 
 }

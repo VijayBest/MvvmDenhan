@@ -68,6 +68,8 @@
     <string name="hours_text">Hours</string>
     <string name="Minute_text">Minutes</string>
     <string name="landlord_text">Landlord/Tanent Signature</string>
+    <string name="retake_text">Retake</string>
+    <string name="no_update_job_find">No updated job found</string>
 
 
 </resources>

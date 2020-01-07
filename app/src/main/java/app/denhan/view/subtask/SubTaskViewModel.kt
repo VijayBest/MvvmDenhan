@@ -80,8 +80,20 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
             materialCost.postValue(it.toString())
         }
 
-        startTime.postValue(selectedSubTaskData.f_start_time)
-        endTime.postValue(selectedSubTaskData.f_end_time)
+
+
+        selectedSubTaskData.start_time?.let {
+            startTime.postValue( CommonMethods.
+                returnDateTime(it))
+        }
+
+        selectedSubTaskData.end_time?.let {
+
+            endTime.postValue(CommonMethods.returnDateTime(it))
+        }
+
+
+
 
         selectedSubTaskData.maintenance_job_images?.let {
             it.forEach {

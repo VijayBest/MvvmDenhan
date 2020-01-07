@@ -127,21 +127,21 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
     }
 
 
-    suspend fun addTaskAsync(title:String, maintenanceId:Int): Deferred<Resource<ApiResponse<MaintenanceJob>?>> {
+    suspend fun addTaskAsync(title:String, maintenanceId:Int): Deferred<Resource<ResponseBody?>> {
         return GlobalScope.async {
             try {
-                val response: Response<ApiResponse<MaintenanceJob>> = webService.addTaskAsync(maintenanceId,title)
+                val response: Response<ResponseBody> = webService.addTaskAsync(maintenanceId,title)
                 val completedJobsResponse =response.body()
                 if (response.code()== ApiResponseCode.SUCCESS_CODE) {
                     Resource.Success(completedJobsResponse)
 
                 } else {
                     val jObjError = JSONObject(response.errorBody()?.string())
-                    Resource.Error<ApiResponse<MaintenanceJob>>(jObjError.getInt("code"))
+                    Resource.Error<ResponseBody>(jObjError.getInt("code"))
                 }
             } catch (e:Exception) {
                 Log.e("exception ", e.message + " " + e.getStatusCode())
-                Resource.Error<ApiResponse<MaintenanceJob>>(e.getStatusCode())
+                Resource.Error<ResponseBody>(e.getStatusCode())
             }
         }
     }
@@ -307,13 +307,13 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
     }
 
     suspend fun uploadSignature(signature: MultipartBody.Part, totalTime: MultipartBody.Part,
-                                id: MultipartBody.Part):
-            Resource<ApiResponse<ArrayList<UploadJobMedia>>?> {
+                                id: MultipartBody.Part, jobId:Int):
+            Resource<ResponseBody?> {
 
         try {
-            val response: Response<ApiResponse<ArrayList<UploadJobMedia>>> = webService.uploadSignature(
+            val response: Response<ResponseBody> = webService.uploadSignature(
                 signature,
-                totalTime,id)
+                totalTime,id,jobId)
             val imageUploadResponse = response.body()
             if (response.code()== ApiResponseCode.SUCCESS_CODE){
                 return  Resource.success(imageUploadResponse)
@@ -321,12 +321,12 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
             else {
 
                 val jObjError = JSONObject(response.errorBody()?.string())
-                return   Resource.Error<ApiResponse<ArrayList<UploadJobMedia>>>(jObjError.getInt("code"))
+                return   Resource.Error<ResponseBody>(jObjError.getInt("code"))
             }
 
 
         } catch (e: Exception) {
-            return   Resource.Error<ApiResponse<ArrayList<UploadJobMedia>>>(e.getStatusCode())
+            return   Resource.Error<ResponseBody>(e.getStatusCode())
         }
     }
 

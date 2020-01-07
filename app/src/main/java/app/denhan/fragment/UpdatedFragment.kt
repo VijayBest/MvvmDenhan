@@ -90,6 +90,12 @@ class UpdatedFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
 
     }
     fun updateSearchList(searchList:ArrayList<Maintenance>){
+        if (searchList.size>0){
+            binding.txtNoJobStarted.visibility=View.GONE
+        }
+        else{
+            binding.txtNoJobStarted.visibility= View.VISIBLE
+        }
         openJobsAdapter.notifyAdapter(searchList)
     }
 }

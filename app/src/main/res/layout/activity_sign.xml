@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+                name="viewModel"
+                type="app.denhan.view.sign.SignViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="app.denhan.view.sign.SignActivity">
+    <RelativeLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            android:background="@color/redColor1"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tittleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:textColor="@color/whiteColor"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/muli_bold"
+                android:textSize="@dimen/largeTextSize"
+                android:text="@string/sign_please_text"/>
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_icon_back"/>
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/marginStartEnd">
+
+
+            <LinearLayout
+                    android:id="@+id/costLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/muli_regular"
+                            android:text="@string/hours_text"
+                            android:textColor="@color/blackColor"
+                            android:textSize="@dimen/smallTextSize" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtLabourCharge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/marginTopBetweenTextView"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:background="@drawable/rounded_corner"
+                            android:fontFamily="@font/muli_regular"
+                            android:gravity="top"
+                            android:hint="@string/enter_text"
+                            android:inputType="numberDecimal"
+                            android:padding="@dimen/_5sdp"
+                            android:text="@={viewModel.hourText}"
+                            android:textColor="@color/blackNintyOpc"
+                            app:layout_constraintTop_toBottomOf="@+id/text2" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/muli_regular"
+                            android:text="@string/Minute_text"
+                            android:textColor="@color/blackColor"
+                            android:textSize="@dimen/smallTextSize" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtMaterialCost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/marginTopBetweenTextView"
+                            android:background="@drawable/rounded_corner"
+                            android:fontFamily="@font/muli_regular"
+                            android:gravity="top"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:hint="@string/enter_text"
+                            android:padding="@dimen/_5sdp"
+                            android:text="@={viewModel.minuteText}"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/blackNintyOpc"
+                            app:layout_constraintTop_toBottomOf="@+id/text2" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/landlordTittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/costLayout"
+                    android:layout_marginTop="@dimen/marginBetweenEditText"
+                    android:text="@string/landlord_text"
+                    android:fontFamily="@font/muli_bold"
+                    android:textSize="@dimen/meduimTextSize"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textColor="@color/blackColor"/>
+
+
+            <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/signatureCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_300sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/landlordTittle"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardUseCompatPadding="true"
+                    android:padding="@dimen/_100sdp"
+                    android:layout_marginTop="@dimen/marginTopBetweenTextView">
+
+                <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/retakeButton"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/retake_text"
+                        android:textAllCaps="false"
+                        android:layout_gravity="right"
+                        android:padding="@dimen/_10sdp"
+                        android:visibility="gone"
+                        android:textSize="@dimen/smallTextSize"
+                        android:fontFamily="@font/muli_regular"
+                        android:background="@drawable/retake_bg"
+                        android:layout_marginRight="@dimen/marginStartEnd"
+                        android:layout_marginTop="@dimen/marginStartEnd"/>
+
+                <com.github.gcacace.signaturepad.views.SignaturePad
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/signature_pad"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:penColor="@android:color/black"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/done"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/done"
+                    app:layout_constraintTop_toBottomOf="@+id/signatureCard"
+                    android:textColor="@color/whiteColor"
+                    android:layout_marginTop="@dimen/marginBetweenLabelAndButton"
+                    android:textAlignment="center"
+                    app:cornerRadius="500dp"
+                    android:textAllCaps="false"
+                    android:elevation="5dp"
+                    android:layout_marginStart="@dimen/marginStartEnd"
+                    android:layout_marginEnd="@dimen/marginStartEnd"
+                    android:fontFamily="@font/muli_semi_bold"
+                    android:padding="10dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:theme="@style/AppTheme"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

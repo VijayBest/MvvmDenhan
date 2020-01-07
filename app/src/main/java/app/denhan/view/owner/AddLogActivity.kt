@@ -66,6 +66,10 @@ class AddLogActivity : AppCompatActivity() {
             CommonMethods.showSnackBar(binding.topLayout, it)
         }
 
+        observeNonNull(viewModel.successesCommand){
+            finish()
+        }
+
         observeNonNull(viewModel.imageName){
             Glide.with(this)
                 .load(it.url)

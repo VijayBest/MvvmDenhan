@@ -4,16 +4,19 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import app.denhan.adapter.OwnerAdapter
 import app.denhan.android.R
 import app.denhan.android.databinding.ActivityOwnerBinding
 import app.denhan.model.owner.OwnerNotAvailableData
+import app.denhan.util.AppConstants
 import app.denhan.util.ArrayConstant
 import app.denhan.util.CommonMethods
 import app.denhan.util.CommonMethods.hideVisibility
 import app.denhan.util.CommonMethods.showVisibility
+import app.denhan.util.ConstValue
 import app.denhan.view.imageslider.ImageSlider
 import kotlinx.android.synthetic.main.activity_owner.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -112,6 +115,12 @@ class OwnerActivity : AppCompatActivity(), OwnerAdapter.OwnerAdapterListener {
     }
 
     private fun setAdapter() {
+        if (AppConstants.selectedJob.status==ConstValue.completeJobSelected){
+            binding.addNewLog.visibility = View.GONE
+        }
+        else{
+            binding.addNewLog.visibility= View.VISIBLE
+        }
         ownerAdapter = OwnerAdapter(viewModel.ownerArrayList, this)
         binding.ownerList.adapter = ownerAdapter
         if (viewModel.ownerArrayList.size>0){
@@ -123,7 +132,6 @@ class OwnerActivity : AppCompatActivity(), OwnerAdapter.OwnerAdapterListener {
     }
 
     override fun onItemClickListener(clickedData: OwnerNotAvailableData) {
-
         viewModel.fetchAttachmentList(clickedData)
     }
 

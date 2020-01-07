@@ -205,4 +205,14 @@ object  CommonMethods {
         Log.e("Date ", currentDate)
         return currentDate.toString()
     }
+
+    fun returnDateTime(dateTime:String): String{
+        val dateFormat =
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
+        val date = dateFormat.parse(dateTime)
+
+        val dateFormat1 = SimpleDateFormat("yyyy-MM-dd HH:mm")
+        Log.e("date ", dateFormat1.format(date))
+        return dateFormat1.format(date)
+    }
 }

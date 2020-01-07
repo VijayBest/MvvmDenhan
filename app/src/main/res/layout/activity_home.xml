@@ -44,7 +44,7 @@
                 android:padding="@dimen/_5sdp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_icon_refresh"/>
+                android:src="@drawable/logout"/>
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tittleText"
                 android:layout_width="wrap_content"

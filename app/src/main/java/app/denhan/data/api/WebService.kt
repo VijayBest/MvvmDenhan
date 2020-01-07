@@ -36,7 +36,7 @@ interface WebService {
     @FormUrlEncoded
     @POST("api/maintenance-jobs/add")
     suspend fun addTaskAsync(@Field("maintenance_id") maintenanceId: Int,
-                             @Field("job_detail") taskTitle:String):Response<ApiResponse<MaintenanceJob>>
+                             @Field("job_detail") taskTitle:String):Response<ResponseBody>
 
 
     @GET("api/mainte-unavail-logs")
@@ -78,5 +78,11 @@ interface WebService {
 
     @GET("api/agents/logout")
     suspend fun logOutUser():Response<ResponseBody>
+
+    @Multipart
+    @POST("api/maintenances/edit/{id}")
+    suspend fun uploadSignature(@Part signature: MultipartBody.Part, @Part totalTime: MultipartBody.Part,
+                                    @Part id: MultipartBody.Part, @Path("id")jobId:Int):Response<ResponseBody>
+
 
 }

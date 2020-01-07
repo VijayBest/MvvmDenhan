@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -149,6 +150,7 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
                         hideVisibility(binding.startTask)
                         enableAll(binding.mainLayout)
                     } else {
+                        enableAll(binding.mainLayout)
                         CommonMethods.showVisibility(binding.startTask)
                     }
                 } else {
@@ -197,9 +199,15 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
     override fun onItemClickListener(
         clickedData: MaintenanceJobImage,
         adapterStatus: String) {
-        AppConstants.imageTypeStatus= adapterStatus
-        Log.e("dds ",adapterStatus)
-        setupPermissions(this)
+        if (selectedSubTaskData.status==ConstValue.notStarted){
+
+            Toast.makeText(this,this.resources.getString(R.string.task_not_start_error),Toast.LENGTH_SHORT).show()
+        }
+        else {
+            AppConstants.imageTypeStatus = adapterStatus
+            Log.e("dds ", adapterStatus)
+            setupPermissions(this)
+        }
     }
 
     override fun showImageSlider(maintenanceJobImage: ArrayList<MaintenanceJobImage>, adapterStatus: String) {

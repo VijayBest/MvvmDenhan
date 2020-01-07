@@ -48,7 +48,7 @@
                     android:id="@+id/ownerImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_icon_user"
+                    android:src="@drawable/owner_icon"
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/_5sdp"
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundColor"
                 android:weightSum="2"
-                android:visibility="@{viewModel.jobCompleted.booleanValue()? View.GONE : View.VISIBLE, default=gone}"
+                android:visibility="visible"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent">
 
@@ -111,37 +111,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/marginStartEnd"
-                    android:layout_marginEnd="@dimen/marginStartEnd"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:elevation="5dp"
                     android:layout_weight="1"
+                    android:textSize="@dimen/smallTextSize"
                     android:fontFamily="@font/muli_semi_bold"
                     android:padding="10dp"
+                    android:singleLine="true"
                     android:textAllCaps="false"
+                    android:visibility="gone"
                     android:text="@string/mark_all_complete_text"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:textColor="@color/whiteColor"
                     android:theme="@style/ButtonTheme"
-                    app:cornerRadius="500dp"
-                    android:visibility="@{viewModel.buttonVisibilityStatus.booleanValue()? View.VISIBLE : View.GONE, default=gone}"
-                  />
+                    app:cornerRadius="50dp" />
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/addTaskButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/marginStartEnd"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/marginStartEnd"
                     android:elevation="5dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/muli_semi_bold"
                     android:padding="10dp"
                     android:textAllCaps="false"
+                    android:textSize="@dimen/smallTextSize"
                     android:text="@string/add_task_text"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:textColor="@color/whiteColor"
                     android:theme="@style/AppTheme"
-                    app:cornerRadius="500dp" />
+                    app:cornerRadius="50dp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

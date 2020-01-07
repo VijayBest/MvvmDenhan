@@ -87,6 +87,13 @@ class OpenJobsFragments :Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
     }
 
     fun updateSearchList(searchList:ArrayList<Maintenance>){
+        if (searchList.size>0){
+            binding.txtNoJobAssigned.visibility=View.GONE
+        }
+        else{
+            binding.txtNoJobAssigned.text = this.resources.getString(R.string.no_update_job_find)
+            binding.txtNoJobAssigned.visibility= View.VISIBLE
+        }
         openJobsAdapter.notifyAdapter(searchList)
     }
 

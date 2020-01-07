@@ -2,6 +2,7 @@ package app.denhan.view.taskdetail
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +26,7 @@ import app.denhan.util.CommonMethods
 import app.denhan.util.ConstValue
 import app.denhan.view.imageslider.ImageSlider
 import app.denhan.view.owner.OwnerActivity
+import app.denhan.view.sign.SignActivity
 import app.denhan.view.subtask.SubTaskActivity
 import kotlinx.android.synthetic.main.activity_task_detail.*
 import kotlinx.android.synthetic.main.task_detail_middle.view.*
@@ -54,6 +56,9 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
 
     override fun onResume() {
         super.onResume()
+        if (AppConstants.fromTaskDetailScreen==ConstValue.signScreen){
+            finish()
+        }
         viewModel.callTaskDetail()
     }
 
@@ -69,7 +74,6 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
         }
 
         binding.backImage.setOnClickListener {
-
             finish()
         }
         binding.mainLayout.topLayoutUi.attachmentImage.setOnClickListener {
@@ -93,6 +97,16 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
 
             startOwnerScreen()
         }
+
+        binding.markAllComplete.setOnClickListener {
+            startSignActivity()
+        }
+    }
+
+    private fun startSignActivity() {
+
+        val signActivity = Intent(this, SignActivity::class.java)
+        startActivity(signActivity)
     }
 
     /*
@@ -113,7 +127,6 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
             binding.mainLayout.topLayoutUi.callText.text = viewModel.callDetail.value?:""
 
             val jobStatus = viewModel.jobCompleted.value?:false
-
             if (jobStatus){
                 binding.linearLayout.visibility= View.GONE
             }
@@ -138,6 +151,16 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
 
             taskAdapter.notifyAdapter(viewModel.taskArrayList.value as ArrayList<MaintenanceJob>)
         }
+
+        observeNonNull(viewModel.buttonVisibilityStatus){
+            val visibleStatus = it
+            if (visibleStatus){
+                binding.markAllComplete.visibility = View.VISIBLE
+            }
+            else{
+                binding.markAllComplete.visibility = View.GONE
+            }
+        }
         observeNonNull(viewModel.progressVisible){
             val visible = it ?: false
             if (visible){
@@ -148,6 +171,21 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
                 if (dialog.isShowing){
                     CommonMethods.hideProgressDialog(dialog)
                 }
+            }
+        }
+
+        observeNonNull(viewModel.taskArrayList){
+            var markStatus = true
+            it.forEach {
+                if (it.status == ConstValue.started || it.status == ConstValue.notStarted) {
+                    markStatus=false
+                }
+            }
+            if(markStatus){
+                viewModel.buttonVisibilityStatus.postValue(true)
+            }
+            else{
+                viewModel.buttonVisibilityStatus.postValue(false)
             }
         }
     }

@@ -75,11 +75,14 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
         }
     }
 
-    private fun setSelectedData(){
+    private  fun setSelectedData(){
+
 
         if (selectedJob.status==ConstValue.completeJobSelected){
             jobCompleted.postValue(true)
         }
+        taskArrayList.postValue(selectedJob.maintenance_jobs as ArrayList<MaintenanceJob>)
+        Log.e("markstatus ", ""+taskArrayList.value?.size)
 
         if(selectedJob.property.active_tenancy!=null) {
             jobTitle.postValue(
@@ -103,7 +106,8 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
             detailNoteVisible.postValue(true)
         }
 
-        taskArrayList.postValue(selectedJob.maintenance_jobs as ArrayList<MaintenanceJob>)
+
+
         selectedJob.maintenance_instructions?.let {
             instructionArray.postValue(selectedJob.maintenance_instructions as ArrayList<MaintenanceInstruction>)
         }
@@ -147,14 +151,10 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
     private fun checkJOnType() {
 
         when(AppConstants.selectedJobType){
-
             ConstValue.openJobSelected->{
-
                 getOpenJobs()
             }
-
             ConstValue.inProgressJobSelected->{
-
                 getInProgressJobs()
 
             }
@@ -172,6 +172,7 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
         GlobalScope.launch {
             when (val resource = userRepository.getOpenJobsAsync().await()) {
                 is Resource.Success -> {
+                    progressVisible.postValue(false)
                     openJobsArray=resource.value?.maintenances as ArrayList<Maintenance>
                     openJobsArray.forEach {
 

@@ -5,6 +5,7 @@ import app.denhan.view.home.HomeViewModel
 import app.denhan.view.login.LoginViewModel
 import app.denhan.view.owner.AddLogViewModel
 import app.denhan.view.owner.OwnerViewModel
+import app.denhan.view.sign.SignViewModel
 import app.denhan.view.subtask.SubTaskViewModel
 import app.denhan.view.taskdetail.TaskDetailViewModel
 import org.koin.android.viewmodel.ext.koin.viewModel
@@ -30,5 +31,9 @@ val viewModelModule = module {
     }
     viewModel {
         SubTaskViewModel(get(), get())
+    }
+
+    viewModel {
+        SignViewModel(get(), get())
     }
 }

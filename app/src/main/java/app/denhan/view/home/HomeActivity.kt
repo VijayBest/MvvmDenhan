@@ -17,7 +17,9 @@ import app.denhan.fragment.CompleteFragment
 import app.denhan.fragment.OpenJobsFragments
 import app.denhan.fragment.UpdatedFragment
 import app.denhan.model.jobs.Maintenance
+import app.denhan.util.AppConstants
 import app.denhan.util.CommonMethods
+import app.denhan.util.ConstValue
 import app.denhan.util.CustomDialogCallBack
 import app.denhan.view.login.LoginActivity
 import app.denhan.view.taskdetail.TaskDetailActivity
@@ -73,13 +75,19 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (AppConstants.fromTaskDetailScreen==ConstValue.signScreen){
+            viewModel.refreshButtonClick()
+        }
+    }
+
     private fun clickEvent() {
         val closeButton = binding.searchView.findViewById(app.denhan.android.R.id.search_close_btn) as ImageView
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
-                Log.e("sdsad ",tab.position.toString())
             }
             override fun onTabUnselected(tab: TabLayout.Tab) {
 
@@ -98,6 +106,7 @@ class HomeActivity : AppCompatActivity() {
         closeButton.setOnClickListener {
 
             hideSearchView()
+            viewModel.refreshButtonClick()
         }
 
 
@@ -165,11 +174,10 @@ class HomeActivity : AppCompatActivity() {
         openJobs.forEach {
             if (it.repair_code.contains(query)){
                 searchArrayList.add(it)
-               val openFragment =   tabAdapter.getItem(0) as OpenJobsFragments
-               openFragment.updateSearchList(searchArrayList)
-
             }
         }
+        val openFragment =   tabAdapter.getItem(0) as OpenJobsFragments
+        openFragment.updateSearchList(searchArrayList)
     }
 
     private fun searchInProgressJobs(query: String)
@@ -178,11 +186,10 @@ class HomeActivity : AppCompatActivity() {
         progressJobs.forEach {
             if (it.repair_code.toLowerCase().contains(query.toLowerCase())){
                 searchArrayList.add(it)
-                val openFragment =   tabAdapter.getItem(1) as UpdatedFragment
-                openFragment.updateSearchList(searchArrayList)
-
             }
         }
+        val openFragment =   tabAdapter.getItem(1) as UpdatedFragment
+        openFragment.updateSearchList(searchArrayList)
     }
 
 
@@ -230,6 +237,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun startTaskDetailScreen(){
+        AppConstants.fromTaskDetailScreen = ConstValue.homeScreen
         val intent = Intent(this, TaskDetailActivity::class.java)
         startActivity(intent)
 
