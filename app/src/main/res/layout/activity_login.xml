@@ -45,6 +45,7 @@
                         android:fontFamily="@font/muli_regular"
                         android:drawableLeft="@drawable/ic_icon_email"
                         android:drawablePadding="@dimen/_5sdp"
+                        android:textColor="@color/blackNintyOpc"
                         android:text="@={viewModel.emailString}"
                         android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -66,6 +67,7 @@
                         android:drawableLeft="@drawable/ic_icon_lock"
                         android:drawablePadding="@dimen/_5sdp"
                         android:text="@={viewModel.passwordString}"
+                        android:textColor="@color/blackNintyOpc"
                         android:fontFamily="@font/muli_regular"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +82,6 @@
                     android:layout_marginTop="@dimen/marginBetweenLabelAndButton"
                     android:textAlignment="center"
                     app:cornerRadius="500dp"
-                    android:elevation="5dp"
                     android:fontFamily="@font/muli_semi_bold"
                     android:padding="10dp"
                     android:onClick="@{()->viewModel.loginWithUserData()}"

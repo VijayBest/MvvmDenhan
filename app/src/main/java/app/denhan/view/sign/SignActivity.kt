@@ -72,9 +72,11 @@ class SignActivity : AppCompatActivity() {
         observeNonNull(viewModel.successesCommand){
             AppConstants.fromTaskDetailScreen = ConstValue.signScreen
             finish()
-       /*     val intent = Intent(this, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            this.startActivity(intent)*/
+        }
+
+        observeNonNull(viewModel.errorCommand){
+
+            CommonMethods.showSnackBar(binding.mainLayout, it)
         }
     }
 

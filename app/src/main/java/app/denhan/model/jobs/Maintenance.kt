@@ -33,5 +33,5 @@ data class Maintenance(
     val tenant_request_id: Int,
     val time_in: Any,
     val time_out: Any,
-    val total_time: Any
+    val total_time: String
 )

@@ -24,11 +24,6 @@
                 android:src="@drawable/tittle_icon"/>
 
 
-        <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/loginBottomImageHieght"
-                android:src="@drawable/login_bottom_icon"
-                android:layout_marginTop="@dimen/_70sdp"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,11 +7,11 @@
     <string name="password_error">Req. 7–30 chars</string>
     <string name="open_text">Open</string>
     <string name="in_progress_text">In Progress</string>
-    <string name="complete_text">Complete</string>
+    <string name="complete_text">Completed</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_maintaince">Maintaince</string>
+    <string name="text_maintaince">Maintenance</string>
     <string name="network_unavailable">Network connection is not working, please check internet connection</string>
     <string name="unauthorize_error">Unauthorized</string>
     <string name="common_api_error">Something went wrong</string>
@@ -70,6 +70,7 @@
     <string name="landlord_text">Landlord/Tanent Signature</string>
     <string name="retake_text">Retake</string>
     <string name="no_update_job_find">No updated job found</string>
+    <string name="hours_error">Maximum number of hours can be enter is 99</string>
 
 
 </resources>

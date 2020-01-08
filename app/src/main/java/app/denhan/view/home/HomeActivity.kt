@@ -2,11 +2,13 @@ package app.denhan.view.home
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -25,7 +27,6 @@ import app.denhan.view.login.LoginActivity
 import app.denhan.view.taskdetail.TaskDetailActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_home.*
-import org.json.JSONObject
 import org.koin.android.viewmodel.ext.android.viewModel
 import skycap.android.core.livedata.observeNonNull
 
@@ -38,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var tabAdapter: TabAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_home)
+        binding= DataBindingUtil.setContentView(this, R.layout.activity_home)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         onNewIntent(intent)
@@ -105,6 +106,7 @@ class HomeActivity : AppCompatActivity() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
+
             }
             override fun onTabUnselected(tab: TabLayout.Tab) {
 

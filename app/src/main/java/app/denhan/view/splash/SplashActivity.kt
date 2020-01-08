@@ -49,7 +49,7 @@ class SplashActivity : AppCompatActivity() {
             /* Create an Intent that will start the Login Activity  */
             checkUserLoginStatus()
 
-        }, 4000)
+        }, 1000)
     }
 
     override fun onNewIntent(intent: Intent?) {
