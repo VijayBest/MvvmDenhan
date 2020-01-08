@@ -22,6 +22,7 @@ object AppConstants {
         type =2 => this image belongs to bill of work
      */
     var imageTypeStatus="0"
+    var notificationObject=""
     lateinit var userDetailData:UserDetail
     var fromTaskDetailScreen= ConstValue.signScreen
 

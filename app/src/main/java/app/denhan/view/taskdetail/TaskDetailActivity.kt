@@ -31,6 +31,7 @@ import app.denhan.view.subtask.SubTaskActivity
 import kotlinx.android.synthetic.main.activity_task_detail.*
 import kotlinx.android.synthetic.main.task_detail_middle.view.*
 import kotlinx.android.synthetic.main.task_detail_top.view.*
+import org.json.JSONObject
 import org.koin.android.viewmodel.ext.android.viewModel
 import skycap.android.core.livedata.observeNonNull
 
@@ -40,13 +41,16 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
     lateinit var taskAdapter: TaskAdapter
     lateinit var instructionAdapter: InstructionAdapter
     lateinit var dialog:ProgressDialog
+    var jobId=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_task_detail)
+        onNewIntent(intent)
         intiView()
 
     }
+
 
     private fun intiView() {
         dialog = ProgressDialog(this)
@@ -54,12 +58,30 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
         clickEvent()
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        val extras = intent?.extras
+        if (extras != null) {
+            val msg = extras.getString(ConstValue.notificationObject)
+            AppConstants.notificationObject=msg
+            Log.e("home_noti ", msg)
+            if(!AppConstants.notificationObject.isNullOrEmpty()) {
+                val jsonObject = JSONObject(AppConstants.notificationObject)
+                jobId= jsonObject.getString("id").toInt()
+                AppConstants.notificationObject=""
+            }
+
+        }
+        else{
+            jobId= selectedJob.id
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         if (AppConstants.fromTaskDetailScreen==ConstValue.signScreen){
             finish()
         }
-        viewModel.callTaskDetail()
+        viewModel.callTaskDetail(jobId)
     }
 
 

@@ -144,13 +144,12 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
             }
             else {
                 if (it == ConstValue.notStarted || it == ConstValue.completed) {
-                    disableAll(binding.mainLayout)
                     if (it == ConstValue.completed) {
                         viewModel.markAllCompleteStatus.postValue(true)
                         hideVisibility(binding.startTask)
                         enableAll(binding.mainLayout)
                     } else {
-                        enableAll(binding.mainLayout)
+                        disableAll(binding.mainLayout)
                         CommonMethods.showVisibility(binding.startTask)
                     }
                 } else {

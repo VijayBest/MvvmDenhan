@@ -330,6 +330,23 @@ class  AuthRepository(private val webService: WebService, private val sharedPref
         }
     }
 
+    suspend fun addDevice(): Resource<ResponseBody?> {
+        try {
+            val response: Response<ResponseBody> = webService.saveDevice(AppConstants.deviceType, deviceIdHelper.getDeviceId(),
+                AppConstants.notificationToken)
+            val saveDeviceResponse = response.body()
+            if (response.code()== ApiResponseCode.SUCCESS_CODE){
+                return  Resource.success(saveDeviceResponse)
+            }
+            else {
+                val jObjError = JSONObject(response.errorBody()?.string())
+                return Resource.Error<ResponseBody>(jObjError.getInt("code"))
+            }
+        } catch (e: Exception) {
+            return Resource.Error<ResponseBody>(e.getStatusCode())
+        }
+    }
+
 }
 
 

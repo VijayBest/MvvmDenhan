@@ -3,6 +3,7 @@ package app.denhan.util
 object ConstValue {
     const val signScreen ="SignScreen"
     const val homeScreen="HomeScreen"
+    const val notificationObject="noti_object"
     const val loginStatusTrue = true
     const val loginStatusFalse = false
 

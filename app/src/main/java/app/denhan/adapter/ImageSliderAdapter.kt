@@ -29,7 +29,7 @@ class ImageSliderAdapter(private val context: Context, private val imageModelArr
         val binding: ImageSliderAdapterBinding = DataBindingUtil.inflate(inflater, R.layout.image_slider_adapter, view, false)
         Glide.with(binding.image.context)
             .load(imageModelArrayList.get(position))
-            .apply(RequestOptions().placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher))
+            .apply(RequestOptions().placeholder(R.drawable.image_place_holder).error(R.drawable.image_place_holder))
             .into(binding.image)
         view.addView(binding.root, 0)
         return binding.root

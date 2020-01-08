@@ -25,6 +25,7 @@ import app.denhan.view.login.LoginActivity
 import app.denhan.view.taskdetail.TaskDetailActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_home.*
+import org.json.JSONObject
 import org.koin.android.viewmodel.ext.android.viewModel
 import skycap.android.core.livedata.observeNonNull
 
@@ -40,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
         binding= DataBindingUtil.setContentView(this,R.layout.activity_home)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        onNewIntent(intent)
         intiView()
     }
 
@@ -75,6 +77,21 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        val extras = intent?.extras
+        if (extras != null) {
+            val msg = extras.getString(ConstValue.notificationObject)
+            AppConstants.notificationObject=msg
+            Log.e("home_noti ", msg)
+                if(!AppConstants.notificationObject.isNullOrEmpty()) {
+                    AppConstants.fromTaskDetailScreen = ConstValue.homeScreen
+                    val intent = Intent(this, TaskDetailActivity::class.java)
+                    intent.putExtra(ConstValue.notificationObject,AppConstants.notificationObject)
+                    startActivity(intent)
+                }
+
+        }
+    }
     override fun onResume() {
         super.onResume()
         if (AppConstants.fromTaskDetailScreen==ConstValue.signScreen){

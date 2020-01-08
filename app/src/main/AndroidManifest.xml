@@ -19,11 +19,6 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
         <activity android:name="app.denhan.view.sign.SignActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="app.denhan.view.location.LocationActivity" />
         <activity android:name="app.denhan.view.subtask.SubTaskActivity" />
@@ -40,14 +35,16 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name="app.denhan.view.splash.SplashActivity">
-           <!-- <intent-filter>
+        <activity android:name="app.denhan.view.splash.SplashActivity"
+                android:launchMode="singleTop">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
-        <activity android:name="app.denhan.view.home.HomeActivity">
+        <activity android:name="app.denhan.view.home.HomeActivity"
+                android:launchMode="singleTop">
 
             <!--
             <intent-filter>
@@ -69,6 +66,18 @@
             </intent-filter>
             -->
         </activity>
+        <service android:name="app.denhan.firebase.NotificationReceived">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <receiver android:name="app.denhan.broadcast.NotificationReceiver">
+            <intent-filter>
+                <action android:name="VIEW"/>
+                <action android:name="DISMISS"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

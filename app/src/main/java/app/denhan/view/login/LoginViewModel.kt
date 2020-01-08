@@ -7,7 +7,9 @@ import app.denhan.android.R
 import app.denhan.data.repos.ApiResponseCode
 import app.denhan.data.repos.AuthRepository
 import app.denhan.module.ResourceProvider
+import app.denhan.util.AppConstants
 import app.denhan.util.CommonMethods
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
@@ -105,6 +107,7 @@ class LoginViewModel(
 
     private fun hitLoginService(emailId: String, password: String) {
         progressVisible.postValue(true)
+        AppConstants.notificationToken = FirebaseInstanceId.getInstance().token?:""
         GlobalScope.launch {
             when (val resource = userRepository.userLoginAsync(emailId, password).await()) {
                 is Resource.Success -> {

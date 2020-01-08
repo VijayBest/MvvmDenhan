@@ -32,7 +32,6 @@ class AttachmentAdapter(arrayList: ArrayList<MaintenanceJobImage>, adapterStatus
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(arrayList,position)
 
-
         holder.binding.removeImage.setOnClickListener {
             listener.removeImage(arrayList[position],adapterStatus)
         }
@@ -77,13 +76,27 @@ class AttachmentAdapter(arrayList: ArrayList<MaintenanceJobImage>, adapterStatus
                         .into(binding.imageGallery)
                     binding.removeImage.visibility = View.GONE
                 }
+                else{
+                    Glide
+                        .with(binding.imageGallery.context)
+                        .load(item.image_path)
+                        .centerCrop()
+                        .placeholder(R.drawable.image_place_holder)
+                        .into(binding.imageGallery)
+                    if (AppConstants.selectedJob.status==ConstValue.completeJobSelected){
+                        binding.removeImage.visibility = View.GONE
+                    }
+                    else{
+                        binding.removeImage.visibility = View.VISIBLE
+                    }
+                }
             }
             else{
                 Glide
                     .with(binding.imageGallery.context)
                     .load(item.image_path)
                     .centerCrop()
-                    .placeholder(R.drawable.ic_icon_camera)
+                    .placeholder(R.drawable.image_place_holder)
                     .into(binding.imageGallery)
                 if (AppConstants.selectedJob.status==ConstValue.completeJobSelected){
                     binding.removeImage.visibility = View.GONE
@@ -121,8 +134,6 @@ class AttachmentAdapter(arrayList: ArrayList<MaintenanceJobImage>, adapterStatus
             maintenanceJobImage: ArrayList<MaintenanceJobImage>,
             adapterStatus: String
         )
-
-
     }
 }
 

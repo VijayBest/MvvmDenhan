@@ -3,29 +3,40 @@ package app.denhan.view.splash
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.database.DatabaseUtils
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import app.denhan.android.R
+import app.denhan.android.databinding.ActivitySplashBinding
 import app.denhan.model.login.UserDetail
 import app.denhan.util.AppConstants
+import app.denhan.util.AppConstants.notificationObject
+import app.denhan.util.ConstValue
 import app.denhan.util.SharedPrefernencesKeys
 import app.denhan.view.home.HomeActivity
 import app.denhan.view.location.LocationActivity
 import app.denhan.view.login.LoginActivity
 import com.google.gson.Gson
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class SplashActivity : AppCompatActivity() {
     val sharedPreferences :SharedPreferences by inject()
+    private val viewModel:SplashViewModel by viewModel()
+    lateinit var binding :ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.activity_splash)
+        binding= DataBindingUtil.setContentView(this, R.layout.activity_splash)
+        viewModel.saveDeviceApi()
+        onNewIntent(intent)
         intiView()
     }
 
@@ -41,6 +52,14 @@ class SplashActivity : AppCompatActivity() {
         }, 4000)
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        val extras = intent?.extras
+        extras?.let {
+            notificationObject = extras.getString(ConstValue.notificationObject)?:""
+            Log.e("splash_noti","  "+notificationObject)
+        }
+    }
+
     private fun checkUserLoginStatus() {
         val  userStatus= sharedPreferences.getBoolean(SharedPrefernencesKeys.loginStatus,false)
         if (userStatus){
@@ -54,6 +73,7 @@ class SplashActivity : AppCompatActivity() {
                     AppConstants.sessionToken = it
                     if (isLocationEnabled()) {
                         val mainIntent = Intent(this, HomeActivity::class.java)
+                        mainIntent.putExtra(ConstValue.notificationObject,notificationObject)
                         startActivity(mainIntent)
                         finish()
                     }

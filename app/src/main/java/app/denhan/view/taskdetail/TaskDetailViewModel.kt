@@ -41,18 +41,19 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
     val buttonVisibilityStatus=MutableLiveData<Boolean>()
 
 
-    fun callTaskDetail(){
+    fun callTaskDetail(jobId:Int){
         GlobalScope.launch {
-            getTaskDetail()
+            getTaskDetail(jobId)
 
         }
     }
-   private suspend  fun getTaskDetail(){
+   private suspend  fun getTaskDetail(jobId: Int){
         progressVisible.postValue(true)
         GlobalScope.launch {
-            when (val resource = userRepository.getJobDetailsAsync(selectedJob.id).await()) {
+            when (val resource = userRepository.getJobDetailsAsync(jobId).await()) {
                 is Resource.Success -> {
                     progressVisible.postValue(false)
+
                     selectedJob=resource.value?.maintenance!!
                     setSelectedData()
                     Log.e("ss ", resource.value.toString())

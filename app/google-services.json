@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "641541341320",
+    "firebase_url": "https://denhan-3dcc0.firebaseio.com",
+    "project_id": "denhan-3dcc0",
+    "storage_bucket": "denhan-3dcc0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641541341320:android:f15564e636057e51241f3d",
+        "android_client_info": {
+          "package_name": "app.denhan.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641541341320-qjnpv595c3gl6a4jql3urdc4s0ocu1r3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9r2WT26weiQ1IUDU3tvZLX09g8t9D_sc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641541341320-qjnpv595c3gl6a4jql3urdc4s0ocu1r3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -85,4 +85,8 @@ interface WebService {
                                     @Part id: MultipartBody.Part, @Path("id")jobId:Int):Response<ResponseBody>
 
 
+    @FormUrlEncoded
+    @POST("api/devices/add")
+    suspend fun saveDevice(@Field("device_type")device_type: Int, @Field("device_token")device_token:String,
+                           @Field("notification_token")notification_token:String):Response<ResponseBody>
 }
