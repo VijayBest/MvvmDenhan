@@ -2,12 +2,15 @@ package app.denhan.view.home
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -52,6 +55,7 @@ class HomeActivity : AppCompatActivity() {
         setTabs()
         clickEvent()
         bindObserver()
+        selectedTabTextFont(0)
     }
 
     /* Here we are observing the live data of viewModel
@@ -102,14 +106,27 @@ class HomeActivity : AppCompatActivity() {
 
     private fun clickEvent() {
         val closeButton = binding.searchView.findViewById(app.denhan.android.R.id.search_close_btn) as ImageView
+       // closeButton.setImageDrawable(this.resources.getDrawable(R.drawable.ic_cross_icon))
+        closeButton.setColorFilter(Color.WHITE)
+        val searchIcon = binding.searchView.findViewById(R.id.search_button)as ImageView
+        searchIcon.setColorFilter(Color.WHITE)
+        searchIcon.setImageDrawable(this.resources.getDrawable(R.drawable.search))
+        val searchEditText =
+            binding.searchView.findViewById(R.id.search_src_text) as EditText
+        searchEditText.setTextColor(resources.getColor(R.color.whiteColor))
+        searchEditText.setHint(this.resources.getString(R.string.search_hint_text))
+        searchEditText.setHintTextColor(resources.getColor(R.color.whiteColor))
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
 
+                selectedTabTextFont(tab.position)
+
             }
             override fun onTabUnselected(tab: TabLayout.Tab) {
 
+                    unselectedTabTextFont(tab.position)
             }
             override fun onTabReselected(tab: TabLayout.Tab) {
 
@@ -185,6 +202,28 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    /*selectedTabTextFont=> Here we are changing the font of selected tab text
+    * */
+  private  fun selectedTabTextFont(tabPosition:Int){
+        val tabLayout =
+            ( binding.tabLayout.getChildAt(0) as ViewGroup).getChildAt(tabPosition) as LinearLayout
+        val tabTextView = tabLayout.getChildAt(1) as TextView
+        val selectedFont = Typeface.createFromAsset(this.resources.assets, "fonts/muli_bold.ttf")
+        tabTextView.setTypeface(selectedFont)
+
+    }
+
+    /*unselectedTabTextFont=> Here We are changing the font of unselected Tab text
+    *
+    * */
+  private  fun unselectedTabTextFont(tabPosition:Int){
+        val tabLayout =
+            ( binding.tabLayout.getChildAt(0) as ViewGroup).getChildAt(tabPosition) as LinearLayout
+        val tabTextView = tabLayout.getChildAt(1) as TextView
+        val selectedFont = Typeface.createFromAsset(this.resources.assets, "fonts/muli_regular.ttf")
+        tabTextView.setTypeface(selectedFont)
     }
 
     private fun searchOpenJobs(query: String) {

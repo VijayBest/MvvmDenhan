@@ -37,8 +37,6 @@ class NotificationReceived :FirebaseMessagingService(){
         val subtittle= responseObject.getString("body")
         setupChannelId()
         notificationActions(tittle, subtittle,responseObject.toString())
-
-
     }
 
     private fun setupChannelId() {
@@ -55,9 +53,9 @@ class NotificationReceived :FirebaseMessagingService(){
         AppConstants.notificationObject=notificationObject
         val NOTIFICATION_ID = 1
         val builder = NotificationCompat.Builder(this,CHANNEL_ID)
-        builder.setSmallIcon(R.drawable.ic_icon_lock)
+        builder.setSmallIcon(R.drawable.tittle_icon)
         builder.color = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-        builder.setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_icon_lock))
+        builder.setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.tittle_icon))
         builder.setContentTitle(tittle)
          builder.setStyle(NotificationCompat.BigTextStyle()
                 .bigText(subTittle))

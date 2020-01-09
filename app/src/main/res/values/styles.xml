@@ -27,11 +27,15 @@
     </style>
 
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <item name="queryBackground">@android:color/white</item>
-        <!-- note that this is how you style your hint icon -->
-        <item name="searchHintIcon">@null</item>
-        <!-- The hint text that appears when the user has not typed anything -->
-        <item name="queryHint">@string/search_hint_text</item>
+
+        <!-- Text Size -->
+        <item name="android:textSize">@dimen/smallTextSize</item>
+        <!-- Query Text Color -->
+        <item name="android:textColorPrimary">@color/whiteColor</item>
+        <!-- Hint Color -->
+        <item name="android:textColorHint">@color/whiteColor</item>
+        <!-- Icon Color -->
+        <item name="android:tint">@color/whiteColor</item>
     </style>
 
     <string name="search_hint_text">Search</string>

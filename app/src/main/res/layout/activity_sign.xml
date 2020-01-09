@@ -35,9 +35,9 @@
                 android:text="@string/sign_please_text"/>
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/backImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
+                android:padding="@dimen/topIconPadding"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_icon_back"/>
 
@@ -191,7 +191,6 @@
                     android:textAlignment="center"
                     app:cornerRadius="500dp"
                     android:textAllCaps="false"
-                    android:elevation="5dp"
                     android:layout_marginStart="@dimen/marginStartEnd"
                     android:layout_marginEnd="@dimen/marginStartEnd"
                     android:fontFamily="@font/muli_semi_bold"

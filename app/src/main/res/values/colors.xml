@@ -10,9 +10,12 @@
     <color name="whiteColor">#FFFFFF</color>
     <color name="whiteColorSixtyOpc">#99FFFFFF</color>
     <color name="blackColor">#282020</color>
-    <color name="blackNintyOpc">#E6282020</color>
+    <color name="blackNintyOpc">#6b6767</color>
     <color name="descriptionBg">#EAEAEA</color>
     <color name="cancelButtonBg">#D4D7DB</color>
     <color name="grayColor">#EAEAEA</color>
+    <color name="search_bg">#d40b0f</color>
+    <color name="editTextColor">#837e7e</color>
+
 
 </resources>

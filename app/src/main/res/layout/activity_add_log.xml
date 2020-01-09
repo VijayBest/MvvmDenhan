@@ -34,20 +34,20 @@
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/backImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/_5sdp"
+                android:padding="@dimen/topIconPadding"
                 android:src="@drawable/ic_icon_back" />
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/tickImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:onClick="@{()->viewModel.addNewLogDataValidate()}"
-                android:padding="@dimen/_5sdp"
+                android:padding="@dimen/topIconPadding"
                 android:src="@drawable/ic_icon_tick" />
     </RelativeLayout>
 

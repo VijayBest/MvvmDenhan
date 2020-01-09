@@ -148,11 +148,14 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
                         viewModel.markAllCompleteStatus.postValue(true)
                         hideVisibility(binding.startTask)
                         enableAll(binding.mainLayout)
+                        enableSaveButton()
                     } else {
+                        disableSaveButton()
                         disableAll(binding.mainLayout)
                         CommonMethods.showVisibility(binding.startTask)
                     }
                 } else {
+                    enableSaveButton()
                     hideVisibility(binding.startTask)
                     enableAll(binding.mainLayout)
                 }
@@ -163,6 +166,14 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
 
             finish()
         }
+    }
+
+    fun disableSaveButton(){
+        binding.saveButton.alpha= 0.5f
+    }
+
+    fun enableSaveButton(){
+        binding.saveButton.alpha=0.9f
     }
 
     private fun setAdapters() {

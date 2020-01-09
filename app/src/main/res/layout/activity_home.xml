@@ -20,28 +20,32 @@
             android:minHeight="?actionBarSize"
             android:background="@color/redColor1"
             app:layout_constraintTop_toTopOf="parent">
+
+
         <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:queryHint="Search Here"
-                android:iconifiedByDefault="false"
-                app:searchIcon="@null"
+                app:iconifiedByDefault="false"
                 style="@style/SearchViewStyle"
+                android:paddingLeft="-8dp"
+                android:paddingStart="-8dp"
+                android:paddingRight="-8dp"
+                android:paddingEnd="-8dp"
+                app:searchIcon="@drawable/ic_search_black_24dp"
+                android:background="@color/search_bg"
                 android:visibility="gone"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:background="@drawable/search_view_bg"
-                app:queryBackground="@drawable/search_view_bg"
-                app:submitBackground="@drawable/search_view_bg"
                 android:layout_toRightOf="@+id/logoutImage"
                 android:layout_alignParentTop="true"/>
 
+
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/logoutImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
+                android:padding="@dimen/topIconPadding"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/logout"/>
@@ -58,23 +62,25 @@
                 android:text="@string/text_maintaince"/>
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/refreshImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
+                android:padding="@dimen/topIconPadding"
                 android:onClick="@{()->viewModel.refreshButtonClick()}"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_icon_refresh"
                 android:layout_alignParentEnd="true"/>
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/searchImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
                 android:src="@drawable/ic_icon_search"
                 android:layout_marginEnd="10dp"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/_5sdp"
+                android:padding="@dimen/topIconPadding"
                 android:layout_toStartOf="@+id/refreshImage"/>
     </RelativeLayout>
+
+
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"

@@ -147,7 +147,12 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
             binding.mainLayout.topLayoutUi.dateTime.text = viewModel.dateTime.value?:""
             binding.mainLayout.topLayoutUi.locationText.text = viewModel.address.value?:""
             binding.mainLayout.topLayoutUi.callText.text = viewModel.callDetail.value?:""
-
+            if (viewModel.callDetail.value.isNullOrEmpty()){
+                binding.mainLayout.topLayoutUi.callText.visibility = View.GONE
+            }
+            else{
+                binding.mainLayout.topLayoutUi.callText.visibility = View.VISIBLE
+            }
             val jobStatus = viewModel.jobCompleted.value?:false
             if (jobStatus){
                 binding.linearLayout.visibility= View.GONE

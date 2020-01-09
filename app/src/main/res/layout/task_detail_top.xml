@@ -22,9 +22,10 @@
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/attachmentImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
             android:src="@drawable/ic_icon_attachment"
+            android:padding="@dimen/_3sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -38,7 +39,6 @@
             android:layout_marginTop="@dimen/marginTopBetweenTextView"
             android:drawableLeft="@drawable/ic_icon_date"
             android:gravity="top"
-            android:text="date of the month "
             android:drawablePadding="@dimen/_5sdp"
             android:textColor="@color/blackNintyOpc"
             android:textSize="@dimen/smallTextSize"/>
@@ -51,8 +51,8 @@
             app:layout_constraintStart_toStartOf="parent"
             android:drawableLeft="@drawable/ic_icon_address"
             android:gravity="top"
+            android:fontFamily="@font/muli_regular"
             android:layout_marginTop="@dimen/marginTopBetweenTextView"
-            android:text="date of the month "
             android:drawablePadding="@dimen/_5sdp"
             android:textColor="@color/blackNintyOpc"
             android:textSize="@dimen/smallTextSize"/>
@@ -65,7 +65,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:drawableLeft="@drawable/ic_icon_call"
             android:gravity="top"
-            android:text="date of the month "
+            android:fontFamily="@font/muli_regular"
             android:layout_marginTop="@dimen/marginTopBetweenTextView"
             android:drawablePadding="@dimen/_5sdp"
             android:textColor="@color/blackNintyOpc"

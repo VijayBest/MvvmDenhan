@@ -35,26 +35,21 @@
                 android:text="@string/task_detail_text"/>
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/backImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize"
+                android:padding="@dimen/topIconPadding"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_icon_back"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/saveButton"
-                android:layout_width="wrap_content"
+                android:layout_width="?actionBarSize"
                 android:layout_height="?actionBarSize"
-                android:text="Save"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/whiteColor"
-                android:gravity="center"
-                android:padding="@dimen/marginStartEnd"
+                android:padding="@dimen/topIconPadding"
                 android:layout_centerVertical="true"
-                android:drawablePadding="@dimen/_5sdp"
-                android:visibility="@{viewModel.savButtonVisibleStatus.booleanValue()? View.VISIBLE : View.GONE, default=gone}"
-                android:fontFamily="@font/muli_bold"
-                android:drawableLeft="@drawable/ic_icon_tick"/>
+                android:src="@drawable/ic_icon_tick"
+                android:visibility="@{viewModel.savButtonVisibleStatus.booleanValue()? View.VISIBLE : View.GONE, default=visible}" />
     </RelativeLayout>
 
 
@@ -73,7 +68,6 @@
             android:textAlignment="center"
             android:textColor="@color/whiteColor"
             android:background="@drawable/button_bg" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
@@ -85,12 +79,12 @@
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
                 app:layout_constraintTop_toTopOf="parent">
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/mainLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/marginBetweenEditText"
                     android:padding="@dimen/marginStartEnd">
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/text1"
@@ -111,7 +105,7 @@
                         android:textSize="@dimen/smallTextSize"
                         android:text="@{viewModel.taskDescription}"
                         app:layout_constraintTop_toBottomOf="@+id/text1"
-                        android:layout_marginTop="@dimen/marginTopBetweenTextView"
+                        android:layout_marginTop="@dimen/listMarginTop"
                         app:layout_constraintStart_toStartOf="parent"
                         android:textColor="@color/blackNintyOpc" />
 
@@ -120,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/textDescription"
-                        android:layout_marginTop="@dimen/marginBetweenEditText"
+                        android:layout_marginTop="@dimen/marginBetweenListAndText"
                         app:layout_constraintStart_toStartOf="parent"
                         android:text="@string/add_comment_text"
                         android:fontFamily="@font/muli_semi_bold"
@@ -147,7 +141,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/edtComment"
-                        android:layout_marginTop="@dimen/marginBetweenEditText"
+                        android:layout_marginTop="@dimen/marginBetweenListAndText"
                         app:layout_constraintStart_toStartOf="parent"
                         android:text="@string/attachment_before_work"
                         android:fontFamily="@font/muli_semi_bold"
@@ -158,14 +152,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="?actionBarSize"
-                        android:layout_marginTop="@dimen/marginTopBetweenTextView"
                         app:layout_constraintTop_toBottomOf="@+id/text3"/>
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/text4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/beforeCompletionList"
-                        android:layout_marginTop="@dimen/marginBetweenEditText"
+                        android:layout_marginTop="@dimen/marginBetweenListAndText"
                         app:layout_constraintStart_toStartOf="parent"
                         android:text="@string/attachment_after_work"
                         android:fontFamily="@font/muli_semi_bold"
@@ -176,7 +169,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="?actionBarSize"
-                        android:layout_marginTop="@dimen/marginTopBetweenTextView"
                         app:layout_constraintTop_toBottomOf="@+id/text4"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -184,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/afterCompletionList"
-                        android:layout_marginTop="@dimen/marginBetweenEditText"
+                        android:layout_marginTop="@dimen/marginBetweenListAndText"
                         app:layout_constraintStart_toStartOf="parent"
                         android:text="@string/bill_attachment_text"
                         android:fontFamily="@font/muli_semi_bold"
@@ -195,14 +187,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="?actionBarSize"
-                        android:layout_marginTop="@dimen/marginTopBetweenTextView"
                         app:layout_constraintTop_toBottomOf="@+id/text5"/>
                 <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/text6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/billAttachmentList"
-                        android:layout_marginTop="@dimen/marginBetweenEditText"
+                        android:layout_marginTop="@dimen/marginBetweenListAndText"
                         app:layout_constraintStart_toStartOf="parent"
                         android:text="@string/add_labour_charges"
                         android:fontFamily="@font/muli_semi_bold"
@@ -216,7 +207,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/text6"
                         android:weightSum="2"
-                        android:layout_marginTop="@dimen/marginBetweenEditText"
+                        android:layout_marginTop="@dimen/marginBetweenListAndText"
                         android:orientation="horizontal">
 
                     <LinearLayout
