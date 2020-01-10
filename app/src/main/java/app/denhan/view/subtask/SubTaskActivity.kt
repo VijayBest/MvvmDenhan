@@ -71,18 +71,21 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
             }
         }
         binding.startTask.setOnClickListener {
+            CommonMethods.customCommonDialog(this,this.resources.getString(R.string.app_name),
+                this.resources.getString(R.string.task_start_alert),this.resources.getString(R.string.cancel_text),
+                this.resources.getString(R.string.okay_text),object :CustomDialogCallBack{
+                    override fun positiveButtonClick() {
+                        selectedSubTaskData.status=ConstValue.started
+                        viewModel.jobStatus.postValue(selectedSubTaskData.status)
+                        hideVisibility(binding.startTask)
+                        enableAll(binding.mainLayout)
+                        viewModel.startTime.postValue(CommonMethods.currentDateWithString())
 
-            CommonMethods.startTaskDialog(this,this.resources.getString(R.string.app_name),this
-                .resources.getString(R.string.task_start_alert),object : StartTaskCallBack{
-                override fun startTask() {
-                    selectedSubTaskData.status=ConstValue.started
-                    viewModel.jobStatus.postValue(selectedSubTaskData.status)
-                    hideVisibility(binding.startTask)
-                    enableAll(binding.mainLayout)
-                    viewModel.startTime.postValue(CommonMethods.currentDateWithString())
+                    }
+                    override fun negativeButtonClick() {
 
-                }
-            })
+                    }
+                })
         }
 
         binding.saveButton.setOnClickListener {

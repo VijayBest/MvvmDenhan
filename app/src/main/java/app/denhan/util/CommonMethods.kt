@@ -191,6 +191,7 @@ object  CommonMethods {
         }
         binding.rightButton.setOnClickListener {
             customDialogCallBack.positiveButtonClick()
+            dialog.dismiss()
 
         }
         dialog.show()
