@@ -13,6 +13,6 @@
     <dimen name="marginTopBetweenTextView">@dimen/_5sdp</dimen>
     <dimen name="marginStartEnd">@dimen/_10sdp</dimen>
     <dimen name="marginBetweenListAndText">@dimen/_14sdp</dimen>
-    <dimen name="topIconPadding">@dimen/_10sdp</dimen>
+    <dimen name="topIconPadding">@dimen/_12sdp</dimen>
 
 </resources>

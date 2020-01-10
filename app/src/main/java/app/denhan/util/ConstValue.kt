@@ -22,6 +22,6 @@ object ConstValue {
 
     // static folder name to stores  the compress image and for uploading the image to server use this folder
     const val temFolder="MyFolder/Images"
-    const val deleteTempFolder="MyFolder"
+    const val deleteTempFolder="MyFolder/Images"
 
 }

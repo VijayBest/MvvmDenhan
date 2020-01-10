@@ -11,6 +11,7 @@ import app.denhan.adapter.OpenJobsAdapter
 import app.denhan.android.R
 import app.denhan.android.databinding.OpenJobsFragmentBinding
 import app.denhan.model.jobs.Maintenance
+import app.denhan.model.jobs.MaintenanceInstruction
 import app.denhan.util.AppConstants
 import app.denhan.util.ArrayConstant.openJobsArray
 import app.denhan.util.ConstValue
@@ -33,6 +34,9 @@ class OpenJobsFragments :Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
 
     override fun onItemClick(selectedListData: Maintenance) {
         AppConstants.selectedJob= selectedListData
+        AppConstants.jobInstructionArray= ArrayList()
+        AppConstants.jobInstructionArray= selectedListData.maintenance_instructions as ArrayList<MaintenanceInstruction>
+
         AppConstants.selectedJobType = ConstValue.openJobSelected
         (activity as HomeActivity).startTaskDetailScreen()
     }

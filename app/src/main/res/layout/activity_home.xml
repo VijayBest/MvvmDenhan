@@ -34,7 +34,9 @@
                 android:paddingRight="-8dp"
                 android:paddingEnd="-8dp"
                 app:searchIcon="@drawable/ic_search_black_24dp"
-                android:background="@color/search_bg"
+                app:queryBackground="@drawable/search_rounded"
+                app:submitBackground="@drawable/search_rounded"
+                android:background="@drawable/search_rounded"
                 android:visibility="gone"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_toRightOf="@+id/logoutImage"
@@ -76,7 +78,7 @@
                 android:src="@drawable/ic_icon_search"
                 android:layout_marginEnd="2dp"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/_11sdp"
+                android:padding="@dimen/_13sdp"
                 android:layout_toStartOf="@+id/refreshImage"/>
     </RelativeLayout>
 
@@ -103,7 +105,7 @@
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30sdp"
                 app:tabGravity="fill"
                 android:minHeight="@dimen/_30sdp"
                 android:textAlignment="center"

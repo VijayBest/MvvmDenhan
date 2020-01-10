@@ -11,6 +11,7 @@ import app.denhan.adapter.OpenJobsAdapter
 import app.denhan.android.R
 import app.denhan.android.databinding.CompleteFragmentBinding
 import app.denhan.model.jobs.Maintenance
+import app.denhan.model.jobs.MaintenanceInstruction
 import app.denhan.util.AppConstants
 import app.denhan.util.ArrayConstant.completeJobsArrayList
 import app.denhan.util.ConstValue
@@ -79,8 +80,20 @@ class CompleteFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
 
     override fun onItemClick(selectedListData: Maintenance) {
         AppConstants.selectedJob= selectedListData
+        AppConstants.jobInstructionArray= ArrayList()
+        AppConstants.jobInstructionArray= selectedListData.maintenance_instructions as ArrayList<MaintenanceInstruction>
         AppConstants.selectedJobType = ConstValue.completeJobSelected
         (activity as HomeActivity).startTaskDetailScreen()
+    }
+
+    fun updateSearchList(searchList:ArrayList<Maintenance>){
+        if (searchList.size>0){
+            binding.txtCompletedJobs.visibility=View.GONE
+        }
+        else{
+            binding.txtCompletedJobs.visibility= View.VISIBLE
+        }
+        openJobsAdapter.notifyAdapter(searchList)
     }
 
 }

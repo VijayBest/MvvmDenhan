@@ -3,7 +3,6 @@ package app.denhan.view.sign
 import android.Manifest
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -19,7 +18,6 @@ import app.denhan.android.databinding.ActivitySignBinding
 import app.denhan.util.AppConstants
 import app.denhan.util.CommonMethods
 import app.denhan.util.ConstValue
-import app.denhan.view.home.HomeActivity
 import com.github.gcacace.signaturepad.views.SignaturePad
 import org.koin.android.viewmodel.ext.android.viewModel
 import skycap.android.core.livedata.observeNonNull
@@ -33,6 +31,7 @@ class SignActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignBinding
     private val viewModel:SignViewModel by  viewModel()
     lateinit var dialog:ProgressDialog
+    var signStatus= false
     companion object {
         private val WRITE_EXTERNAL = 101
     }
@@ -70,6 +69,7 @@ class SignActivity : AppCompatActivity() {
         }
 
         observeNonNull(viewModel.successesCommand){
+            viewModel.deleteDirectoryAfterUploadThePics()
             AppConstants.fromTaskDetailScreen = ConstValue.signScreen
             finish()
         }
@@ -84,6 +84,7 @@ class SignActivity : AppCompatActivity() {
         binding.signaturePad.setOnSignedListener(object : SignaturePad.OnSignedListener {
             override fun onStartSigning() {
                 binding.retakeButton.visibility= View.VISIBLE
+                signStatus = true
              //   Toast.makeText(this@SignActivity, "OnStartSigning", Toast.LENGTH_SHORT).show()
             }
             override fun onSigned() {
@@ -98,6 +99,7 @@ class SignActivity : AppCompatActivity() {
 
             binding.retakeButton.visibility= View.GONE
             binding.signaturePad.clear()
+            signStatus= false
         }
         binding.backImage.setOnClickListener {
             finish()
@@ -111,7 +113,7 @@ class SignActivity : AppCompatActivity() {
                     Environment.getExternalStorageDirectory(),
                     ConstValue.temFolder+"/"+AppConstants.userDetailData?.id+".jpg"
                 )
-                viewModel.addSignature(path)
+                viewModel.addSignature(path,signStatus)
             }
         }
     }
@@ -125,6 +127,7 @@ class SignActivity : AppCompatActivity() {
 
         }
     }
+
 
     private fun makeRequest(){
         requestPermissions(arrayOf(
@@ -188,6 +191,4 @@ class SignActivity : AppCompatActivity() {
         newBitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
         stream.close()
     }
-
-
 }

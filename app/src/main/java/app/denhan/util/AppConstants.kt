@@ -1,6 +1,7 @@
 package app.denhan.util
 
 import app.denhan.model.jobs.Maintenance
+import app.denhan.model.jobs.MaintenanceInstruction
 import app.denhan.model.jobs.MaintenanceJob
 import app.denhan.model.login.UserDetail
 
@@ -15,6 +16,7 @@ object AppConstants {
     lateinit var selectedJob: Maintenance
     lateinit var selectedSubTaskData:MaintenanceJob
     var selectedJobType = ConstValue.openJobSelected
+    lateinit var jobInstructionArray:ArrayList<MaintenanceInstruction>
 
     /*Here we take global variable for imageStatusType.it means
         type=0 => this image belongs to before Completion of the work

@@ -78,7 +78,7 @@
                 android:clipToPadding="false"
                 android:clipChildren="false"
                 app:cardUseCompatPadding="true"
-                app:cardElevation="4dp">
+                app:cardElevation="1dp">
             <include
                     layout="@layout/task_detail_top" />
         </androidx.cardview.widget.CardView>

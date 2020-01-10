@@ -76,6 +76,7 @@
                             android:layout_weight="0.5"
                             android:fontFamily="@font/muli_bold"
                             android:padding="10dp"
+                            android:textAllCaps="false"
                             android:textAlignment="center"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                             android:textColor="@color/whiteColor"

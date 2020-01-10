@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -86,6 +87,14 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
 
                     }
                 })
+        }
+
+        binding.edtComment.setOnTouchListener { view, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
         }
 
         binding.saveButton.setOnClickListener {

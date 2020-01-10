@@ -56,8 +56,8 @@
     <string name="material_cost">Material Cost</string>
     <string name="alert_text">Alert</string>
     <string name="task_not_start_error">You need start task first</string>
-    <string name="task_start_alert">Are you sure, you want to start this task.</string>
-    <string name="task_save_instruction">You have not mark task compltete. The task end time will not be saved</string>
+    <string name="task_start_alert">Are you sure, you want to start this task?</string>
+    <string name="task_save_instruction">You have not mark task complete. The task end time will not be saved</string>
     <string name="will_set_text">Will Set</string>
     <string name="mark_all_complete_text">Mark All Complete</string>
     <string name="mark_as_complete">Mark as complete</string>
@@ -71,6 +71,9 @@
     <string name="retake_text">Retake</string>
     <string name="no_update_job_find">No updated job found</string>
     <string name="hours_error">Maximum number of hours can be enter is 99</string>
+    <string name="minute_error">Maximum number of minutes can be enter is 59</string>
+    <string name="elpase_time_error">Please enter the total elapsed time first</string>
+    <string name="signature_error">Please do signature first</string>
 
 
 </resources>

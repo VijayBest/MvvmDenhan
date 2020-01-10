@@ -165,10 +165,12 @@ class TaskDetailActivity : AppCompatActivity(), TaskAdapter.TaskAdapterListener 
             if (viewModel.detailNoteVisible.value==true){
                 binding.middleLayout.txtDetailNote.text = viewModel.detailNotes.value?:""
                 binding.middleLayout.detailNoteCardView.visibility = View.VISIBLE
+                binding.middleLayout.detailNoteTitle.visibility= View.VISIBLE
 
             }
             else{
                 binding.middleLayout.detailNoteCardView.visibility = View.GONE
+                binding.middleLayout.detailNoteTitle.visibility= View.GONE
             }
             setInstructionArray(viewModel.instructionArray)
             setTaskAdapter(viewModel.taskArrayList.value as ArrayList<MaintenanceJob>)

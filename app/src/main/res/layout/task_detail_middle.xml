@@ -8,7 +8,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
             android:padding="@dimen/marginStartEnd">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -18,7 +17,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/special_instruction"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:textColor="@color/blackColor"
                 android:fontFamily="@font/muli_bold"
                 android:textSize="@dimen/meduimTextSize"/>
@@ -27,7 +26,7 @@
                 android:id="@+id/specialInstructionList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@id/text1"
                 android:layout_marginTop="@dimen/listMarginTop"/>
 
@@ -38,8 +37,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/specialInstructionList"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/detail_note_text"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/marginTopBetweenTextView"
+                android:visibility="visible"
                 android:textColor="@color/blackColor"
                 android:fontFamily="@font/muli_bold"
                 android:textSize="@dimen/meduimTextSize"/>
@@ -53,7 +51,7 @@
                 android:background="@android:color/transparent"
                 android:shadowDx="0"
                 android:shadowDy="0"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:shadowRadius="0">
 
         <androidx.cardview.widget.CardView
@@ -92,7 +90,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout1"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/task_text"
-                android:layout_marginTop="@dimen/marginTopBetweenTextView"
                 android:textColor="@color/blackColor"
                 android:fontFamily="@font/muli_bold"
                 android:textSize="@dimen/meduimTextSize"/>
@@ -101,8 +98,7 @@
                 android:id="@+id/taskList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/taskTitle"
-                android:layout_marginTop="@dimen/listMarginTop"/>
+                app:layout_constraintTop_toBottomOf="@+id/taskTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

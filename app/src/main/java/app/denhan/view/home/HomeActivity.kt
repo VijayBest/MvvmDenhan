@@ -198,7 +198,7 @@ class HomeActivity : AppCompatActivity() {
                 searchInProgressJobs(query)
             }
             2->{
-
+                searchInCompleteJobs(query)
             }
         }
 
@@ -249,6 +249,19 @@ class HomeActivity : AppCompatActivity() {
         val openFragment =   tabAdapter.getItem(1) as UpdatedFragment
         openFragment.updateSearchList(searchArrayList)
     }
+
+    private fun searchInCompleteJobs(query: String)
+    {
+        val progressJobs = viewModel.completedJobsArray.value as ArrayList
+        progressJobs.forEach {
+            if (it.repair_code.toLowerCase().contains(query.toLowerCase())){
+                searchArrayList.add(it)
+            }
+        }
+        val openFragment =   tabAdapter.getItem(2) as CompleteFragment
+        openFragment.updateSearchList(searchArrayList)
+    }
+
 
 
     private fun hideSearchView() {

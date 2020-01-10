@@ -102,15 +102,19 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
             callDetail.postValue(selectedJob.property.active_tenancy?.tenant?.mobile)
         }
 
-        selectedJob.detail_note.let {
+        if (selectedJob.detail_note.isNullOrEmpty()){
+            detailNoteVisible.postValue(false)
+        }
+        else{
             detailNotes.postValue("#"+selectedJob.detail_note)
             detailNoteVisible.postValue(true)
         }
 
 
 
-        selectedJob.maintenance_instructions?.let {
-            instructionArray.postValue(selectedJob.maintenance_instructions as ArrayList<MaintenanceInstruction>)
+
+       AppConstants.jobInstructionArray?.let {
+            instructionArray.postValue(AppConstants.jobInstructionArray)
         }
         loadAllData.postValue("")
 

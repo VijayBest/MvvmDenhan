@@ -56,8 +56,8 @@
                         android:layout_marginTop="@dimen/_2sdp">
                     <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/statusImage"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
+                            android:layout_width="@dimen/_13sdp"
+                            android:layout_height="@dimen/_13sdp"
                             android:layout_gravity="top"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:src="@drawable/ic_icon_not_completed"/>
@@ -74,11 +74,12 @@
                 </LinearLayout>
             </LinearLayout>
                 <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
+                        android:layout_width="?actionBarSize"
+                        android:layout_height="?actionBarSize"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+                        android:padding="@dimen/_13sdp"
+                        android:src="@drawable/ic_next" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
