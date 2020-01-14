@@ -14,7 +14,8 @@
     <color name="descriptionBg">#EAEAEA</color>
     <color name="cancelButtonBg">#D4D7DB</color>
     <color name="grayColor">#EAEAEA</color>
-    <color name="search_bg">#d40b0f</color>
+    <color name="search_bg">#d6000b</color>
+    <color name="search_place_holder">#f28c8e</color>
     <color name="editTextColor">#837e7e</color>
 
 

@@ -39,5 +39,5 @@
         <item name="android:tint">@color/whiteColor</item>
     </style>
 
-    <string name="search_hint_text">Search</string>
+    <string name="search_hint_text">Enter Repair Code or Location</string>
 </resources>

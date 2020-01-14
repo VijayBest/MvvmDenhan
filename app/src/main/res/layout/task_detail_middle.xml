@@ -17,7 +17,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/special_instruction"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:textColor="@color/blackColor"
                 android:fontFamily="@font/muli_bold"
                 android:textSize="@dimen/meduimTextSize"/>
@@ -26,7 +26,7 @@
                 android:id="@+id/specialInstructionList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/text1"
                 android:layout_marginTop="@dimen/listMarginTop"/>
 
@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/specialInstructionList"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/detail_note_text"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:textColor="@color/blackColor"
                 android:fontFamily="@font/muli_bold"
                 android:textSize="@dimen/meduimTextSize"/>
@@ -51,7 +51,7 @@
                 android:background="@android:color/transparent"
                 android:shadowDx="0"
                 android:shadowDy="0"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:shadowRadius="0">
 
         <androidx.cardview.widget.CardView

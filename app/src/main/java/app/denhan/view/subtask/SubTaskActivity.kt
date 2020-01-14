@@ -122,7 +122,7 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
                             // Will set button click here
                             override fun negativeButtonClick() {
 
-
+                                viewModel.hitSaveTaskStatusApi()
                             }
                         }
                     )
@@ -178,13 +178,17 @@ class SubTaskActivity : AppCompatActivity(),AttachmentAdapter.AttachmentAdapterL
 
             finish()
         }
+
+        observeNonNull(viewModel.commentLengthError){
+            CommonMethods.showSnackBar(binding.mainLayout,it)
+        }
     }
 
-    fun disableSaveButton(){
+    private fun disableSaveButton(){
         binding.saveButton.alpha= 0.5f
     }
 
-    fun enableSaveButton(){
+    private fun enableSaveButton(){
         binding.saveButton.alpha=0.9f
     }
 

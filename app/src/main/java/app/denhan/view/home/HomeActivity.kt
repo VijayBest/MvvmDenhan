@@ -8,10 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -33,6 +30,8 @@ import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import skycap.android.core.livedata.observeNonNull
 
+import java.lang.reflect.Field
+
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
@@ -40,6 +39,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var searchArrayList: ArrayList<Maintenance>
     lateinit var dialog:ProgressDialog
     lateinit var tabAdapter: TabAdapter
+    var searchBarStatus = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -107,20 +107,32 @@ class HomeActivity : AppCompatActivity() {
     private fun clickEvent() {
         val closeButton = binding.searchView.findViewById(app.denhan.android.R.id.search_close_btn) as ImageView
        // closeButton.setImageDrawable(this.resources.getDrawable(R.drawable.ic_cross_icon))
-        closeButton.setColorFilter(Color.WHITE)
+        closeButton.setColorFilter(resources.getColor(R.color.search_place_holder))
         val searchIcon = binding.searchView.findViewById(R.id.search_button)as ImageView
         searchIcon.setColorFilter(Color.WHITE)
         searchIcon.setImageDrawable(this.resources.getDrawable(R.drawable.search))
         val searchEditText =
             binding.searchView.findViewById(R.id.search_src_text) as EditText
         searchEditText.setTextColor(resources.getColor(R.color.whiteColor))
+        searchEditText.setTextSize(2,15f)
         searchEditText.setHint(this.resources.getString(R.string.search_hint_text))
-        searchEditText.setHintTextColor(resources.getColor(R.color.whiteColor))
+        searchEditText.setHintTextColor(resources.getColor(R.color.search_place_holder))
+        val searchTextView =
+            binding.searchView.findViewById(R.id.search_src_text) as AutoCompleteTextView
+        try {
+            val mCursorDrawableRes: Field =
+                TextView::class.java.getDeclaredField("mCursorDrawableRes")
+            mCursorDrawableRes.setAccessible(true)
+            mCursorDrawableRes.set(
+                searchTextView,
+                R.drawable.search_cursor
+            ) //This sets the cursor resource ID to 0 or @null which will make it visible on white background
+        } catch (e: Exception) {
+        }
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
-
                 selectedTabTextFont(tab.position)
 
             }
@@ -145,7 +157,6 @@ class HomeActivity : AppCompatActivity() {
             viewModel.refreshButtonClick()
         }
 
-
         /*  text submit Click event on SearchView
         *
         * */
@@ -165,7 +176,6 @@ class HomeActivity : AppCompatActivity() {
                 this.resources.getString(R.string.logout_instruction), this.resources.getString(R.string.cancel_text),
                 this.resources.getString(R.string.okay_text),object :CustomDialogCallBack{
                     override fun positiveButtonClick() {
-
                         viewModel.logoutUser()
                     }
 
@@ -230,7 +240,7 @@ class HomeActivity : AppCompatActivity() {
 
         val openJobs = viewModel.openJobsArray.value as ArrayList
         openJobs.forEach {
-            if (it.repair_code.contains(query)){
+            if (it.repair_code.contains(query) || it.property.address.toLowerCase().contains(query.toLowerCase())){
                 searchArrayList.add(it)
             }
         }
@@ -242,7 +252,7 @@ class HomeActivity : AppCompatActivity() {
     {
         val progressJobs = viewModel.inProgressJobsArray.value as ArrayList
         progressJobs.forEach {
-            if (it.repair_code.toLowerCase().contains(query.toLowerCase())){
+            if (it.repair_code.contains(query) || it.property.address.toLowerCase().contains(query.toLowerCase())){
                 searchArrayList.add(it)
             }
         }
@@ -250,11 +260,17 @@ class HomeActivity : AppCompatActivity() {
         openFragment.updateSearchList(searchArrayList)
     }
 
+    fun searchJobs(){
+        if (binding.searchView.query.length>=1 && searchBarStatus){
+            searchSpecificString(binding.searchView.query.toString())
+        }
+    }
+
     private fun searchInCompleteJobs(query: String)
     {
         val progressJobs = viewModel.completedJobsArray.value as ArrayList
         progressJobs.forEach {
-            if (it.repair_code.toLowerCase().contains(query.toLowerCase())){
+            if (it.repair_code.contains(query) || it.property.address.toLowerCase().contains(query.toLowerCase())){
                 searchArrayList.add(it)
             }
         }
@@ -269,6 +285,7 @@ class HomeActivity : AppCompatActivity() {
         //Collapse the action view
         binding.searchView.onActionViewCollapsed()
         binding.searchView.visibility = View.GONE
+        searchBarStatus=false
         binding.refreshImage.visibility=View.VISIBLE
         binding.searchImage.visibility = View.VISIBLE
         binding.tittleText.visibility = View.VISIBLE
@@ -280,6 +297,7 @@ class HomeActivity : AppCompatActivity() {
     private fun showSearchView() {
 
         binding.searchView.visibility= View.VISIBLE
+        searchBarStatus=true
         binding.searchView.onActionViewExpanded() //new Added line
         binding.refreshImage.visibility=View.GONE
         binding.searchImage.visibility = View.GONE
@@ -311,6 +329,18 @@ class HomeActivity : AppCompatActivity() {
         AppConstants.fromTaskDetailScreen = ConstValue.homeScreen
         val intent = Intent(this, TaskDetailActivity::class.java)
         startActivity(intent)
+
+    }
+
+    override fun onBackPressed()
+    {
+        if (binding.searchView.query.length<1 && searchBarStatus) {
+            hideSearchView()
+            viewModel.refreshButtonClick()
+        }
+        else {
+            super.onBackPressed()
+        }
 
     }
 }

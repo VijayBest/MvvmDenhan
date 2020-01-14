@@ -36,7 +36,7 @@
     <string name="okay_text">Okay</string>
     <string name="attachment_text">Attachment</string>
     <string name="no_attachment_text">There is no attachment in this job</string>
-    <string name="owner_not_available_text">Owner not available</string>
+    <string name="owner_not_available_text">Owner Not available</string>
     <string name="add_new_log_text">Add New Log</string>
     <string name="no_log_added_text">No log added</string>
     <string name="add_comment_text">Add Your Comment</string>
@@ -74,6 +74,7 @@
     <string name="minute_error">Maximum number of minutes can be enter is 59</string>
     <string name="elpase_time_error">Please enter the total elapsed time first</string>
     <string name="signature_error">Please do signature first</string>
+    <string name="comment_length_error">Comment Req. 1–512 chars</string>
 
 
 </resources>

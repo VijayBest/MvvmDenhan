@@ -41,6 +41,9 @@ object  CommonMethods {
     * */
     fun showProgressDialog(dialog: ProgressDialog, title:String, message:String)
     {
+        if (dialog.isShowing){
+            dialog.dismiss()
+        }
         dialog.setTitle(title)
         dialog.setMessage(message)
         dialog.setCancelable(false)
@@ -104,7 +107,8 @@ object  CommonMethods {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(title)
         builder.setMessage(message)
-        builder.setPositiveButton(context.resources.getString(R.string.okay_text)){dialogInterface, which ->
+        builder.setPositiveButton(context.resources.getString(R.string.okay_text))
+        {dialogInterface, which ->
 
         }
         val alertDialog: AlertDialog = builder.create()
@@ -187,6 +191,7 @@ object  CommonMethods {
         binding.rightButton.text = rightButtonText
         binding.textDescription.text = description
         binding.leftButton.setOnClickListener {
+            customDialogCallBack.negativeButtonClick()
             dialog.dismiss()
         }
         binding.rightButton.setOnClickListener {

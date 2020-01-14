@@ -49,6 +49,7 @@ class UpdatedFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
         else{
             hideList()
         }
+        (activity as HomeActivity).searchJobs()
     }
     private fun hideList(){
         binding.updatedList.visibility = View.GONE
@@ -81,7 +82,6 @@ class UpdatedFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
         openJobsAdapter = OpenJobsAdapter(inProgressJobsArray, this)
         binding.updatedList.adapter = openJobsAdapter
 
-
     }
 
     override fun onItemClick(selectedListData: Maintenance) {
@@ -90,8 +90,8 @@ class UpdatedFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
         AppConstants.jobInstructionArray= selectedListData.maintenance_instructions as ArrayList<MaintenanceInstruction>
         AppConstants.selectedJobType= ConstValue.inProgressJobSelected
         (activity as HomeActivity).startTaskDetailScreen()
-
     }
+
     fun updateSearchList(searchList:ArrayList<Maintenance>){
         if (searchList.size>0){
             binding.txtNoJobStarted.visibility=View.GONE

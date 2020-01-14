@@ -29,6 +29,5 @@
                 android:visibility="gone"
                 android:textColor="@color/blackColor"
                 android:textSize="@dimen/meduimTextSize"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

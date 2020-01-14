@@ -73,7 +73,7 @@ class AddLogActivity : AppCompatActivity() {
         observeNonNull(viewModel.imageName){
             Glide.with(this)
                 .load(it.url)
-                .apply(RequestOptions().placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher))
+                .apply(RequestOptions().placeholder(R.drawable.image_place_holder).error(R.drawable.image_place_holder))
                 .into(binding.uploadedImage)
         }
 

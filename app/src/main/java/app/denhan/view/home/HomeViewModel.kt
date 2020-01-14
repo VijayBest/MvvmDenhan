@@ -6,10 +6,13 @@ import app.denhan.android.R
 import app.denhan.data.repos.ApiResponseCode
 import app.denhan.data.repos.AuthRepository
 import app.denhan.model.jobs.Maintenance
+import app.denhan.model.jobs.MaintenanceInstruction
 import app.denhan.module.ResourceProvider
 import app.denhan.util.AppConstants
+import app.denhan.util.ConstValue
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import skycap.android.core.livedata.SingleEventLiveData
 import skycap.android.core.resource.Resource
 
@@ -26,7 +29,7 @@ class HomeViewModel(private val userRepository: AuthRepository,
 
 
     init {
-
+        AppConstants.jobInstructionArray= ArrayList()
         getOpenJobs()
         getInProgressJobs()
         getCompletedJobs()
@@ -43,8 +46,20 @@ class HomeViewModel(private val userRepository: AuthRepository,
         GlobalScope.launch {
             when (val resource = userRepository.getOpenJobsAsync().await()) {
                 is Resource.Success -> {
-
                     openJobsArray.postValue(resource.value?.maintenances as ArrayList<Maintenance>?)
+                    if(!AppConstants.notificationObject.isNullOrEmpty()) {
+                        val jsonObject = JSONObject(AppConstants.notificationObject)
+                        var jobId= jsonObject.getString("id").toInt()
+                        resource.value?.maintenances?.forEach {
+                            if(it.id==jobId){
+                                AppConstants.selectedJob= it
+                                AppConstants.jobInstructionArray= ArrayList()
+                                AppConstants.jobInstructionArray= it.maintenance_instructions as ArrayList<MaintenanceInstruction>
+                                AppConstants.selectedJobType = ConstValue.openJobSelected
+
+                            }
+                        }
+                    }
                 }
                 is Resource.Error -> {
                     progressVisible.postValue(false)

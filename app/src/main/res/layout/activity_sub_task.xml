@@ -128,7 +128,7 @@
                         android:fontFamily="@font/muli_regular"
                         android:gravity="top"
                         android:textSize="@dimen/smallTextSize"
-                        android:text="@{viewModel.comment}"
+                        android:text="@={viewModel.comment}"
                         android:overScrollMode="always"
                         android:scrollbarStyle="insideInset"
                         android:scrollbars="vertical"
@@ -294,6 +294,7 @@
                         android:visibility="@{viewModel.markAllCompleteStatus.booleanValue()? View.GONE : View.VISIBLE, default=visible}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        android:fontFamily="@font/muli_regular"
                         android:layout_marginTop="@dimen/marginBetweenEditText"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

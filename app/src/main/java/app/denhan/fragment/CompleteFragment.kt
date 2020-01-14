@@ -44,6 +44,12 @@ class CompleteFragment : Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
         else{
             hideList()
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as HomeActivity).searchJobs()
     }
     private fun hideList(){
         binding.completeList.visibility = View.GONE

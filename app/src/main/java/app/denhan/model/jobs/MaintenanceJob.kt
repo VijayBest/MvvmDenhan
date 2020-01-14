@@ -11,7 +11,7 @@ data class MaintenanceJob(
     val f_start_time: String,
     val id: Int,
     val job_detail: String,
-    val labour_charges: Int,
+    val labour_charges: Double,
     val maintenance_id: Int,
     val modified_date: String,
     val start_time: String,

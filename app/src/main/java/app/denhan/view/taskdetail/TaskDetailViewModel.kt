@@ -53,7 +53,6 @@ class TaskDetailViewModel(private val userRepository: AuthRepository,
             when (val resource = userRepository.getJobDetailsAsync(jobId).await()) {
                 is Resource.Success -> {
                     progressVisible.postValue(false)
-
                     selectedJob=resource.value?.maintenance!!
                     setSelectedData()
                     Log.e("ss ", resource.value.toString())

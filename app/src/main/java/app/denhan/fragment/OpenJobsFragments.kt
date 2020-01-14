@@ -36,7 +36,6 @@ class OpenJobsFragments :Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
         AppConstants.selectedJob= selectedListData
         AppConstants.jobInstructionArray= ArrayList()
         AppConstants.jobInstructionArray= selectedListData.maintenance_instructions as ArrayList<MaintenanceInstruction>
-
         AppConstants.selectedJobType = ConstValue.openJobSelected
         (activity as HomeActivity).startTaskDetailScreen()
     }
@@ -54,6 +53,12 @@ class OpenJobsFragments :Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
 
             hideList()
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as HomeActivity).searchJobs()
     }
     private fun hideList(){
         binding.openJobsList.visibility = View.GONE
@@ -86,19 +91,17 @@ class OpenJobsFragments :Fragment(),OpenJobsAdapter.OpenJobsAdapterListener{
         binding.openJobsList.layoutManager= GridLayoutManager(this.requireContext(),1)
         openJobsAdapter = OpenJobsAdapter(openJobsArray, this)
         binding.openJobsList.adapter = openJobsAdapter
-
-
     }
 
     fun updateSearchList(searchList:ArrayList<Maintenance>){
         if (searchList.size>0){
-            binding.txtNoJobAssigned.visibility=View.GONE
-        }
-        else{
-            binding.txtNoJobAssigned.text = this.resources.getString(R.string.no_update_job_find)
-            binding.txtNoJobAssigned.visibility= View.VISIBLE
-        }
-        openJobsAdapter.notifyAdapter(searchList)
+        binding.txtNoJobAssigned.visibility=View.GONE
     }
+    else{
+        binding.txtNoJobAssigned.text = this.resources.getString(R.string.no_update_job_find)
+        binding.txtNoJobAssigned.visibility= View.VISIBLE
+    }
+    openJobsAdapter.notifyAdapter(searchList)
+}
 
 }

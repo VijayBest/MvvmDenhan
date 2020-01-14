@@ -42,6 +42,7 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
     val startTime=MutableLiveData<String>()
     val endTime=MutableLiveData<String>()
     val savButtonVisibleStatus= MutableLiveData<Boolean>()
+    val commentLengthError = SingleEventLiveData<String>()
 
     init {
             imagesAfterCompletion= ArrayList()
@@ -231,13 +232,27 @@ class SubTaskViewModel(private val userRepository: AuthRepository,
 
 
     fun hitSaveTaskStatusApi(){
+        if (dataIsValid()) {
+            GlobalScope.launch {
+                saveTaskStatus()
 
-        GlobalScope.launch {
-            saveTaskStatus()
+            }
+        }
+        else{
 
+            commentLengthError.postValue(resourceProvider.getStringResource(R.string.comment_length_error))
         }
     }
-   suspend fun saveTaskStatus(){
+
+     fun dataIsValid(): Boolean{
+     var validStatus = false
+     val commentValue = comment.value?:""
+        validStatus = commentValue.length <= 512
+        return validStatus
+
+    }
+
+    suspend fun saveTaskStatus(){
        when (val resource = userRepository.saveTaskStatusAsync(
            selectedSubTaskData.id,jobStatus.value?:"",comment.value?:"",
             startTime.value?:"",endTime.value?:"",materialCost.value.toString().toDouble(),

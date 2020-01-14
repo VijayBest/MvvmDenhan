@@ -69,7 +69,7 @@ interface WebService {
         @Path("id")id:Int,
         @Field("id") taskId: Int,
         @Field("status") taskStatus: String,
-        @Field("comment") comment: String,
+        @Field("comments") comment: String,
         @Field("start_time") startTime: String,
         @Field("end_time") endTime: String,
         @Field("amount") materialCost: Double,

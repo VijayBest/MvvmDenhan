@@ -167,7 +167,6 @@
                         android:background="@drawable/retake_bg"
                         android:layout_marginRight="@dimen/marginStartEnd"
                         android:layout_marginTop="@dimen/marginStartEnd"/>
-
                 <com.github.gcacace.signaturepad.views.SignaturePad
                         xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -175,11 +174,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:penColor="@android:color/black"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-            </com.google.android.material.card.MaterialCardView>
-
-
+                        app:layout_constraintTop_toTopOf="parent"/></com.google.android.material.card.MaterialCardView>
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/done"
                     android:layout_width="match_parent"
@@ -193,11 +188,10 @@
                     android:textAllCaps="false"
                     android:layout_marginStart="@dimen/marginStartEnd"
                     android:layout_marginEnd="@dimen/marginStartEnd"
-                    android:fontFamily="@font/muli_bold"
+                    android:fontFamily="@font/muli_semi_bold"
                     android:padding="10dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:theme="@style/AppTheme"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

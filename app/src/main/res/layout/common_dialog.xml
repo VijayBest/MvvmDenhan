@@ -41,6 +41,7 @@
                         android:fontFamily="@font/muli_regular"
                         android:lineSpacingExtra="@dimen/_2sdp"
                         android:text="@string/description_text"
+                        android:textAlignment="center"
                         android:textColor="@color/blackNintyOpc"
                         android:textSize="@dimen/meduimTextSize" />
 
@@ -58,7 +59,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/marginStartEnd"
                             android:layout_weight="0.5"
-                            android:fontFamily="@font/muli_bold"
+                            android:fontFamily="@font/muli_semi_bold"
                             android:padding="10dp"
                             android:textAlignment="center"
                             android:textAllCaps="false"
@@ -74,7 +75,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/marginStartEnd"
                             android:layout_weight="0.5"
-                            android:fontFamily="@font/muli_bold"
+                            android:fontFamily="@font/muli_semi_bold"
                             android:padding="10dp"
                             android:textAllCaps="false"
                             android:textAlignment="center"
