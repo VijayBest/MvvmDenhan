@@ -105,7 +105,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun clickEvent() {
-        val closeButton = binding.searchView.findViewById(app.denhan.android.R.id.search_close_btn) as ImageView
+        val closeButton = binding.searchView.findViewById(R.id.search_close_btn) as ImageView
        // closeButton.setImageDrawable(this.resources.getDrawable(R.drawable.ic_cross_icon))
         closeButton.setColorFilter(resources.getColor(R.color.search_place_holder))
         val searchIcon = binding.searchView.findViewById(R.id.search_button)as ImageView

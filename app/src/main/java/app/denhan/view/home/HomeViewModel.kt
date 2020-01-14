@@ -153,7 +153,7 @@ class HomeViewModel(private val userRepository: AuthRepository,
 
     }
 
-    suspend fun hitLogoutUser(){
+    private suspend fun hitLogoutUser(){
         when (val resource = userRepository.logOutUserAsync()) {
             is Resource.Success -> {
                 progressVisible.postValue(false)

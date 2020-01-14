@@ -156,11 +156,10 @@
                 <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/retakeButton"
                         android:layout_width="@dimen/_70sdp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
                         android:text="@string/retake_text"
                         android:textAllCaps="false"
                         android:layout_gravity="right"
-                        android:padding="@dimen/_10sdp"
                         android:visibility="gone"
                         android:textSize="@dimen/smallTextSize"
                         android:fontFamily="@font/muli_regular"

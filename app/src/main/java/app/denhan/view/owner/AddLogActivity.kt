@@ -100,14 +100,14 @@ class AddLogActivity : AppCompatActivity() {
         if (permission != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
         } else {
-              showImageSeletion()
+            showImageSelection()
         }
 
 
         }
 
 
-    private fun showImageSeletion() {
+    private fun showImageSelection() {
         TedBottomPicker.with(this).showGallery=false
         TedBottomPicker.with(this)
             .showGalleryTile(false)
