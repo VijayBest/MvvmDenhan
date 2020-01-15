@@ -120,12 +120,14 @@
                     android:singleLine="true"
                     android:textAllCaps="false"
                     android:visibility="visible"
+                    android:letterSpacing="-0.03"
                     android:text="@string/mark_all_complete_text"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:textColor="@color/whiteColor"
                     android:theme="@style/ButtonTheme"
                     app:cornerRadius="50dp" />
+
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/addTaskButton"
                     android:layout_width="match_parent"
@@ -134,13 +136,14 @@
                     android:layout_marginEnd="@dimen/marginStartEnd"
                     android:layout_weight="1"
                     android:fontFamily="@font/muli_semi_bold"
+                    android:letterSpacing="-0.03"
                     android:padding="8dp"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/smallTextSize"
                     android:text="@string/add_task_text"
                     android:textAlignment="center"
+                    android:textAllCaps="false"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:textColor="@color/whiteColor"
+                    android:textSize="@dimen/smallTextSize"
                     android:theme="@style/AppTheme"
                     app:cornerRadius="50dp" />
         </LinearLayout>

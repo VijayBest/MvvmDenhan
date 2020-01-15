@@ -39,6 +39,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var searchArrayList: ArrayList<Maintenance>
     lateinit var dialog:ProgressDialog
     lateinit var tabAdapter: TabAdapter
+    lateinit var searchIcon:ImageView
     var searchBarStatus = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,10 +108,10 @@ class HomeActivity : AppCompatActivity() {
     private fun clickEvent() {
         val closeButton = binding.searchView.findViewById(R.id.search_close_btn) as ImageView
        // closeButton.setImageDrawable(this.resources.getDrawable(R.drawable.ic_cross_icon))
-        closeButton.setColorFilter(resources.getColor(R.color.search_place_holder))
-        val searchIcon = binding.searchView.findViewById(R.id.search_button)as ImageView
-        searchIcon.setColorFilter(Color.WHITE)
-        searchIcon.setImageDrawable(this.resources.getDrawable(R.drawable.search))
+        closeButton.setColorFilter(resources.getColor(R.color.whiteColor))
+        searchIcon = binding.searchView.findViewById(R.id.search_button)as ImageView
+        searchIcon.setColorFilter(resources.getColor(R.color.search_place_holder))
+       // searchIcon.setImageDrawable(this.resources.getDrawable(R.drawable.search))
         val searchEditText =
             binding.searchView.findViewById(R.id.search_src_text) as EditText
         searchEditText.setTextColor(resources.getColor(R.color.whiteColor))

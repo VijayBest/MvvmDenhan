@@ -84,6 +84,7 @@
                     android:fontFamily="@font/muli_semi_bold"
                     android:padding="10dp"
                     android:text="@string/add_new_log_text"
+                    android:letterSpacing="-0.03"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"

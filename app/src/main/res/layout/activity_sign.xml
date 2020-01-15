@@ -184,6 +184,7 @@
                     android:layout_marginTop="@dimen/marginBetweenLabelAndButton"
                     android:textAlignment="center"
                     app:cornerRadius="500dp"
+                    android:letterSpacing="-0.03"
                     android:textAllCaps="false"
                     android:layout_marginStart="@dimen/marginStartEnd"
                     android:layout_marginEnd="@dimen/marginStartEnd"

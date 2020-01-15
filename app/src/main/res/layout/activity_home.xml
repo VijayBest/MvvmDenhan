@@ -34,7 +34,7 @@
                 android:focusable="true"
                 android:paddingRight="-9dp"
                 android:paddingEnd="-9dp"
-                app:searchIcon="@drawable/ic_search_black_24dp"
+                app:searchIcon="@drawable/ic_search_black1_24dp"
                 app:queryBackground="@drawable/search_rounded"
                 app:submitBackground="@drawable/search_rounded"
                 android:background="@drawable/search_rounded"
@@ -51,7 +51,7 @@
                 android:padding="@dimen/topIconPadding"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_logout"/>
+                android:src="@drawable/logout"/>
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tittleText"
                 android:layout_width="wrap_content"
