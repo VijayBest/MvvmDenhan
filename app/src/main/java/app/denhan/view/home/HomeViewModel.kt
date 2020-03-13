@@ -92,6 +92,8 @@ class HomeViewModel(private val userRepository: AuthRepository,
                 }
                 is Resource.Error -> {
                     progressVisible.postValue(false)
+
+
                     when (resource.code) {
                         ApiResponseCode.NETWORK_NOT_AVAILABLE -> {
                             errorCommand.postValue(resourceProvider.getStringResource(R.string.network_unavailable))

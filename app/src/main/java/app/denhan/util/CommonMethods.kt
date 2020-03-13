@@ -203,6 +203,9 @@ object  CommonMethods {
 
     }
 
+    /*
+    * currentDateWithString=> Return the current data in String variable
+    * */
     fun currentDateWithString(): String {
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -212,6 +215,8 @@ object  CommonMethods {
         return currentDate.toString()
     }
 
+    /*returnDateTime=> return date String from string date format
+    * */
     fun returnDateTime(dateTime:String): String{
         val dateFormat =
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
